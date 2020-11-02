@@ -1,0 +1,14 @@
+{
+  "name": "impact",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/rzadp/Impact.git",
+  "author": "rzadp <roopert7@gmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "serve . --single"
+  },
+  "devDependencies": {
+    "serve": "^11.3.2"
+  }
+}

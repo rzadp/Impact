@@ -6,8 +6,8 @@
   "author": "rzadp <roopert7@gmail.com>",
   "private": true,
   "scripts": {
-    "dev": "parcel ./index.html",
-    "build": "rm -rf dist && parcel build ./index.html"
+    "build": "rm -rf dist && yarn tsc && cp -r media index.html ./dist/ && parcel build ./index.html",
+    "dev": "parcel ./index.html"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",

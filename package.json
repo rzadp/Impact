@@ -7,10 +7,12 @@
   "private": true,
   "scripts": {
     "build": "rm -rf dist && yarn tsc && cp -r media index.html ./dist/ && parcel build ./index.html",
-    "dev": "parcel ./index.html"
+    "hello": "parcel ./games/hello-world/index.html",
+    "pong": "parcel ./games/pong/index.html"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
+    "parcel-plugin-static-files-copy": "^2.5.0",
     "serve": "^11.3.2",
     "typescript": "^4.0.5"
   },

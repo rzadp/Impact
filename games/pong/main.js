@@ -1,16 +1,14 @@
-import { igFont } from '../impact/font';
-import { igInput } from '../impact/input';
-import { igGame } from "../impact/game";
-import { igKEY } from '../impact/input';
+import { igFont } from '../../lib/impact/font';
+import { igGame } from "../../lib/impact/game";
+import { igKEY } from '../../lib/impact/input';
 import { LevelMain } from './levels/main';
 import { EntityPaddleCpu } from './entities/paddle-cpu';
 import { EntityPaddlePlayer } from './entities/paddle-player';
 import { EntityPuck } from './entities/puck';
 
-export class MyGame extends igGame {
+export class PongGame extends igGame {
 	
-	// Load a font
-	font= new igFont( 'media/04b03.font.png' );
+	font= new igFont( 'fonts/04b03.font.png' );
 	
 	
 	constructor() {
@@ -51,5 +49,5 @@ export class MyGame extends igGame {
 }
 
 window.onload = () => {
-  ig.main( '#canvas', MyGame, 60, 768, 480, 1 );
+  ig.main( '#canvas', PongGame, 60, 768, 480, 1 );
 }

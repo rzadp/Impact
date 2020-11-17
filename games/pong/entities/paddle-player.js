@@ -1,12 +1,11 @@
-import { igAnimationSheet } from '../../impact/animation';
+import { igAnimationSheet } from '../../../lib/impact/animation';
 import { EntityPaddle } from './paddle';
 
 export class EntityPaddlePlayer extends EntityPaddle{
 	
-	animSheet= new igAnimationSheet( 'media/paddle-blue.png', 64, 128 );
+	animSheet= new igAnimationSheet( 'pong/paddle-blue.png', 64, 128 );
 	
 	update() {
-		console.log('update here')
 		if( ig.input.state('up') ) {
 			this.vel.y = -100;
 		}

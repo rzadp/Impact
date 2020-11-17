@@ -1,12 +1,12 @@
-import { igAnimationSheet } from '../../impact/animation';
-import { igEntity } from '../../impact/entity';
+import { igAnimationSheet } from '../../../lib/impact/animation';
+import { igEntity } from '../../../lib/impact/entity';
 
 export class EntityPuck extends igEntity{
 	
 	size= {x:48, y:48};
 	collides= igEntity.COLLIDES.ACTIVE;
 	
-	animSheet= new igAnimationSheet( 'media/puck.png', 48, 48 );
+	animSheet= new igAnimationSheet( 'pong/puck.png', 48, 48 );
 	
 	bounciness= 1;
 	

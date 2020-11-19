@@ -1,36 +1,26 @@
-ig.module(
-	'plugins.touch-button'
-)
-.requires(
-	'impact.system',
-	'impact.input',
-	'impact.image'
-)
-.defines(function(){ "use strict";
 
+export class igTouchButton {	
+	action= 'undefined';
+	image= null;
+	tile= 0;
+	pos= {x: 0, y: 0};
+	size= {x: 0, y: 0};
+	area= {x1: 0, y1:0, x2: 0, y2:0};
 
-ig.TouchButton = ig.Class.extend({	
-	action: 'undefined',
-	image: null,
-	tile: 0,
-	pos: {x: 0, y: 0},
-	size: {x: 0, y: 0},
-	area: {x1: 0, y1:0, x2: 0, y2:0},
-
-	pressed: false,	
-	touchId: 0,
-	anchor: null,
+	pressed= false;
+	touchId= 0;
+	anchor= null;
 	
-	init: function( action, anchor, width, height, image, tile ) {
+	constructor( action, anchor, width, height, image, tile ) {
 		this.action = action;
 		this.anchor = anchor;
 		this.size = {x: width, y: height};
 		
 		this.image = image || null;
 		this.tile = tile || 0;
-	},
+	}
 	
-	align: function( w, h ) {
+	align( w, h ) {
 		if( 'left' in this.anchor ) {
 			this.pos.x = this.anchor.left;
 		}
@@ -49,9 +39,9 @@ ig.TouchButton = ig.Class.extend({
 		this.area = {
 			x1: this.pos.x * s, y1: this.pos.y * s, 
 			x2: (this.pos.x + this.size.x) * s, y2: (this.pos.y + this.size.y) *s};
-	},
+	}
 	
-	touchStart: function( ev ) {
+	touchStart( ev ) {
 		if( this.pressed ) { return; }
 		
 		var pos = {left: 0, top: 0};
@@ -65,9 +55,9 @@ ig.TouchButton = ig.Class.extend({
 				return;
 			}
 		}
-	},
+	}
 	
-	touchEnd: function( ev ) {
+	touchEnd( ev ) {
 		if( !this.pressed ) { return; }
 		
 		for( var i = 0; i < ev.changedTouches.length; i++ ) {
@@ -75,9 +65,9 @@ ig.TouchButton = ig.Class.extend({
 				return;
 			}
 		}
-	},
+	}
 	
-	touchStartMS: function( ev ) {
+	touchStartMS( ev ) {
 		if( this.pressed ) { return; }
 		
 		var pos = {left: 0, top: 0};
@@ -86,15 +76,15 @@ ig.TouchButton = ig.Class.extend({
 		}
 		
 		this.checkStart(ev.pointerId, ev.clientX - pos.left, ev.clientY - pos.top);
-	},
+	}
 	
-	touchEndMS: function( ev ) {
+	touchEndMS( ev ) {
 		if( !this.pressed ) { return; }
 		
 		this.checkEnd(ev.pointerId);
-	},
+	}
 	
-	checkStart: function( id, x, y ) {
+	checkStart( id, x, y ) {
 		if( 
 			x > this.area.x1 && x < this.area.x2 &&
 			y > this.area.y1 && y < this.area.y2
@@ -111,9 +101,9 @@ ig.TouchButton = ig.Class.extend({
 		}
 		
 		return false;
-	},
+	}
 	
-	checkEnd: function( id ) {
+	checkEnd( id ) {
 		if( id === this.touchId ) {
 			this.pressed = false;
 			this.touchId = 0;
@@ -122,21 +112,21 @@ ig.TouchButton = ig.Class.extend({
 		}
 		
 		return false;
-	},
+	}
 	
-	draw: function() {
+	draw() {
 		if( this.image ) { 
 			this.image.drawTile( this.pos.x, this.pos.y, this.tile, this.size.x, this.size.y );
 		}
 	}
-});
+};
 
 
 
-ig.TouchButtonCollection = ig.Class.extend({
-	buttons: [],
+export class igTouchButtonCollection {
+	buttons= [];
 	
-	init: function( buttons ) {
+	constructor( buttons ) {
 		this.buttons = buttons;
 		
 		document.addEventListener('touchstart', this.touchStart.bind(this), false);
@@ -145,55 +135,52 @@ ig.TouchButtonCollection = ig.Class.extend({
 		document.addEventListener('MSPointerDown', this.touchStartMS.bind(this), false);
 		document.addEventListener('MSPointerUp', this.touchEndMS.bind(this), false);
 		document.body.style.msTouchAction = 'none';
-	},
+	}
 	
-	touchStart: function(ev) {
+	touchStart(ev) {
 		ev.preventDefault();
 		
 		for( var i = 0; i < this.buttons.length; i++ ) {
 			this.buttons[i].touchStart( ev );
 		}
-	},
+	}
 	
-	touchEnd: function(ev) {
+	touchEnd(ev) {
 		ev.preventDefault();
 		
 		for( var i = 0; i < this.buttons.length; i++ ) {
 			this.buttons[i].touchEnd( ev );
 		}
-	},
+	}
 	
-	touchStartMS: function(ev) {
+	touchStartMS(ev) {
 		ev.preventDefault();
 		
 		for( var i = 0; i < this.buttons.length; i++ ) {
 			this.buttons[i].touchStartMS( ev );
 		}
-	},
+	}
 	
-	touchEndMS: function(ev) {
+	touchEndMS(ev) {
 		ev.preventDefault();
 		
 		for( var i = 0; i < this.buttons.length; i++ ) {
 			this.buttons[i].touchEndMS( ev );
 		}
-	},
+	}
 	
-	align: function() {
+	align() {
 		var w = ig.system.width || window.innerWidth;
 		var h = ig.system.height || window.innerHeight;
 		
 		for( var i = 0; i < this.buttons.length; i++ ) {
 			this.buttons[i].align( w, h );
 		}
-	},
+	}
 	
-	draw: function() {
+	draw() {
 		for( var i = 0; i < this.buttons.length; i++ ) {
 			this.buttons[i].draw();
 		}
 	}
-});
-
-
-});
+}

@@ -1,40 +1,36 @@
-ig.module(
-	'game.entities.blob'
-)
-.requires(
-	'impact.entity'
-)
-.defines(function(){
+import { igEntity } from '../../lib/impact/entity';
+import { igAnimationSheet } from '../../lib/impact/animation';
+import { igSound } from '../../lib/impact/sound';
 	
-EntityBlob = ig.Entity.extend({
-	size: {x: 40, y: 28},
-	offset: {x: 24, y: 0},
-	maxVel: {x: 100, y: 100},
-	friction: {x: 150, y: 0},
+export class EntityBlob extends igEntity{
+	size= {x: 40, y: 28};
+	offset= {x: 24, y: 0};
+	maxVel= {x: 100, y: 100};
+	friction= {x: 150, y: 0};
 	
-	type: ig.Entity.TYPE.B, // Evil enemy group
-	checkAgainst: ig.Entity.TYPE.A, // Check against friendly
-	collides: ig.Entity.COLLIDES.PASSIVE,
+	type= igEntity.TYPE.B; // Evil enemy group
+	checkAgainst= igEntity.TYPE.A; // Check against friendly
+	collides= igEntity.COLLIDES.PASSIVE;
 	
-	health: 1,
+	health= 1;
 	
 	
-	speed: 36,
-	flip: false,
+	speed= 36;
+	flip= false;
 	
-	animSheet: new ig.AnimationSheet( 'media/blob.png', 64, 28 ),
-	sfxDie: new ig.Sound( 'media/sounds/blob-die.*' ),
+	animSheet= new igAnimationSheet( 'jumpnrun/blob.png', 64, 28 );
+	sfxDie= new igSound( 'jumpnrun/sounds/blob-die.*' );
 	
 	
-	init: function( x, y, settings ) {
-		this.parent( x, y, settings );
+	constructor( x, y, settings ) {
+		super( x, y, settings );
 		
 		this.addAnim( 'crawl', 0.2, [0,1] );
 		this.addAnim( 'dead', 1, [2] );
-	},
+	}
 	
 	
-	update: function() {
+	update() {
 		// Near an edge? return!
 		if( !ig.game.collisionMap.getTile(
 				this.pos.x + (this.flip ? +4 : this.size.x -4),
@@ -53,28 +49,26 @@ EntityBlob = ig.Entity.extend({
 		this.vel.x = this.speed * xdir;
 		this.currentAnim.flip.x = !this.flip;
 		
-		this.parent();
-	},
+		super.update();
+	}
 	
-	kill: function() {
+	kill() {
 		this.sfxDie.play();
-		this.parent();
+		super.kill();
 		
-	},
+	}
 	
-	handleMovementTrace: function( res ) {
-		this.parent( res );
+	handleMovementTrace( res ) {
+		super.handleMovementTrace( res );
 		
 		// Collision with a wall? return!
 		if( res.collision.x ) {
 			this.flip = !this.flip;
 			this.offset.x = this.flip ? 0 : 24;
 		}
-	},
+	}
 	
-	check: function( other ) {
+	check( other ) {
 		other.receiveDamage( 1, this );
 	}
-});
-
-});
+};

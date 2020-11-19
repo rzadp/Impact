@@ -1,67 +1,58 @@
-ig.module( 
-	'game.main' 
-)
-.requires(
-	'impact.game',
-	'impact.font',
-
-	'plugins.camera',
-	'plugins.touch-button',
-	'plugins.impact-splash-loader',
-	'plugins.gamepad',
-	
-	'game.entities.player',
-	'game.entities.blob',
-
-	'game.levels.title',
-	'game.levels.grasslands',
-	'game.levels.snowhills'
-)
-.defines(function(){
-	
-
 // Our Main Game class. This will load levels, host all entities and
 // run the game.
 
-MyGame = ig.Game.extend({
+import { igGame } from '../../lib/impact/game';
+import { igImage } from '../../lib/impact/image'
+import { igFont } from '../../lib/impact/font'
+import { igSound } from '../../lib/impact/sound'
+import { igKEY } from '../../lib/impact/input'
+import { igCollisionMap } from '../../lib/impact/collision-map'
+import { igBackgroundMap } from '../../lib/impact/background-map'
+// import { igGAMEPAD } from '../../plugins/gamepad'
+import { igImpactSplashLoader } from '../../plugins/impact-splash-loader';
+import { LevelGrasslands } from './levels/grasslands';
+import { LevelTitle } from './levels/title';
+
+class MyGame extends igGame{
 	
-	clearColor: "#d0f4f7",
-	gravity: 800, // All entities are affected by this
+	clearColor= "#d0f4f7";
+	gravity= 800; // All entities are affected by this
 	
 	// Load a font
-	font: new ig.Font( 'media/fredoka-one.font.png' ),
+	font= new igFont( 'jumpnrun/fredoka-one.font.png' );
 
 	// HUD icons
-	heartFull: new ig.Image( 'media/heart-full.png' ),
-	heartEmpty: new ig.Image( 'media/heart-empty.png' ),
-	coinIcon: new ig.Image( 'media/coin.png' ),
+	heartFull= new igImage( 'jumpnrun/heart-full.png' );
+	heartEmpty= new igImage( 'jumpnrun/heart-empty.png' );
+	coinIcon= new igImage( 'jumpnrun/coin.png' );
 	
 	
-	init: function() {
+	constructor() {
+    super();
 		// We want the font's chars to slightly touch each other,
 		// so set the letter spacing to -2px.
 		this.font.letterSpacing = -2;		
 		
 		// Load the LevelGrasslands as required above ('game.level.grassland')
 		this.loadLevel( LevelGrasslands );
-	},
+	}
 
-	loadLevel: function( data ) {
+	loadLevel( data ) {
 		// Remember the currently loaded level, so we can reload when
 		// the player dies.
 		this.currentLevel = data;
 
 		// Call the parent implemenation; this creates the background
 		// maps and entities.
-		this.parent( data );
+		super.loadLevel( data );
 		
 		this.setupCamera();
-	},
+	}
 	
-	setupCamera: function() {
+	setupCamera() {
 		// Set up the camera. The camera's center is at a third of the screen
 		// size, i.e. somewhat shift left and up. Damping is set to 3px.		
-		this.camera = new ig.Camera( ig.system.width/3, ig.system.height/3, 3 );
+		this.camera = new igCamera( ig.system.width/3, ig.system.height/3, 3 );
 		
 		// The camera's trap (the deadzone in which the player can move with the
 		// camera staying fixed) is set to according to the screen size as well.
@@ -76,15 +67,15 @@ MyGame = ig.Game.extend({
     	this.camera.max.x = this.collisionMap.pxWidth - ig.system.width;
     	this.camera.max.y = this.collisionMap.pxHeight - ig.system.height;
     	this.camera.set( this.player );
-	},
+	}
 
-	reloadLevel: function() {
+	reloadLevel() {
 		this.loadLevelDeferred( this.currentLevel );
-	},
+	}
 	
-	update: function() {		
+	update() {		
 		// Update all entities and BackgroundMaps
-		this.parent();
+		super.update();
 		
 		// Camera follows the player
 		this.camera.follow( this.player );
@@ -93,11 +84,11 @@ MyGame = ig.Game.extend({
 		// the screen on the player directly, like this:
 		// this.screen.x = this.player.pos.x - ig.system.width/2;
 		// this.screen.y = this.player.pos.y - ig.system.height/2;
-	},
+	}
 	
-	draw: function() {
+	draw() {
 		// Call the parent implementation to draw all Entities and BackgroundMaps
-		this.parent();
+		super.draw();
 		
 
 		// Draw the heart and number of coins in the upper left corner.
@@ -131,35 +122,36 @@ MyGame = ig.Game.extend({
 			window.myTouchButtons.draw(); 
 		}
 	}
-});
+};
 
 
 
 // The title screen is simply a Game Class itself; it loads the LevelTitle
 // runs it and draws the title image on top.
 
-MyTitle = ig.Game.extend({
-	clearColor: "#d0f4f7",
-	gravity: 800,
+class MyTitle extends igGame{
+	clearColor= "#d0f4f7";
+	gravity= 800;
 
 	// The title image
-	title: new ig.Image( 'media/title.png' ),
+	title= new igImage( 'jumpnrun/title.png' );
 
 	// Load a font
-	font: new ig.Font( 'media/fredoka-one.font.png' ),
+	font= new igFont( 'jumpnrun/fredoka-one.font.png' );
 
-	init: function() {
+	constructor() {
+    super();
 		// Bind keys
-		ig.input.bind( ig.KEY.LEFT_ARROW, 'left' );
-		ig.input.bind( ig.KEY.RIGHT_ARROW, 'right' );
-		ig.input.bind( ig.KEY.X, 'jump' );
-		ig.input.bind( ig.KEY.C, 'shoot' );
+		ig.input.bind( igKEY.LEFT_ARROW, 'left' );
+		ig.input.bind( igKEY.RIGHT_ARROW, 'right' );
+		ig.input.bind( igKEY.X, 'jump' );
+		ig.input.bind( igKEY.C, 'shoot' );
 
-		ig.input.bind( ig.GAMEPAD.PAD_LEFT, 'left' );
-		ig.input.bind( ig.GAMEPAD.PAD_RIGHT, 'right' );
-		ig.input.bind( ig.GAMEPAD.FACE_1, 'jump' );
-		ig.input.bind( ig.GAMEPAD.FACE_2, 'shoot' );	
-		ig.input.bind( ig.GAMEPAD.FACE_3, 'shoot' );	
+		// ig.input.bind( igGAMEPAD.PAD_LEFT, 'left' );
+		// ig.input.bind( igGAMEPAD.PAD_RIGHT, 'right' );
+		// ig.input.bind( igGAMEPAD.FACE_1, 'jump' );
+		// ig.input.bind( igGAMEPAD.FACE_2, 'shoot' );	
+		// ig.input.bind( igGAMEPAD.FACE_3, 'shoot' );	
 
 
 		
@@ -174,9 +166,9 @@ MyTitle = ig.Game.extend({
 
 		this.loadLevel( LevelTitle );
 		this.maxY = this.backgroundMaps[0].pxHeight - ig.system.height;
-	},
+	}
 
-	update: function() {
+	update() {
 		// Check for buttons; start the game if pressed
 		if( ig.input.pressed('jump') || ig.input.pressed('shoot') ) {
 			ig.system.setGame( MyGame );
@@ -184,7 +176,7 @@ MyTitle = ig.Game.extend({
 		}
 		
 		
-		this.parent();
+		super.update();
 
 		// Scroll the screen down; apply some damping.
 		var move = this.maxY - this.screen.y;
@@ -193,10 +185,10 @@ MyTitle = ig.Game.extend({
 			this.titleAlpha = this.screen.y / this.maxY;
 		}
 		this.screen.x = (this.backgroundMaps[0].pxWidth - ig.system.width)/2;
-	},
+	}
 
-	draw: function() {
-		this.parent();
+	draw() {
+		super.draw();
 
 		var cx = ig.system.width/2;
 		this.title.draw( cx - this.title.width/2, 60 );
@@ -205,14 +197,14 @@ MyTitle = ig.Game.extend({
 			? 'Press Button to Play!'
 			: 'Press X or C to Play!';
 		
-		this.font.draw( startText, cx, 420, ig.Font.ALIGN.CENTER);
+		this.font.draw( startText, cx, 420, igFont.ALIGN.CENTER);
 
 		// Draw touch buttons, if we have any
 		if( window.myTouchButtons ) {
 			window.myTouchButtons.draw(); 
 		}
 	}
-});
+};
 
 
 if( ig.ua.mobile ) {
@@ -221,12 +213,12 @@ if( ig.ua.mobile ) {
 	
 	// Touch buttons are anchored to either the left or right and top or bottom
 	// screen edge.
-	var buttonImage = new ig.Image( 'media/touch-buttons.png' );
-	myTouchButtons = new ig.TouchButtonCollection([
-		new ig.TouchButton( 'left', {left: 0, bottom: 0}, 128, 128, buttonImage, 0 ),
-		new ig.TouchButton( 'right', {left: 128, bottom: 0}, 128, 128, buttonImage, 1 ),
-		new ig.TouchButton( 'shoot', {right: 128, bottom: 0}, 128, 128, buttonImage, 2 ),
-		new ig.TouchButton( 'jump', {right: 0, bottom: 96}, 128, 128, buttonImage, 3 )
+	var buttonImage = new igImage( 'jumpnrun/touch-buttons.png' );
+	myTouchButtons = new igTouchButtonCollection([
+		new igTouchButton( 'left', {left: 0, bottom: 0}, 128, 128, buttonImage, 0 ),
+		new igTouchButton( 'right', {left: 128, bottom: 0}, 128, 128, buttonImage, 1 ),
+		new igTouchButton( 'shoot', {right: 128, bottom: 0}, 128, 128, buttonImage, 2 ),
+		new igTouchButton( 'jump', {right: 0, bottom: 96}, 128, 128, buttonImage, 3 )
 	]);
 }
 
@@ -235,13 +227,6 @@ if( ig.ua.mobile ) {
 // also essentially enables retina resolution on the iPhone and other devices 
 // with small screens.
 var scale = (window.innerWidth < 640) ? 2 : 1;
-
-
-// We want to run the game in "fullscreen", so let's use the window's size
-// directly as the canvas' style size.
-var canvas = document.getElementById('canvas');
-canvas.style.width = window.innerWidth + 'px';
-canvas.style.height = window.innerHeight + 'px';
 
 
 // Listen to the window's 'resize' event and set the canvas' size each time
@@ -271,6 +256,13 @@ window.addEventListener('resize', function(){
 // as our loading screen
 var width = window.innerWidth * scale,
 	height = window.innerHeight * scale;
-ig.main( '#canvas', MyTitle, 60, width, height, 1, ig.ImpactSplashLoader );
 
-});
+window.onload = () => {
+  // We want to run the game in "fullscreen", so let's use the window's size
+  // directly as the canvas' style size.
+  var canvas = document.getElementById('canvas');
+  canvas.style.width = window.innerWidth + 'px';
+  canvas.style.height = window.innerHeight + 'px';
+
+  ig.main( '#canvas', MyTitle, 60, width, height, 1, igImpactSplashLoader );
+}

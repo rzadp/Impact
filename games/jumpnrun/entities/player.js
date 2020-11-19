@@ -1,46 +1,40 @@
-ig.module(
-	'game.entities.player'
-)
-.requires(
-	'impact.entity',
-	'game.entities.fireball'
-)
-.defines(function(){
+import { igAnimationSheet } from '../../lib/impact/animation';
+import { igSound } from '../../lib/impact/sound';
 
-EntityPlayer = ig.Entity.extend({
+export class EntityPlayer extends igEntity{
 	
 	// The players (collision) size is a bit smaller than the animation
 	// frames, so we have to move the collision box a bit (offset)
-	size: {x: 40, y: 88},
-	offset: {x: 17, y: 10},
+	size= {x: 40, y: 88};
+	offset= {x: 17, y: 10};
 	
-	maxVel: {x: 400, y: 800},
-	friction: {x: 800, y: 0},
+	maxVel= {x: 400, y: 800};
+	friction= {x: 800, y: 0};
 	
-	type: ig.Entity.TYPE.A, // Player friendly group
-	checkAgainst: ig.Entity.TYPE.NONE,
-	collides: ig.Entity.COLLIDES.PASSIVE,
+	type= igEntity.TYPE.A; // Player friendly group
+	checkAgainst= igEntity.TYPE.NONE;
+	collides= igEntity.COLLIDES.PASSIVE;
 	
-	animSheet: new ig.AnimationSheet( 'media/player.png', 75, 100 ),	
+	animSheet= new igAnimationSheet( 'jumpnrun/player.png', 75, 100 );
 	
-	sfxHurt: new ig.Sound( 'media/sounds/hurt.*' ),
-	sfxJump: new ig.Sound( 'media/sounds/jump.*' ),
+	sfxHurt= new igSound( 'jumpnrun/sounds/hurt.*' );
+	sfxJump= new igSound( 'jumpnrun/sounds/jump.*' );
 	
 	
-	health: 3,
+	health= 3;
 
 	// These are our own properties. They are not defined in the base
-	// ig.Entity class. We just use them internally for the Player
-	flip: false,
-	accelGround: 1200,
-	accelAir: 600,
-	jump: 500,	
-	maxHealth: 3,
+	// igEntity class. We just use them internally for the Player
+	flip= false;
+	accelGround= 1200;
+	accelAir= 600;
+	jump= 500;
+	maxHealth= 3;
 
-	coins: 0,
+	coins= 0;
 
 	
-	init: function( x, y, settings ) {
+	constructor( x, y, settings ) {
 		this.parent( x, y, settings );
 		
 		// Add the animations
@@ -52,10 +46,10 @@ EntityPlayer = ig.Entity.extend({
 
 		// Set a reference to the player on the game instance
 		ig.game.player = this;
-	},
+	}
 	
 	
-	update: function() {
+	update() {
 
 		// Handle user input; move left or right
 		var accel = this.standing ? this.accelGround : this.accelAir;
@@ -122,23 +116,23 @@ EntityPlayer = ig.Entity.extend({
 		this.currentAnim.flip.x = this.flip;
 		
 		
-		// Move!
-		this.parent();
-	},
+    // Move!
+    super.update();
+	}
 
-	kill: function() {
-		this.parent();
+	kill() {
+		super.kill();
 
 		// Reload this level
 		ig.game.reloadLevel();
-	},
+	}
 
-	giveCoins: function( amount ) {
+	giveCoins( amount ) {
 		// Custom function, called from the EntityCoin
 		this.coins += amount;
-	},
+	}
 
-	receiveDamage: function( amount, from ) {
+	receiveDamage( amount, from ) {
 		if( this.currentAnim == this.anims.pain ) {
 			// Already in pain? Do nothing.
 			return;
@@ -157,7 +151,4 @@ EntityPlayer = ig.Entity.extend({
 		// Sound
 		this.sfxHurt.play();
 	}
-});
-
-
-});
+}

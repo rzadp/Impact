@@ -1,34 +1,29 @@
-ig.module(
-	'game.entities.fireball'
-)
-.requires(
-	'impact.entity',
-	'impact.entity-pool'
-)
-.defines(function(){
+import { igAnimationSheet } from '../../lib/impact/animation';
+import { igSound } from '../../lib/impact/sound';
+import { igEntity } from '../../lib/impact/entity';
 
-EntityFireball = ig.Entity.extend({
+export class EntityFireball extends igEntity{
 
-	_wmIgnore: true, // This entity will no be available in Weltmeister
+	_wmIgnore= true; // This entity will no be available in Weltmeister
 
-	size: {x: 24, y: 24},
-	offset: {x: 6, y: 6},
-	maxVel: {x: 800, y: 400},
+	size= {x: 24, y: 24};
+	offset= {x: 6, y: 6};
+	maxVel= {x: 800, y: 400};
 	
 	// The fraction of force with which this entity bounces back in collisions
-	bounciness: 0.8, 
+	bounciness= 0.8;
 	
-	type: ig.Entity.TYPE.NONE,
-	checkAgainst: ig.Entity.TYPE.B, // Check Against B - our evil enemy group
-	collides: ig.Entity.COLLIDES.PASSIVE,
+	type= igEntity.TYPE.NONE;
+	checkAgainst= igEntity.TYPE.B; // Check Against B - our evil enemy group
+	collides= igEntity.COLLIDES.PASSIVE;
 		
-	animSheet: new ig.AnimationSheet( 'media/fireball.png', 36, 36 ),
-	sfxSpawn: new ig.Sound( 'media/sounds/fireball.*' ),
+	animSheet= new igAnimationSheet( 'jumpnrun/fireball.png', 36, 36 );
+	sfxSpawn= new igSound( 'jumpnrun/sounds/fireball.*' );
 	
-	bounceCounter: 0,
+	bounceCounter= 0;
 	
 	
-	init: function( x, y, settings ) {
+	constructor( x, y, settings ) {
 		this.parent( x, y, settings );
 		
 		this.vel.x = (settings.flip ? -this.maxVel.x : this.maxVel.x);
@@ -36,12 +31,12 @@ EntityFireball = ig.Entity.extend({
 		this.addAnim( 'idle', 1, [0] );
 		
 		this.sfxSpawn.play();
-	},
+	}
 	
-	reset: function( x, y, settings ) {
+	reset( x, y, settings ) {
 		// This function is called when an instance of this class is resurrected
 		// from the entity pool. (Pooling is enabled at the bottom of this file).
-		this.parent( x, y, settings );
+		super.reset( x, y, settings );
 		
 		this.vel.x = (settings.flip ? -this.maxVel.x : this.maxVel.x);
 		this.vel.y = 200;
@@ -50,16 +45,16 @@ EntityFireball = ig.Entity.extend({
 		// Remember, this a used entity, so we have to reset our bounceCounter
 		// as well
 		this.bounceCounter = 0;
-	},
+	}
 
-	update: function() {
-		this.parent();
+	update() {
+		super.update();
 
 		this.currentAnim.angle += ig.system.tick * 10;
-	},
+	}
 		
-	handleMovementTrace: function( res ) {
-		this.parent( res );
+	handleMovementTrace( res ) {
+		super.handleMovementTrace( res );
 		
 		// Kill this fireball if it bounced more than 3 times
 		if( res.collision.x || res.collision.y || res.collision.slope ) {
@@ -68,15 +63,15 @@ EntityFireball = ig.Entity.extend({
 				this.kill();
 			}
 		}
-	},
+	}
 	
 	// This function is called when this entity overlaps anonther entity of the
 	// checkAgainst group. I.e. for this entity, all entities in the B group.
-	check: function( other ) {
+	check( other ) {
 		other.receiveDamage( 1, this );
 		this.kill();
 	}	
-});
+}
 
 
 // If you have an Entity Class that instanced and removed rapidly, such as this 
@@ -86,7 +81,4 @@ EntityFireball = ig.Entity.extend({
 // With pooling enabled, instances that are removed from the game world are not 
 // completely erased, but rather put in a pool and resurrected when needed.
 
-ig.EntityPool.enableFor( EntityFireball );
-
-
-});
+igEntityPool.enableFor( EntityFireball );

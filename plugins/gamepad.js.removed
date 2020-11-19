@@ -1,16 +1,7 @@
-ig.module(
-	'plugins.gamepad' 
-)
-.requires(
-	'impact.input',
-	'impact.game'
-)
-.defines(function(){
-
 // Assign some values to the Gamepad buttons. We use an offset of 256
 // here so we don't collide with the keyboard buttons when binding.
 ig.GAMEPAD_BUTTON_OFFSET = 256;
-ig.GAMEPAD = {
+export const igGAMEPAD = {
 	FACE_1: ig.GAMEPAD_BUTTON_OFFSET + 0, // A
 	FACE_2: ig.GAMEPAD_BUTTON_OFFSET + 1, // Y
 	FACE_3: ig.GAMEPAD_BUTTON_OFFSET + 2, // B
@@ -97,5 +88,3 @@ ig.Game.inject({
 		this.parent();
 	}
 })
-
-});

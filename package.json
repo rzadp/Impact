@@ -9,7 +9,8 @@
     "build": "rm -rf dist && yarn tsc && cp -r media index.html ./dist/ && parcel build ./index.html",
     "hello": "parcel ./games/hello-world/index.html",
     "pong": "parcel ./games/pong/index.html",
-    "drop": "parcel ./games/drop/index.html"
+    "drop": "parcel ./games/drop/index.html",
+    "jumpnrun": "parcel ./games/jumpnrun/index.html"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",

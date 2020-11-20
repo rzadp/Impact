@@ -1,6 +1,7 @@
 import { igEntity } from '../../../lib/impact/entity';
 import { igAnimationSheet } from '../../../lib/impact/animation';
 import { igSound } from '../../../lib/impact/sound';
+import { EntityFireball } from './fireball';
 
 export class EntityPlayer extends igEntity{
 	

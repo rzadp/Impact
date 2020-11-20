@@ -19,6 +19,7 @@ import { EntityFireball } from './entities/fireball';
 import { EntityLevelchange } from './entities/levelchange';
 import { EntityTrigger } from './entities/trigger';
 import { EntityHurt } from './entities/hurt';
+import { igCamera } from '../../plugins/camera';
 
 class MyGame extends igGame{
 	

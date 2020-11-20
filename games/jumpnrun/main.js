@@ -12,6 +12,13 @@ import { igBackgroundMap } from '../../lib/impact/background-map'
 import { igImpactSplashLoader } from '../../plugins/impact-splash-loader';
 import { LevelGrasslands } from './levels/grasslands';
 import { LevelTitle } from './levels/title';
+import { EntityBlob } from './entities/blob';
+import { EntityPlayer } from './entities/player';
+import { EntityCoin } from './entities/coin';
+import { EntityFireball } from './entities/fireball';
+import { EntityLevelchange } from './entities/levelchange';
+import { EntityTrigger } from './entities/trigger';
+import { EntityHurt } from './entities/hurt';
 
 class MyGame extends igGame{
 	
@@ -35,7 +42,30 @@ class MyGame extends igGame{
 		
 		// Load the LevelGrasslands as required above ('game.level.grassland')
 		this.loadLevel( LevelGrasslands );
-	}
+  }
+  
+  getEntityClass(type) {
+    if (typeof(type) !== 'string') return type
+
+    switch (type) {
+      case 'EntityBlob':
+        return EntityBlob;
+      case 'EntityPlayer':
+        return EntityPlayer;
+      case 'EntityCoin':
+        return EntityCoin;
+      case 'EntityFireball':
+        return EntityFireball;
+      case 'EntityHurt':
+        return EntityHurt;
+      case 'EntityLevelchange':
+        return EntityLevelchange;
+      case 'EntityTrigger':
+        return EntityTrigger;
+      default:
+       throw new Error(`Unregistered entity class: ${type}`)
+    }
+  }
 
 	loadLevel( data ) {
 		// Remember the currently loaded level, so we can reload when
@@ -166,7 +196,30 @@ class MyTitle extends igGame{
 
 		this.loadLevel( LevelTitle );
 		this.maxY = this.backgroundMaps[0].pxHeight - ig.system.height;
-	}
+  }
+  
+  getEntityClass(type) {
+    if (typeof(type) !== 'string') return type
+
+    switch (type) {
+      case 'EntityBlob':
+        return EntityBlob;
+      case 'EntityPlayer':
+        return EntityPlayer;
+      case 'EntityCoin':
+        return EntityCoin;
+      case 'EntityFireball':
+        return EntityFireball;
+      case 'EntityHurt':
+        return EntityHurt;
+      case 'EntityLevelchange':
+        return EntityLevelchange;
+      case 'EntityTrigger':
+        return EntityTrigger;
+      default:
+       throw new Error(`Unregistered entity class: ${type}`)
+    }
+  }
 
 	update() {
 		// Check for buttons; start the game if pressed

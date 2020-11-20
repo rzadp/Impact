@@ -81,10 +81,10 @@ export class igImpactSplashLoader extends igLoader{
 			ctx.fillRect( 30, this.logoHeight + 45, 290 * this._drawStatus, 10 );		
 			
 			// Draw 'Impact' text
-			this.drawPaths( 'rgb(255,255,255)', ig.ImpactSplashLoader.PATHS_IMPACT );
+			this.drawPaths( 'rgb(255,255,255)', igImpactSplashLoader.PATHS_IMPACT );
 			
 			// Some quick and dirty hackery to make the comet's tail wiggle
-			var comet = ig.ImpactSplashLoader.PATHS_COMET;
+			var comet = igImpactSplashLoader.PATHS_COMET;
 			comet[5][0] = 3 -Math.random() * this._drawStatus * 7;
 			comet[5][1] = 3 -Math.random() * this._drawStatus * 10;
 			comet[7][0] = 29.5 -Math.random() * this._drawStatus * 10;
@@ -105,7 +105,7 @@ export class igImpactSplashLoader extends igLoader{
 		ctx.fillStyle = color;
 		
 		for( var i = 0; i < paths.length; i+=2 ) {
-			ctx[ig.ImpactSplashLoader.OPS[paths[i]]].apply( ctx, paths[i+1] );
+			ctx[igImpactSplashLoader.OPS[paths[i]]].apply( ctx, paths[i+1] );
 		}
   }
   

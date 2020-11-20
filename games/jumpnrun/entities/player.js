@@ -1,5 +1,6 @@
-import { igAnimationSheet } from '../../lib/impact/animation';
-import { igSound } from '../../lib/impact/sound';
+import { igEntity } from '../../../lib/impact/entity';
+import { igAnimationSheet } from '../../../lib/impact/animation';
+import { igSound } from '../../../lib/impact/sound';
 
 export class EntityPlayer extends igEntity{
 	
@@ -35,7 +36,7 @@ export class EntityPlayer extends igEntity{
 
 	
 	constructor( x, y, settings ) {
-		this.parent( x, y, settings );
+		super( x, y, settings );
 		
 		// Add the animations
 		this.addAnim( 'idle', 1, [15,15,15,15,15,14] );

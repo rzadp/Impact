@@ -1,6 +1,6 @@
-import { igEntity } from '../../lib/impact/entity';
-import { igAnimationSheet } from '../../lib/impact/animation';
-import { igSound } from '../../lib/impact/sound';
+import { igEntity } from '../../../lib/impact/entity';
+import { igAnimationSheet } from '../../../lib/impact/animation';
+import { igSound } from '../../../lib/impact/sound';
 	
 export class EntityBlob extends igEntity{
 	size= {x: 40, y: 28};

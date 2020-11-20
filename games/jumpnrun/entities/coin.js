@@ -1,6 +1,7 @@
-import { igEntity } from '../../lib/impact/entity';
-import { igAnimationSheet } from '../../lib/impact/animation';
-import { igSound } from '../../lib/impact/sound';
+import { igEntity } from '../../../lib/impact/entity';
+import { igAnimationSheet } from '../../../lib/impact/animation';
+import { igSound } from '../../../lib/impact/sound';
+import { EntityPlayer } from './player';
 	
 export class EntityCoin extends igEntity{
 	size= {x: 36, y: 36};

@@ -9,6 +9,8 @@ level
 	Name of the level to load. E.g. "LevelTest1" or just "test1" will load the 
 	'LevelTest1' level.
 */
+
+import { igEntity } from '../../../lib/impact/entity';
 	
 export class EntityLevelchange extends igEntity{
 	_wmDrawBox= true;

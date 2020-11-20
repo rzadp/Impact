@@ -12,6 +12,8 @@ damage
 	Damage to give to the entity that triggered this entity.
 	Default: 10
 */
+
+import { igEntity } from '../../../lib/impact/entity';
 	
 export class EntityHurt extends igEntity{
 	_wmDrawBox= true;

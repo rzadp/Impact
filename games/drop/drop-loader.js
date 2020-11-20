@@ -3,6 +3,7 @@
 
 import { igImage } from '../../lib/impact/image';
 import { igLoader } from '../../lib/impact/loader';
+import { FullsizeBackdrop } from './backdrop';
 
 // effect.
 export class DropLoader extends igLoader {

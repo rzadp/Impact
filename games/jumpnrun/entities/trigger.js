@@ -20,6 +20,7 @@ target.1, target.2 ... target.n
 */
 
 import { igTimer } from '../../../lib/impact/timer';
+import { igEntity } from '../../../lib/impact/entity';
 
 export class EntityTrigger extends igEntity{
 	size= {x: 32, y: 32};

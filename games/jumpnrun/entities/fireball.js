@@ -1,6 +1,7 @@
-import { igAnimationSheet } from '../../lib/impact/animation';
-import { igSound } from '../../lib/impact/sound';
-import { igEntity } from '../../lib/impact/entity';
+import { igAnimationSheet } from '../../../lib/impact/animation';
+import { igSound } from '../../../lib/impact/sound';
+import { igEntity } from '../../../lib/impact/entity';
+import { igEntityPool } from '../../../lib/impact/entity-pool';
 
 export class EntityFireball extends igEntity{
 
@@ -24,7 +25,7 @@ export class EntityFireball extends igEntity{
 	
 	
 	constructor( x, y, settings ) {
-		this.parent( x, y, settings );
+		super( x, y, settings );
 		
 		this.vel.x = (settings.flip ? -this.maxVel.x : this.maxVel.x);
 		this.vel.y = 200;
@@ -81,4 +82,5 @@ export class EntityFireball extends igEntity{
 // With pooling enabled, instances that are removed from the game world are not 
 // completely erased, but rather put in a pool and resurrected when needed.
 
-igEntityPool.enableFor( EntityFireball );
+console.log('entity poll not yet ported')
+// igEntityPool.enableFor( EntityFireball );

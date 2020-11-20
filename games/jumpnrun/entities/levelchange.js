@@ -11,21 +11,40 @@ level
 */
 
 import { igEntity } from '../../../lib/impact/entity';
+import { LevelGrasslands } from '../levels/grasslands';
+import { LevelSnowhills } from '../levels/snowhills';
 	
 export class EntityLevelchange extends igEntity{
 	_wmDrawBox= true;
 	_wmBoxColor= 'rgba(0, 0, 255, 0.7)';
 	
 	size= {x: 32, y: 32};
-	level= null;
+  level= null;
+  
+  constructor(x, y, settings) {
+    super(x, y, settings);
+    this.name = settings.name;
+    this.level = settings.level;
+  }
 	
 	triggeredBy( entity, trigger ) {
 		if( this.level ) {
 			var levelName = this.level.replace(/^(Level)?(\w)(\w*)/, function( m, l, a, b ) {
 				return a.toUpperCase() + b;
-			});
+      });
+      
+      switch (this.level) {
+        case 'snowhills':
+          ig.game.loadLevelDeferred( LevelSnowhills );
+          break;
+        case 'grasslands':
+          ig.game.loadLevelDeferred( LevelGrasslands);
+          break;
+        default:
+          throw new Error('Unsupported level: ', this.level)
+      }
 			
-			ig.game.loadLevelDeferred( ig.global['Level'+levelName] );
+			
 		}
 	}
 	

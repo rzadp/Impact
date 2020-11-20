@@ -41,6 +41,9 @@ export class EntityTrigger extends igEntity{
 	
 	constructor( x, y, settings ) {
     super( x, y, settings );
+    this.size = settings.size || this.size
+    this.target = settings.target || null
+    this.wait = settings.wait || 0
 		if( settings.checks ) {
 			this.checkAgainst = igEntity.TYPE[settings.checks.toUpperCase()] || igEntity.TYPE.A;
 			delete settings.check;

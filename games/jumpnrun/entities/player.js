@@ -77,8 +77,7 @@ export class EntityPlayer extends igEntity{
 		if( ig.input.pressed('shoot') ) {
 			ig.game.spawnEntity( EntityFireball, this.pos.x, this.pos.y+40, {flip:this.flip} );
 		}
-		
-
+    
 		// Stay in the pain animation, until it has looped through.
 		// If not in pain, set the current animation, based on the 
 		// player's speed

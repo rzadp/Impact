@@ -1,26 +1,20 @@
-ig.module(
-	'game.entities.player'
-)
-.requires(
-	'impact.entity',
-	'plugins.box2d.entity'
-)
-.defines(function(){
+import { igEntity } from '../../../lib/impact/entity';
+import { igAnimationSheet } from '../../../lib/impact/animation';
 
-EntityPlayer = ig.Box2DEntity.extend({
-	size: {x: 8, y:14},
-	offset: {x: 4, y: 2},
+export class EntityPlayer extends Box2DEntity{
+	size= {x: 8, y:14};
+	offset= {x: 4, y: 2};
 	
-	type: ig.Entity.TYPE.A,
-	checkAgainst: ig.Entity.TYPE.NONE,
-	collides: ig.Entity.COLLIDES.NEVER, // Collision is already handled by Box2D!
+	type= igEntity.TYPE.A;
+	checkAgainst= igEntity.TYPE.NONE;
+	collides= igEntity.COLLIDES.NEVER; // Collision is already handled by Box2D!
 	
-	animSheet: new ig.AnimationSheet( 'media/player.png', 16, 24 ),	
+	animSheet= new igAnimationSheet( 'media/player.png', 16, 24 );
 	
-	flip: false,
+	flip= false;
 	
-	init: function( x, y, settings ) {
-		this.parent( x, y, settings );
+	constructor( x, y, settings ) {
+		super( x, y, settings );
 		
 		// Add the animations
 		this.addAnim( 'idle', 1, [0] );
@@ -29,10 +23,10 @@ EntityPlayer = ig.Box2DEntity.extend({
 		if(!ig.global.wm) {
 			this.body.SetFixedRotation(true);
 		}
-	},
+	}
 	
 	
-	update: function() {
+	update() {
 		// move left or right
 		if( ig.input.state('left') ) {
 			this.body.ApplyForce( new Box2D.Common.Math.b2Vec2(-20,0), this.body.GetPosition() );
@@ -62,22 +56,22 @@ EntityPlayer = ig.Box2DEntity.extend({
 		this.currentAnim.flip.x = this.flip;
 		
 		// move!
-		this.parent();
+		super.update();
 	}
-});
+};
 
 
-EntityProjectile = ig.Box2DEntity.extend({
-	size: {x: 8, y: 4},
+export class EntityProjectile extends igBox2DEntity{
+	size= {x: 8, y: 4};
 	
-	type: ig.Entity.TYPE.NONE,
-	checkAgainst: ig.Entity.TYPE.B, 
-	collides: ig.Entity.COLLIDES.NEVER, // Collision is already handled by Box2D!
+	type= igEntity.TYPE.NONE;
+	checkAgainst= igEntity.TYPE.B;
+	collides= igEntity.COLLIDES.NEVER; // Collision is already handled by Box2D!
 		
-	animSheet: new ig.AnimationSheet( 'media/projectile.png', 8, 4 ),	
+	animSheet= new igAnimationSheet( 'media/projectile.png', 8, 4 );
 	
-	init: function( x, y, settings ) {
-		this.parent( x, y, settings );
+	constructor( x, y, settings ) {
+		super( x, y, settings );
 		
 		this.addAnim( 'idle', 1, [0] );
 		this.currentAnim.flip.x = settings.flip;
@@ -85,6 +79,4 @@ EntityProjectile = ig.Box2DEntity.extend({
 		var velocity = (settings.flip ? -10 : 10);
 		this.body.ApplyImpulse( new Box2D.Common.Math.b2Vec2(velocity,0), this.body.GetPosition() );
 	}	
-});
-
-});
+};

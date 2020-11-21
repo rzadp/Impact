@@ -1,25 +1,17 @@
-ig.module(
-	'game.entities.crate'
-)
-.requires(
-	'plugins.box2d.entity'
-)
-.defines(function(){
+import { igEntity } from '../../../lib/impact/entity';
+import { igAnimationSheet } from '../../../lib/impact/animation';
 
-EntityCrate = ig.Box2DEntity.extend({
-	size: {x: 8, y: 8},
+export class EntityCrate extends igBox2DEntity{
+	size= {x: 8, y: 8};
 	
-	type: ig.Entity.TYPE.B,
-	checkAgainst: ig.Entity.TYPE.NONE,
-	collides: ig.Entity.COLLIDES.NEVER,
+	type= igEntity.TYPE.B;
+	checkAgainst= igEntity.TYPE.NONE;
+	collides= igEntity.COLLIDES.NEVER;
 	
-	animSheet: new ig.AnimationSheet( 'media/crate.png', 8, 8 ),
+	animSheet= new igAnimationSheet( 'media/crate.png', 8, 8 );
 	
-	init: function( x, y, settings ) {
+	constructor( x, y, settings ) {
+		super( x, y, settings );
 		this.addAnim( 'idle', 1, [0] );
-		this.parent( x, y, settings );
 	}
-});
-
-
-});
+};

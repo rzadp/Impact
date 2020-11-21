@@ -1,27 +1,16 @@
-ig.module( 
-	'game.main' 
-)
-.requires(
-	'impact.game',
-	'impact.font',
-	
-	'game.entities.player',
-	'game.entities.crate',
-	'game.levels.test',
-	
-	'plugins.box2d.game'
-)
-.defines(function(){
+import { igFont } from '../../lib/impact/font';
+import { igSound } from '../../lib/impact/sound';
 
-MyGame = ig.Box2DGame.extend({
+class MyGame extends igBox2DGame{
 	
-	gravity: 100, // All entities are affected by this
+	gravity= 100; // All entities are affected by this
 	
 	// Load a font
-	font: new ig.Font( 'media/04b03.font.png' ),
-	clearColor: '#1b2026',
+	font= new igFont( 'media/04b03.font.png' );
+	clearColor= '#1b2026';
 	
-	init: function() {
+	constructor() {
+    super();
 		// Bind keys
 		ig.input.bind( ig.KEY.LEFT_ARROW, 'left' );
 		ig.input.bind( ig.KEY.RIGHT_ARROW, 'right' );
@@ -37,18 +26,18 @@ MyGame = ig.Box2DGame.extend({
 		
 		// Load the LevelTest as required above ('game.level.test')
 		this.loadLevel( LevelTest );
-	},
+	}
 	
-	loadLevel: function( data ) {
-		this.parent( data );
+	loadLevel( data ) {
+		super.loadLevel( data );
 		for( var i = 0; i < this.backgroundMaps.length; i++ ) {
 			this.backgroundMaps[i].preRender = true;
 		}
-	},
+	}
 	
-	update: function() {
+	update() {
 		// Update all entities and BackgroundMaps
-		this.parent();
+	  super.update();
 		
 		// screen follows the player
 		var player = this.getEntitiesByType( EntityPlayer )[0];
@@ -56,29 +45,38 @@ MyGame = ig.Box2DGame.extend({
 			this.screen.x = player.pos.x - ig.system.width/2;
 			this.screen.y = player.pos.y - ig.system.height/2;
 		}
-	},
+	}
 	
-	draw: function() {
+	draw() {
 		// Draw all entities and BackgroundMaps
-		this.parent();
+		super.draw();
 		
 		if( !ig.ua.mobile ) {
 			this.font.draw( 'Arrow Keys, X, C', 2, 2 );
 		}
-	}
-});
+  }
+  
+  getEntityClass(type) {
+    if (typeof(type) !== 'string') return type
+
+    switch (type) {
+      // case 'EntityBlob':
+      //   return EntityBlob;
+      default:
+       throw new Error(`Unregistered entity class: ${type}`)
+    }
+  }
+};
 
 
 if( ig.ua.iPad ) {
-	ig.Sound.enabled = false;
+	igSound.enabled = false;
 	ig.main('#canvas', MyGame, 60, 240, 160, 2);
 }
 else if( ig.ua.mobile ) {	
-	ig.Sound.enabled = false;
+	igSound.enabled = false;
 	ig.main('#canvas', MyGame, 60, 160, 160, 2);
 }
 else {
 	ig.main('#canvas', MyGame, 60, 320, 240, 2);
 }
-
-});

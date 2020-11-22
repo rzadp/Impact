@@ -9,7 +9,7 @@ export class EntityPlayer extends Box2DEntity{
 	checkAgainst= igEntity.TYPE.NONE;
 	collides= igEntity.COLLIDES.NEVER; // Collision is already handled by Box2D!
 	
-	animSheet= new igAnimationSheet( 'media/player.png', 16, 24 );
+	animSheet= new igAnimationSheet( 'box2d/player.png', 16, 24 );
 	
 	flip= false;
 	
@@ -68,7 +68,7 @@ export class EntityProjectile extends igBox2DEntity{
 	checkAgainst= igEntity.TYPE.B;
 	collides= igEntity.COLLIDES.NEVER; // Collision is already handled by Box2D!
 		
-	animSheet= new igAnimationSheet( 'media/projectile.png', 8, 4 );
+	animSheet= new igAnimationSheet( 'box2d/projectile.png', 8, 4 );
 	
 	constructor( x, y, settings ) {
 		super( x, y, settings );

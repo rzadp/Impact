@@ -1,27 +1,19 @@
-ig.module( 
-	'plugins.box2d.entity'
-)
-.requires(
-	'impact.entity',	
-	'plugins.box2d.game'
-)
-.defines(function(){
+import { igEntity } from "../../lib/impact/entity";
 
-
-ig.Box2DEntity = ig.Entity.extend({
-	body: null,
-	angle: 0,
+export class igBox2DEntity extends igEntity{
+	body= null;
+	angle= 0;
 	
-	init: function( x, y , settings ) {
-		this.parent( x, y, settings );
+	constructor( x, y , settings ) {
+		super( x, y, settings );
 		
 		// Only create a box2d body when we are not in Weltmeister
 		if( !ig.global.wm ) { 
 			this.createBody();
 		}
-	},
+	}
 	
-	createBody: function() {
+	createBody() {
 		var bodyDef = new Box2D.Dynamics.b2BodyDef();
 		bodyDef.position = new Box2D.Common.Math.b2Vec2(
 			(this.pos.x + this.size.x / 2) * Box2D.SCALE,
@@ -42,9 +34,9 @@ ig.Box2DEntity = ig.Entity.extend({
 		// fixture.restitution = 0.3;
 
 		this.body.CreateFixture(fixture);
-	},
+	}
 	
-	update: function() {		
+	update() {		
 		var p = this.body.GetPosition();
 		this.pos = {
 			x: (p.x / Box2D.SCALE - this.size.x / 2),
@@ -56,12 +48,10 @@ ig.Box2DEntity = ig.Entity.extend({
 			this.currentAnim.update();
 			this.currentAnim.angle = this.angle;
 		}
-	},
-	
-	kill: function() {
-		ig.world.DestroyBody( this.body );
-		this.parent();
 	}
-});
 	
-});
+	kill() {
+		ig.world.DestroyBody( this.body );
+		super.kill();
+	}
+};

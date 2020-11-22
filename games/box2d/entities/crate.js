@@ -8,7 +8,7 @@ export class EntityCrate extends igBox2DEntity{
 	checkAgainst= igEntity.TYPE.NONE;
 	collides= igEntity.COLLIDES.NEVER;
 	
-	animSheet= new igAnimationSheet( 'media/crate.png', 8, 8 );
+	animSheet= new igAnimationSheet( 'box2d/crate.png', 8, 8 );
 	
 	constructor( x, y, settings ) {
 		super( x, y, settings );

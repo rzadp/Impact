@@ -1,13 +1,3 @@
-ig.module(
-	'plugins.twopointfive.world.wall-map'
-)
-.requires(
-
-	'plugins.twopointfive.namespace',
-	'plugins.twopointfive.world.map'
-)
-.defines(function(){ "use strict";
-
 
 tpf.WallMap = tpf.Map.extend({
 	createTileAtPosition: function( tile, x, y, anim ) {
@@ -103,5 +93,3 @@ tpf.WallMap.offsets = {
 	right: 	{x: 1, y: 0, rot: (90).toRad() },
 	left: 	{x:-1, y: 0, rot: (-90).toRad() }
 };
-
-});

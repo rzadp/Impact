@@ -1,17 +1,3 @@
-ig.module(
-	'plugins.twopointfive.system'
-)
-.requires(
-	'impact.system',
-	
-	'plugins.twopointfive.namespace',
-	'plugins.twopointfive.renderer.ortho-camera',
-	'plugins.twopointfive.renderer.perspective-camera',
-	'plugins.twopointfive.renderer.renderer',
-	'plugins.twopointfive.renderer.stereo-renderer'
-)
-.defines(function(){ "use strict";
-
 
 ig.System.inject({
 	renderer: null,
@@ -177,5 +163,3 @@ ig.System.hasWebGL = function() {
 	}
 	return ig.System._hasWebGL;
 };
-
-});	

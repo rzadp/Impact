@@ -1,12 +1,4 @@
-ig.module(
-	'plugins.twopointfive.renderer.perspective-camera'
-)
-.requires(
-	'plugins.twopointfive.namespace'
-)
-.defines(function(){ "use strict";
 
-	
 tpf.PerspectiveCamera = ig.Class.extend({
 	_projection: null, 
 	_view: null,
@@ -56,6 +48,4 @@ tpf.PerspectiveCamera = ig.Class.extend({
 		
 		return m;
 	}
-});
-
 });

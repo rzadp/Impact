@@ -1,6 +1,4 @@
-ig.module( 'game.levels.base1' )
-.requires( 'impact.image','game.entities.player','game.entities.void' )
-.defines(function(){
+
 LevelBase1=/*JSON[*/{
 	"entities": [
 		{
@@ -259,4 +257,3 @@ LevelBase1=/*JSON[*/{
 	]
 }/*]JSON*/;
 LevelBase1Resources=[new ig.Image('media/tiles/basic-tiles-64.png'), new ig.Image('media/tiles/basic-tiles-64.png'), new ig.Image('media/tiles/basic-tiles-64.png'), new ig.Image('media/tiles/lights-64.png')];
-});

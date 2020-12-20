@@ -1,10 +1,3 @@
-ig.module(
-	'plugins.twopointfive.renderer.quad'
-)
-.requires(
-	'plugins.twopointfive.namespace'
-)
-.defines(function(){ "use strict";
 
 // The tpf.Quad is the heart of TwoPointFive. Everything that's drawn
 // on the screen is drawn through a Quad or, like the tpf.TileMesh,
@@ -177,5 +170,3 @@ tpf.Quad.SIZE = tpf.Quad.VERTEX_SIZE * tpf.Quad.VERTICES;
 if( !ig.global.wm ) {
 	tpf.Quad._workMatrix = mat4.create();
 }
-
-});

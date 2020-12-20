@@ -1,14 +1,3 @@
-ig.module(
-	'plugins.twopointfive.entity'
-)
-.requires(
-	'impact.entity',
-
-	'plugins.twopointfive.namespace',
-	'plugins.twopointfive.world.tile'
-)
-.defines(function(){ "use strict";
-
 
 tpf.Entity = ig.Entity.extend({
 	tile: null,
@@ -176,6 +165,4 @@ tpf.Entity = ig.Entity.extend({
 			this.tile.draw();
 		}
 	}
-});
-
 });

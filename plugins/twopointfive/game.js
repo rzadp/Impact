@@ -1,24 +1,3 @@
-ig.module(
-	'plugins.twopointfive.game'
-)
-.requires(
-	'impact.game',
-
-	'plugins.twopointfive.namespace',
-	
-	'plugins.twopointfive.world.map',
-	'plugins.twopointfive.world.wall-map',
-	'plugins.twopointfive.world.light-map',
-	'plugins.twopointfive.world.culled-sectors',
-	
-	'plugins.twopointfive.entity',
-	'plugins.twopointfive.font',
-	'plugins.twopointfive.image',
-	'plugins.twopointfive.loader',
-	'plugins.twopointfive.system'
-)
-.defines(function(){ "use strict";
-
 
 tpf.Game = ig.Game.extend({
 
@@ -135,7 +114,4 @@ tpf.Game = ig.Game.extend({
 	},
 
 	drawHud: function() {}
-});
-
-
 });

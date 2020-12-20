@@ -1,13 +1,3 @@
-ig.module(
-	'game.entities.enemy-blob'
-)
-.requires(
-	'plugins.twopointfive.entity',
-	'game.entities.particle'
-)
-.defines(function(){
-
-
 
 EntityEnemyBlobSpawner = tpf.Entity.extend({
 	size: {x: 16, y: 16},
@@ -145,7 +135,4 @@ EntityEnemyBlobGib = EntityParticle.extend({
 		this.addAnim( 'idle', 5, [0,1,2,3,4,5,6,7,8,9,10,11] );
 		this.parent( x, y, settings );
 	}
-});
-
-
 });

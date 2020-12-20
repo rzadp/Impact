@@ -1,15 +1,4 @@
-ig.module(
-	'plugins.twopointfive.font'
-)
-.requires(
-	'impact.font',
 
-	'plugins.twopointfive.namespace',
-	'plugins.twopointfive.renderer.quad'
-)
-.defines(function(){ "use strict";
-	
-	
 tpf.Font = ig.Font.extend({
 	_quads: [],
 	_glAlpha: 1,
@@ -53,6 +42,4 @@ tpf.Font = ig.Font.extend({
 			this._quads.push(q);
 		}
 	}
-});
-
 });

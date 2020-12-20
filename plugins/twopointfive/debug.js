@@ -1,15 +1,3 @@
-ig.module(
-	'plugins.twopointfive.debug'
-)
-.requires(
-	'impact.debug.menu',
-	'impact.debug.graph-panel',
-	'impact.debug.entities-panel',
-	
-	'plugins.twopointfive.game',
-	'plugins.twopointfive.world.culled-sectors'
-)
-.defines(function(){ "use strict";
 
 tpf.Game.inject({
 	draw: function() {
@@ -56,6 +44,3 @@ ig.debug.addPanel({
 		}
 	]
 });
-
-
-});	

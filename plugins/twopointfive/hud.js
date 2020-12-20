@@ -1,11 +1,3 @@
-ig.module(
-	'plugins.twopointfive.hud'
-)
-.requires(
-	'plugins.twopointfive.font',
-	'plugins.twopointfive.world.tile'
-)
-.defines(function(){
 
 tpf.Hud = ig.Class.extend({
 	width: 320,
@@ -104,5 +96,3 @@ tpf.Hud.TIME = {
 	DEFAULT: 2,
 	PERMANENT: -1
 };
-
-});

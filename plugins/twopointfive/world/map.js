@@ -1,14 +1,3 @@
-ig.module(
-	'plugins.twopointfive.world.map'
-)
-.requires(
-	'impact.background-map',
-
-	'plugins.twopointfive.namespace',
-	'plugins.twopointfive.world.tile'
-)
-.defines(function(){ "use strict";
-
 
 tpf.Map = ig.BackgroundMap.extend({
 	tileData: {},
@@ -85,6 +74,3 @@ tpf.Map = ig.BackgroundMap.extend({
 });
 
 tpf.Map.fixTileSeams = true;
-
-
-});

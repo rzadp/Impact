@@ -1,12 +1,3 @@
-ig.module(
-	'plugins.twopointfive.world.culled-sectors'
-)
-.requires(
-	'plugins.twopointfive.namespace',
-	'plugins.twopointfive.renderer.quad'
-)
-.defines(function(){ "use strict";
-
 
 // CulledSectors divides a World into square sectors of 'sectorSize'.
 
@@ -370,6 +361,4 @@ tpf.CulledSectors = ig.Class.extend({
 		s1.portals.push({x1: px1, y1: py1, x2: px2, y2: py2, to: s2});
 		s2.portals.push({x1: px1, y1: py1, x2: px2, y2: py2, to: s1});
 	}
-});
-
 });

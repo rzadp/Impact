@@ -1,13 +1,3 @@
-ig.module(
-	'plugins.twopointfive.renderer.renderer'
-)
-.requires(
-	'plugins.twopointfive.namespace',
-	'plugins.twopointfive.renderer.quad',
-	'plugins.twopointfive.renderer.program'
-)
-.defines(function(){ "use strict";
-
 
 tpf.Renderer = ig.Class.extend({
 	bufferSize: 64, // 64 Quads
@@ -284,6 +274,3 @@ tpf.Renderer.Shaders = {
 		"}"
 	].join('\n')
 };
-
-
-});

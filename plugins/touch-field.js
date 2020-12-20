@@ -1,10 +1,3 @@
-ig.module(
-	'plugins.touch-field'
-)
-.requires(
-	'impact.system'
-)
-.defines(function(){
 
 ig.TouchField = ig.Class.extend({
 	pos: {x: 0, y: 0},
@@ -104,7 +97,4 @@ ig.TouchField = ig.Class.extend({
 			}
 		}
 	}
-});
-
-
 });

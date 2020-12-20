@@ -1,11 +1,3 @@
-ig.module(
-	'game.entities.debug-sectors'
-)
-.requires(
-	'plugins.twopointfive.entity',
-	'plugins.twopointfive.world.culled-sectors'
-)
-.defines(function(){
 
 // This Entity can be placed in weltmeister to visualize the sector boundaries
 // in the level. It does not have any purpose in the game.
@@ -72,7 +64,4 @@ EntityDebugSectors = ig.Entity.extend({
 		ig.system.context.stroke();
 		ig.system.context.closePath();
 	}
-});
-
-
 });

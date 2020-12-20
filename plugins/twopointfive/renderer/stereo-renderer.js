@@ -1,11 +1,3 @@
-ig.module(
-	'plugins.twopointfive.renderer.stereo-renderer'
-)
-.requires(
-	'plugins.twopointfive.namespace',
-	'plugins.twopointfive.renderer.renderer'
-)
-.defines(function(){ "use strict";
 
 tpf.StereoRenderer = tpf.Renderer.extend({
 	eyes: {
@@ -289,6 +281,3 @@ tpf.StereoRenderer = tpf.Renderer.extend({
 tpf.StereoRenderer.hasWebVR = function() {
 	return navigator.getVRDevices || navigator.mozGetVRDevices;
 }
-
-
-});

@@ -1,11 +1,3 @@
-ig.module(
-	'plugins.twopointfive.renderer.ortho-camera'
-)
-.requires(
-	'plugins.twopointfive.namespace'
-)
-.defines(function(){ "use strict";
-
 
 tpf.OrthoCamera = ig.Class.extend({
 	_projection: null, 
@@ -30,6 +22,4 @@ tpf.OrthoCamera = ig.Class.extend({
 	view: function() {
 		return this._view;
 	}
-});
-
 });

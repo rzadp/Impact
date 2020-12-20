@@ -1,11 +1,3 @@
-ig.module(
-	'game.entities.grenade-pickup'
-)
-.requires(
-	'plugins.twopointfive.entity',
-	'game.weapons.grenade-launcher'
-)
-.defines(function(){
 
 EntityGrenadePickup = tpf.Entity.extend({
 	checkAgainst: ig.Entity.TYPE.A,
@@ -36,6 +28,4 @@ EntityGrenadePickup = tpf.Entity.extend({
 		this.pickupSound.play();
 		this.kill();
 	}
-});
-
 });

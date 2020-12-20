@@ -6,6 +6,8 @@ import { EntityPaddleCpu } from './entities/paddle-cpu';
 import { EntityPaddlePlayer } from './entities/paddle-player';
 import { EntityPuck } from './entities/puck';
 
+import * as gl from '../../plugins/twopointfive/gl-matrix'
+
 export class PongGame extends igGame {
 	
 	font= new igFont( 'fonts/04b03.font.png' );

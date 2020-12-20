@@ -1,31 +1,3 @@
-ig.module( 
-	'game.main' 
-)
-.requires(
-	'impact.game',
-	'impact.font',
-
-	'plugins.twopointfive.game',	
-	
-	'plugins.touch-button',
-	'plugins.touch-field',
-	'plugins.gamepad',
-
-	'game.levels.base1',
-	'game.entities.enemy-blob',
-
-	'game.entities.grenade-pickup',
-	'game.entities.health-pickup',
-
-
-	'game.title',
-	'game.hud'
-
-	// ,'plugins.twopointfive.debug'
-)
-.defines(function(){ "use strict";
-	
-
 var MyGame = tpf.Game.extend({
 	sectorSize: 4,
 	hud: null,
@@ -350,5 +322,3 @@ else {
 	ig.$('#game').style.display = 'none';
 	ig.$('#no-webgl').style.display = 'block';
 }
-
-});

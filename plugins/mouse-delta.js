@@ -1,10 +1,3 @@
-ig.module(
-	'plugins.mouse-delta'
-)
-.requires(
-	'impact.input'
-)
-.defines(function(){
 
 ig.Input.inject({
 	mouseDelta: {x: 0, y: 0},
@@ -38,5 +31,3 @@ ig.Input.inject({
 		this.mouseDelta.y = 0;
 	}
 })
-
-});

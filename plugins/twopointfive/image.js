@@ -1,14 +1,3 @@
-ig.module(
-	'plugins.twopointfive.image'
-)
-.requires(
-	'impact.image',
-
-	'plugins.twopointfive.namespace',
-	'plugins.twopointfive.renderer.renderer'
-)
-.defines(function(){ "use strict";
-
 
 ig.Image.inject({
 	texture: null,
@@ -74,6 +63,4 @@ ig.Image.inject({
 		// Replace texture with the expanded version
 		this.texture = ig.system.renderer.loadTexture(expandedCanvas);
 	}
-});
-
 });

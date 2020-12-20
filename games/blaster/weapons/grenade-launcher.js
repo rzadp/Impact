@@ -1,12 +1,3 @@
-ig.module(
-	'game.weapons.grenade-launcher'
-)
-.requires(
-	'game.weapons.base',
-	'plugins.twopointfive.entity',
-	'impact.entity-pool'
-)
-.defines(function(){
 
 WeaponGrenadeLauncher = Weapon.extend({
 	offset: {x: 0, y: 128},
@@ -209,5 +200,3 @@ EntityGrenadeExplosion = tpf.Entity.extend({
 });
 
 ig.EntityPool.enableFor(EntityGrenadeExplosion);
-
-});

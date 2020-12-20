@@ -1,13 +1,3 @@
-ig.module(
-	'game.entities.particle'
-)
-.requires(
-	'plugins.twopointfive.entity',
-	'impact.entity-pool'
-)
-.defines(function(){
-	
-
 
 EntityParticle = tpf.Entity.extend({
 	size: {x: 1, y: 1},
@@ -56,6 +46,3 @@ EntityParticle = tpf.Entity.extend({
 });
 
 ig.EntityPool.enableFor(EntityParticle);
-
-
-});

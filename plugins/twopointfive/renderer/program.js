@@ -1,11 +1,3 @@
-ig.module(
-	'plugins.twopointfive.renderer.program'
-)
-.requires(
-	'plugins.twopointfive.namespace'
-)
-.defines(function(){ "use strict";
-
 
 tpf.Program = ig.Class.extend({
 	uniform: {},
@@ -59,7 +51,4 @@ tpf.Program = ig.Class.extend({
 			return match;
 		});
 	}
-});
-
-
 });

@@ -1,12 +1,3 @@
-ig.module( 
-	'game.title' 
-)
-.requires(
-	'plugins.twopointfive.font',
-	'plugins.twopointfive.world.tile'
-)
-.defines(function(){
-
 MyTitle = ig.Class.extend({
 	camera: null,
 	fadeScreen: null,
@@ -53,6 +44,4 @@ MyTitle = ig.Class.extend({
 		var alpha = (Math.sin(this.timer.delta()*4)+1)*0.5;
 		this.font.draw(message, this.width/2, 350, ig.Font.ALIGN.CENTER, alpha);
 	}
-});
-
 });

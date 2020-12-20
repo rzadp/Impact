@@ -1,12 +1,4 @@
-ig.module(
-	'game.entities.player'
-)
-.requires(
-	'plugins.twopointfive.entity',
-	'plugins.mouse-delta',
-	'game.weapons.grenade-launcher'
-)
-.defines(function(){
+
 
 EntityPlayer = tpf.Entity.extend({
 	type: ig.Entity.TYPE.A,
@@ -328,6 +320,4 @@ EntityPlayer = tpf.Entity.extend({
 			this.currentWeapon.setLight( color );
 		}
 	}
-});
-
 });

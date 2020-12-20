@@ -1,14 +1,3 @@
-ig.module(
-	'plugins.twopointfive.loader'
-)
-.requires(
-	'impact.loader',
-	
-	'plugins.twopointfive.namespace',
-	'plugins.twopointfive.renderer.renderer'
-)
-.defines(function(){ "use strict";
-
 
 tpf.Loader = ig.Loader.extend({
 	rotation: 0,
@@ -90,7 +79,4 @@ tpf.Loader = ig.Loader.extend({
 		renderer.pushQuad(this.loadingBar);
 		renderer.pushQuad(this.loadingBarBackground);
 	}
-});
-
-
 });

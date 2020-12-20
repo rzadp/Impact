@@ -1,11 +1,3 @@
-ig.module(
-	'game.hud'
-)
-.requires(
-	'plugins.twopointfive.hud'
-)
-.defines(function(){
-
 MyHud = tpf.Hud.extend({
 
 	font: new tpf.Font( 'media/fredoka-one.font.png' ),
@@ -45,7 +37,4 @@ MyHud = tpf.Hud.extend({
 		// Draw the current message (showMessage(text)) and the damage indicator
 		this.drawDefault();
 	}
-});
-
-
 });

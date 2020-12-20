@@ -1,10 +1,3 @@
-ig.module(
-	'game.entities.health-pickup'
-)
-.requires(
-	'plugins.twopointfive.entity'
-)
-.defines(function(){
 
 EntityHealthPickup = tpf.Entity.extend({
 	checkAgainst: ig.Entity.TYPE.A,
@@ -40,6 +33,4 @@ EntityHealthPickup = tpf.Entity.extend({
 			this.kill();
 		}
 	}
-});
-
 });

@@ -1,11 +1,3 @@
-ig.module(
-	'game.weapons.base'
-)
-.requires(
-	'plugins.twopointfive.world.tile',
-	'impact.animation'
-)
-.defines(function(){
 
 Weapon = ig.Class.extend({
 	
@@ -117,7 +109,4 @@ Weapon = ig.Class.extend({
 	draw: function() {
 		this.tile.draw();
 	}
-});
-
-
 });

@@ -1,14 +1,3 @@
-ig.module(
-	'plugins.twopointfive.world.light-map'
-)
-.requires(
-	'impact.image',
-	'impact.map',
-
-	'plugins.twopointfive.namespace'
-)
-.defines(function(){ "use strict";
-
 
 tpf.LightMap = ig.Map.extend({
 	white: {r:1, g:1, b:1},
@@ -55,6 +44,4 @@ tpf.LightMap = ig.Map.extend({
 			return this.white;
 		}
 	}
-});
-
 });

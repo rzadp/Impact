@@ -1,14 +1,3 @@
-ig.module(
-	'plugins.twopointfive.world.tile'
-)
-.requires(
-	'impact.image',
-
-	'plugins.twopointfive.namespace',
-	'plugins.twopointfive.renderer.quad'
-)
-.defines(function(){ "use strict";
-
 
 // tpf.Tile encapsulates a tpf.Quad and provides a method to set a tile number directly, 
 // instead of specifying raw UV coords, and a function to draw itself.
@@ -133,9 +122,4 @@ tpf.HudTile = tpf.Tile.extend({
 	setAlpha: function( a ) {
 		this.quad.setAlpha(a.limit(0,1));
 	}
-});
-
-
-
-
 });

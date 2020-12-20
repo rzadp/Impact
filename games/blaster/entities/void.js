@@ -9,5 +9,5 @@ EntityVoid = ig.Entity.extend({
 	
 	size: {x: 32, y: 32},
 	
-	update: function(){}
+	update(){}
 });

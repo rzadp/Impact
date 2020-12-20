@@ -14,16 +14,16 @@ EntityGrenadePickup = tpf.Entity.extend({
 	pickupSound: new ig.Sound( 'media/sounds/health-pickup.*' ),
 	bounceTimer: null,
 	
-	init: function( x, y, settings ) {
+	constructor( x, y, settings ) {
 		this.parent( x, y, settings );
 		this.addAnim( 'idle', 10, [0] );
 	},
 
-	update: function() {
+	update() {
 		this.parent();
 	},
 	
-	check: function( other ) {
+	check( other ) {
 		other.giveAmmo(WeaponGrenadeLauncher, this.amount);
 		this.pickupSound.play();
 		this.kill();

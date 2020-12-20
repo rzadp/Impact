@@ -2,7 +2,7 @@
 tpf.LightMap = ig.Map.extend({
 	white: {r:1, g:1, b:1},
 	
-	init: function( tilesize, data, tileset ) {
+	constructor( tilesize, data, tileset ) {
 		this.parent( tilesize, ig.copy(data) );
 			
 		// Grab the colors from the tileset
@@ -33,7 +33,7 @@ tpf.LightMap = ig.Map.extend({
 	},
 	
 	
-	getLight: function( x, y ) {
+	getLight( x, y ) {
 		if( 
 			(x >= 0 && x < this.width) &&
 			(y >= 0 && y < this.height)

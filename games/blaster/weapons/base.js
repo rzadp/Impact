@@ -1,28 +1,28 @@
 
-Weapon = ig.Class.extend({
+export class Weapon {
 	
-	offset: {x: 0, y: 48},
-	offsetAngle: 0,
-	projectileOffset: 0,
-	pos: {x: 0, y: 0},
-	bobOffset: 0,
+	offset= {x: 0, y: 48};
+	offsetAngle= 0;
+	projectileOffset= 0;
+	pos= {x: 0, y: 0};
+	bobOffset= 0;
 	
-	anim: null,
-	tile: null,
+	anim= null;
+	tile= null;
 	
-	ammo: 0,
-	maxAmmo: 100,
-	anims: [],
+	ammo= 0;
+	maxAmmo= 100;
+	anims= [];
 	
-	cooldown: 1,
-	shootTimer: null,
-	ammoIcon: null,
+	cooldown= 1;
+	shootTimer= null;
+	ammoIcon= null;
 
-	currentQuadColor: {r: 1, g: 1, b:1},
-	flashQuadColor: {r: 1, g: 1, b:1},
-	unsetFlashTimer: null,
+	currentQuadColor= {r: 1, g: 1, b:1};
+	flashQuadColor= {r: 1, g: 1, b:1};
+	unsetFlashTimer= null;
 	
-	init: function( ammo ) {
+	constructor( ammo ) {
 		this.ammo = ammo || 0;
 		
 		this.tile = new tpf.HudTile( 
@@ -36,10 +36,10 @@ Weapon = ig.Class.extend({
 		
 		this.shootTimer = new ig.Timer();
 		this.tile.setPosition( this.pos.x, this.pos.y + this.bobOffset );
-	},
+	}
 	
 	
-	addAnim: function( name, frameTime, sequence, stop ) {
+	addAnim( name, frameTime, sequence, stop ) {
 		if( !this.animSheet ) {
 			throw( 'No animSheet to add the animation '+name+' to.' );
 		}
@@ -50,10 +50,10 @@ Weapon = ig.Class.extend({
 		}
 		
 		return a;
-	},
+	}
 	
 	
-	trigger: function( x, y, angle ) {
+	trigger( x, y, angle ) {
 		if( this.ammo > 0 && this.shootTimer.delta() > 0 ) {
 			this.shootTimer.set( this.cooldown );
 			this.ammo--;
@@ -64,37 +64,37 @@ Weapon = ig.Class.extend({
 			
 			this.shoot( sx, sy, angle + this.offsetAngle );
 		}
-	},
+	}
 
-	depleted: function() {
+	depleted() {
 		return (this.shootTimer.delta() > 0 && this.ammo <= 0);
-	},
+	}
 	
 	
-	giveAmmo: function( ammo ) {
+	giveAmmo( ammo ) {
 		this.ammo = Math.min( this.maxAmmo, this.ammo + ammo);
-	},
+	}
 	
 
-	shoot: function( x, y, angle ) {
+	shoot( x, y, angle ) {
 		// Not implemented in the base class
-	},
+	}
 	
 	
-	setLight: function( color ) {
+	setLight( color ) {
 		this.currentQuadColor = color;
 
 		if( !this.tile ) { return; }
 		this.tile.quad.setColor(color);
-	},
+	}
 
-	flash: function(duration) {
+	flash(duration) {
 		if( !this.tile ) { return; }
 		this.tile.quad.setColor(this.flashQuadColor);
 		this.unsetFlashTimer = new ig.Timer(duration);
-	},		
+	}
 	
-	update: function() {
+	update() {
 		this.currentAnim.update();
 		this.tile.setTile( this.currentAnim.tile );
 		
@@ -104,9 +104,9 @@ Weapon = ig.Class.extend({
 			this.setLight(this.currentQuadColor);
 			this.unsetFlashTimer = null;
 		}
-	},
+	}
 
-	draw: function() {
+	draw() {
 		this.tile.draw();
 	}
-});
+};

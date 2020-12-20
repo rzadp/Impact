@@ -33,13 +33,13 @@ EntityPlayer = tpf.Entity.extend({
 		new ig.Sound('media/sounds/hurt3.*')
 	],
 	
-	init: function( x, y, settings ) {
+	constructor( x, y, settings ) {
 		this.parent( x, y, settings );
 		this.internalAngle = this.angle;
 		ig.game.player = this;
 	},
 	
-	ready: function() {
+	ready() {
 		var cx = this.pos.x + this.size.x/2,
 			cy = this.pos.y + this.size.y/2;
 		ig.system.camera.position[0] = cx;
@@ -49,7 +49,7 @@ EntityPlayer = tpf.Entity.extend({
 		this.giveWeapon( WeaponGrenadeLauncher, 16 );
 	},
 	
-	update: function() {
+	update() {
 		
 		// Move
 		var dx = 0, 
@@ -209,7 +209,7 @@ EntityPlayer = tpf.Entity.extend({
 		}
 	},
 	
-	receiveDamage: function( amount, from ) {
+	receiveDamage( amount, from ) {
 		if( this.god || this._killed ) {
 			return;
 		}
@@ -229,13 +229,13 @@ EntityPlayer = tpf.Entity.extend({
 		this.parent( amount, from );
 	},
 	
-	kill: function() {
+	kill() {
 		ig.game.hud.showMessage('You are Dead!', tpf.Hud.TIME.PERMANENT);
 		ig.game.showDeathAnim();
 		this.parent();
 	},	
 	
-	giveWeapon: function( weaponClass, ammo ) {
+	giveWeapon( weaponClass, ammo ) {
 		// Do we have this weapon already? Add ammo!
 		var index = -1;
 		for( var i = 0; i < this.weapons.length; i++ ) {
@@ -255,7 +255,7 @@ EntityPlayer = tpf.Entity.extend({
 		this.switchWeapon( index );
 	},
 	
-	giveAmmo: function( weaponClass, ammo ) {
+	giveAmmo( weaponClass, ammo ) {
 		for( var i = 0; i < this.weapons.length; i++ ) {
 			var w = this.weapons[i];
 			if( w instanceof weaponClass ) {
@@ -264,7 +264,7 @@ EntityPlayer = tpf.Entity.extend({
 		}
 	},
 
-	giveHealth: function( amount ) {
+	giveHealth( amount ) {
 		if( this.health >= this.maxHealth ) {
 			return false;
 		}
@@ -273,7 +273,7 @@ EntityPlayer = tpf.Entity.extend({
 		return true;
 	},
 	
-	switchWeapon: function( index ) {
+	switchWeapon( index ) {
 		if( this.currentWeapon ) {
 			if( this.currentWeapon.shootTimer.delta() < 0 ) {
 				this.delayedWeaponSwitchIndex = index;
@@ -296,7 +296,7 @@ EntityPlayer = tpf.Entity.extend({
 		this.currentWeapon.setLight( this.currentLightColor );
 	},
 
-	switchToNextNonEmptyWeapon: function() {
+	switchToNextNonEmptyWeapon() {
 		for( var i = this.currentWeaponIndex+1; i < this.weapons.length; i++ ) {
 			if( !this.weapons[i].depleted() ) {
 				this.switchWeapon(i);
@@ -314,7 +314,7 @@ EntityPlayer = tpf.Entity.extend({
 		}
 	},
 	
-	setLight: function( color ) {
+	setLight( color ) {
 		this.currentLightColor = color;
 		if( this.currentWeapon ) {
 			this.currentWeapon.setLight( color );

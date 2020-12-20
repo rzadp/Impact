@@ -13,7 +13,7 @@ WeaponGrenadeLauncher = Weapon.extend({
 	ammoIconImage: new ig.Image( 'media/grenade.png' ),
 	ammoIcon: null,
 
-	init: function( ammo ) {
+	constructor( ammo ) {
 		this.parent( ammo );
 		this.addAnim( 'idle', 100, [0] );
 		this.addAnim( 'shoot', 0.1, [1,0], true );
@@ -23,7 +23,7 @@ WeaponGrenadeLauncher = Weapon.extend({
 		this.shootSound.volume = 0.8;
 	},
 
-	depleted: function() {
+	depleted() {
 		if( this.shootTimer.delta() > 0 && this.ammo <= 0 ) {
 			this.shootTimer.set( this.cooldown );
 			this.emptySound.play();
@@ -34,7 +34,7 @@ WeaponGrenadeLauncher = Weapon.extend({
 		}
 	},
 
-	shoot: function( x, y, angle ) {
+	shoot( x, y, angle ) {
 		ig.game.spawnEntity(EntityGrenade, x, y, {angle: angle} );
 		this.currentAnim = this.anims.shoot.rewind();
 		this.shootSound.play();
@@ -65,7 +65,7 @@ EntityGrenade = tpf.Entity.extend({
 	dynamicLight: true,
 
 
-	init: function( x, y, settings ) {
+	constructor( x, y, settings ) {
 		this.parent( x-this.size.x/2, y-this.size.y/2, settings ); // center on spawn pos
 		this.addAnim( 'idle', 1, [0] );
 		this.bounceSound.volume = 0.6;
@@ -77,7 +77,7 @@ EntityGrenade = tpf.Entity.extend({
 		this.pos.z = 12;
 	},
 	
-	reset: function( x, y, settings ) {
+	reset( x, y, settings ) {
 		this.parent(x,y,settings);
 		this.vel.x = -Math.sin(this.angle) * this.speed;
 		this.vel.y = -Math.cos(this.angle) * this.speed;
@@ -86,7 +86,7 @@ EntityGrenade = tpf.Entity.extend({
 		this.currentAnim = this.anims.idle.rewind();
 	},
 
-	update: function() {
+	update() {
 		if( this.currentAnim.loopCount > 0 ) {
 			this.kill();
 			return;
@@ -103,18 +103,18 @@ EntityGrenade = tpf.Entity.extend({
 		}
 	},
 
-	check: function( other ) {
+	check( other ) {
 		this.kill();
 	},
 
-	handleMovementTrace: function( res ) {
+	handleMovementTrace( res ) {
 		if( res.collision.x || res.collision.y ) {
 			this.bounceSound.play();
 		}
 		this.parent(res);
 	},
 
-	kill: function() {
+	kill() {
 		for( var i = 0; i < this.explosionParticles; i++ ) {
 			var x = this.pos.x
 				+ Math.random() * this.explosionRadius * 2
@@ -142,22 +142,22 @@ EntityBlastRadius = ig.Entity.extend({
 	damage: 20,
 	checkAgainst: ig.Entity.TYPE.B,
 	
-	init: function( x, y, settings ) {
+	constructor( x, y, settings ) {
 		var offset = settings.radius || this.radius;
 		this.size.x = this.size.y = offset * 2;
 		this.parent( x - offset, y - offset, settings );
 	},
 	
-	update: function() {
+	update() {
 		if( this.frame == 2 ) {
 			this.kill();
 		}
 		this.frame++;
 	},
 	
-	draw: function() {},
+	draw() {},
 	
-	check: function( other ) {
+	check( other ) {
 		if( this.frame != 1 ) { return; }
 
 		var f = 1 - (this.distanceTo(other) / this.radius); // normalize to 0..1 range
@@ -178,7 +178,7 @@ EntityGrenadeExplosion = tpf.Entity.extend({
 
 	animSheet: new ig.AnimationSheet( 'media/explosion.png', 32, 32 ),
 
-	init: function( x, y, settings ) {
+	constructor( x, y, settings ) {
 		var frameTime = Math.random() * 0.1 + 0.03;
 		this.addAnim( 'idle', frameTime, [0,1,2,3], true );
 		this.parent( x, y, settings );
@@ -186,12 +186,12 @@ EntityGrenadeExplosion = tpf.Entity.extend({
 		this.pos.z = Math.random() * 20;
 	},
 	
-	reset: function(x,y,settings) {
+	reset(x,y,settings) {
 		this.currentAnim.rewind();
 		this.parent(x,y,settings);
 	},
 
-	update: function() {
+	update() {
 		this.parent();
 		if( this.currentAnim.loopCount ) {
 			this.kill();

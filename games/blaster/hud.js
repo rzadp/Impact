@@ -1,23 +1,23 @@
-MyHud = tpf.Hud.extend({
+export class MyHud extends tpfHud{
 
-	font: new tpf.Font( 'media/fredoka-one.font.png' ),
+	font= new tpfFont( 'media/fredoka-one.font.png' );
 
-	healthIconImage: new ig.Image( 'media/health-icon.png' ),
-	damageIndicatorImage: new ig.Image( 'media/hud-blood-low.png' ),
-	healthIcon: null,
+	healthIconImage= new igImage( 'media/health-icon.png' );
+	damageIndicatorImage= new igImage( 'media/hud-blood-low.png' );
+	healthIcon= null;
 
-	keys: [],
+	keys= [];
 
-	showControlsTimer: null,
+	showControlsTimer= null;
 
-	init: function( width, height, showControls ) {
+	constructor( width, height, showControls ) {
 		this.parent(width, height);
 
 		this.healthIcon = new tpf.HudTile( this.healthIconImage, 0, 32, 32 );
 		this.healthIcon.setPosition( 96, this.height-this.healthIcon.tileHeight-4 );
-	},
+	}
 
-	draw: function( player, weapon ) {
+	draw( player, weapon ) {
 		this.prepare();
 
 		if( weapon ) {
@@ -37,4 +37,4 @@ MyHud = tpf.Hud.extend({
 		// Draw the current message (showMessage(text)) and the damage indicator
 		this.drawDefault();
 	}
-});
+};

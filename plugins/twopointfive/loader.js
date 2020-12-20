@@ -8,7 +8,7 @@ tpf.Loader = ig.Loader.extend({
 
 	barSize: {x: 16, y: 0.1},
 
-	load: function() {
+	load() {
 		var that = this;
 		this.blockImage = new ig.Image('media/loading-block.png');
 		this.blockImage.load( function(){
@@ -18,7 +18,7 @@ tpf.Loader = ig.Loader.extend({
 		});
 	},
 
-	createGeometry: function() {
+	createGeometry() {
 		this.loadingBarBackground = new tpf.Quad(this.barSize.x, this.barSize.y);
 		this.loadingBarBackground.setPosition(0, -8, 0);
 		this.loadingBarBackground.setColor({r: 0.1, g: 0.1, b: 0.1});
@@ -42,7 +42,7 @@ tpf.Loader = ig.Loader.extend({
 		this.blockFaces[3].quad.setRotation(0, Math.PI/2, 0);
 	},
 
-	draw: function() {
+	draw() {
 		if( !this.loadingBar ) {
 			this.createGeometry();
 		}
@@ -51,7 +51,7 @@ tpf.Loader = ig.Loader.extend({
 		ig.system.renderer.render(this.renderCallback.bind(this));
 	},
 
-	renderCallback: function() {
+	renderCallback() {
 		var renderer = ig.system.renderer;
 		var camera = ig.system.camera;
 		renderer.clear( true, true, true );

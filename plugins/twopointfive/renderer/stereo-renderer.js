@@ -1,21 +1,21 @@
 
-tpf.StereoRenderer = tpf.Renderer.extend({
-	eyes: {
+export class tpfStereoRenderer extends tpfRenderer{
+	eyes= {
 		left: {offset: 0, projection: null, viewport: {}, quad: null},
 		right: {offset: 0, projection: null, viewport: {}, quad: null}
-	},
+	};
 
-	sensorDevice: null,
-	hmdDevice: null,
-	vrMode: false,
-	currentEye: null,
+	sensorDevice= null;
+	hmdDevice= null;
+	vrMode= false;
+	currentEye= null;
 
-	worldScale: (32/1.80),
-	viewportFov: (110).toRad(),
-	hudFreelook: false,
-	hudDistance: 250,
+	worldScale= (32/1.80);
+	viewportFov= (110).toRad();
+	hudFreelook= false;
+	hudDistance= 250;
 
-	init: function( canvas, worldScale ) {
+	constructor( canvas, worldScale ) {
 		this.parent(canvas);
 
 		this.worldScale = worldScale || this.worldScale;
@@ -27,9 +27,9 @@ tpf.StereoRenderer = tpf.Renderer.extend({
 		} else {
 			alert('No WebVR support!');
 		}
-	},
+	}
 
-	enumerateVRDevices: function(devices) {
+	enumerateVRDevices(devices) {
 		// First find an HMD device
 		for( var i = 0; i < devices.length; i++ ) {
 			if( devices[i] instanceof HMDVRDevice ) {
@@ -55,9 +55,9 @@ tpf.StereoRenderer = tpf.Renderer.extend({
 		this.fullscreenFlags = { vrDisplay: this.hmdDevice };
 		ig.system.requestFullscreen();
 		this.setFov();
-	},
+	}
 
-	setFov: function() {
+	setFov() {
 		if( !this.hmdDevice ) { return; }
 		
 		var fovLeft, fovRight;
@@ -81,9 +81,9 @@ tpf.StereoRenderer = tpf.Renderer.extend({
 
 		this.eyes.left.projection = this.perspectiveMatrixFromVRFieldOfView(fovLeft, 0.1, 1000);
 		this.eyes.right.projection = this.perspectiveMatrixFromVRFieldOfView(fovRight, 0.1, 1000);
-	},
+	}
 
-	perspectiveMatrixFromVRFieldOfView: function(fov, zNear, zFar) {
+	perspectiveMatrixFromVRFieldOfView(fov, zNear, zFar) {
 		var out = mat4.create();
 		var upTan, downTan, leftTan, rightTan;
 		if (fov == null) {
@@ -123,9 +123,9 @@ tpf.StereoRenderer = tpf.Renderer.extend({
 		out[15] = 0.0;
 
 		return out;
-	},
+	}
 
-	setSize: function( width, height ) {
+	setSize( width, height ) {
 		this.canvas.width = width;
 		this.canvas.height = height;
 
@@ -135,17 +135,17 @@ tpf.StereoRenderer = tpf.Renderer.extend({
 
 		this.eyes.left.viewport = {x:0, y:0, width:width2, height:height};
 		this.eyes.right.viewport = {x:width2, y:0, width:width2, height:height};
-	},
+	}
 
 
-	_renderSceneForEye: function( eye, sceneCallback ) {
+	_renderSceneForEye( eye, sceneCallback ) {
 		this.gl.viewport(eye.viewport.x, eye.viewport.y, eye.viewport.width, eye.viewport.height);
 		this.currentEye = eye; // needed to override setCamera
 		sceneCallback(this);
 		this.flush();
-	},
+	}
 
-	render: function( sceneCallback ) {
+	render( sceneCallback ) {
 		if( !this.hmdDevice ) {
 			return this.parent(sceneCallback);
 		}
@@ -162,9 +162,9 @@ tpf.StereoRenderer = tpf.Renderer.extend({
 		this.quadCount = this._currentQuadCount;
 		this._currentDrawCalls = 0;
 		this._currentQuadCount = 0;
-	},
+	}
 
-	setCamera: function( camera ) {
+	setCamera( camera ) {
 		this.flush();
 
 		var projection = camera.projection();
@@ -223,17 +223,17 @@ tpf.StereoRenderer = tpf.Renderer.extend({
 				this.gl.disable(this.gl.DEPTH_TEST);	
 			}
 		}
-	},
-	HMDRotation: 0,
-	lastHMDRotation: 0,
+	}
+	HMDRotation= 0;
+	lastHMDRotation= 0;
 
-	reset: function() {
+	reset() {
 		if( this.sensorDevice ) {
 			this.sensorDevice.zeroSensor();
 		}
-	},
+	}
 
-	getHMDState: function() {
+	getHMDState() {
 		var state = {
 			position: [0,0,0],
 			rotation: [0,0,0]
@@ -275,9 +275,9 @@ tpf.StereoRenderer = tpf.Renderer.extend({
 		}
 
 		return state;
-	},
-});
-
-tpf.StereoRenderer.hasWebVR = function() {
-	return navigator.getVRDevices || navigator.mozGetVRDevices;
-}
+  }
+  
+  static hasWebVR() {
+    return navigator.getVRDevices || navigator.mozGetVRDevices;
+  }
+};

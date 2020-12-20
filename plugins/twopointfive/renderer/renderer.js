@@ -1,21 +1,81 @@
 
-tpf.Renderer = ig.Class.extend({
-	bufferSize: 64, // 64 Quads
-	buffer: null,
-	texture: null,
-	bufferIndex: 0,
-	gl: null,
-	drawCalls: 0,
-	_currentDrawCalls: 0,
-	_currentQuadCount: 0,
+export class tpfRenderer {
+	bufferSize= 64; // 64 Quads
+	buffer= null;
+	texture= null;
+	bufferIndex= 0;
+	gl= null;
+	drawCalls= 0;
+	_currentDrawCalls= 0;
+	_currentQuadCount= 0;
+	depthTest= true;
+	wireframe= false;
+	fog= null;
+  fullscreenFlags= {};
+  
+  static Shaders = {
+    Vertex: [
+      "precision highp float;",
+  
+      "attribute vec3 pos;",
+      "attribute vec2 uv;",
+      "attribute vec4 color;",
+  
+      "varying vec4 vColor;",
+      "varying vec2 vUv;",
+  
+      "uniform mat4 view;",
+      "uniform mat4 projection;",
+  
+      "void main(void) {",
+        "vColor = color;",
+        "vUv = uv;",
+        "gl_Position = projection * view * vec4(pos, 1.0);",
+  
+      "}"
+    ].join('\n'),
+  
+    Fragment: [
+      "precision highp float;",
+  
+      "varying vec4 vColor;",
+      "varying vec2 vUv;",
+  
+      "uniform sampler2D texture;",
+  
+      "void main(void) {",
+        "vec4 tex = texture2D(texture, vUv);",
+        "if( tex.a < 0.8 ) discard;",
+        "gl_FragColor =  tex * vColor;",
+      "}"
+    ].join('\n'),
+  
+    FragmentWithFog: [
+      "precision highp float;",
+  
+      "varying vec4 vColor;",
+      "varying vec2 vUv;",
+  
+      "uniform sampler2D texture;",
+  
+      "uniform vec3 fogColor;",
+      "uniform float fogNear;",
+      "uniform float fogFar;",
+  
+      "void main(void) {",
+        "float depth = gl_FragCoord.z / gl_FragCoord.w;",
+        "float fogFactor = smoothstep( fogFar, fogNear, depth );",
+        "fogFactor = 1.0 - clamp( fogFactor, 0.2, 1.0);",
+  
+        "vec4 tex = texture2D(texture, vUv);",
+        "if( tex.a < 0.8 ) discard;",
+        "gl_FragColor =  tex * vColor;",
+        "gl_FragColor.rgb = mix( gl_FragColor.rgb, fogColor.rgb, fogFactor);",
+      "}"
+    ].join('\n')
+  }
 
-	depthTest: true,
-	wireframe: false,
-
-	fog: null,
-	fullscreenFlags: {},
-
-	init: function( canvas ) {
+	constructor( canvas ) {
 		this.canvas = canvas;
 		var webglOptions = {
 			alpha: false, 
@@ -43,9 +103,9 @@ tpf.Renderer = ig.Class.extend({
 		this.prepare();
 		this.whiteTexture = this.loadTexture(new Uint8Array([0xff,0xff,0xff,0xff]),1,1);
 		this.setProgram( this.programDefault );
-	},
+	}
 
-	setFog: function( color, near, far ) {
+	setFog( color, near, far ) {
 		if( color === false || typeof color === 'undefined' ) {
 			this.setProgram( this.programDefault, true );
 			this.fog = null;
@@ -67,15 +127,15 @@ tpf.Renderer = ig.Class.extend({
 			this.gl.uniform1f(this.program.uniform.fogNear, near);
 			this.gl.uniform1f(this.program.uniform.fogFar, far);
 		}
-	},
+	}
 
-	setSize: function( width, height ) {
+	setSize( width, height ) {
 		this.width = width;
 		this.height = height;
 		this.gl.viewport(0, 0, this.width, this.height);
-	},
+	}
 
-	loadTexture: function( img, width, height ) {
+	loadTexture( img, width, height ) {
 		var texture = this.gl.createTexture();
 
 		this.gl.bindTexture(this.gl.TEXTURE_2D, texture);
@@ -96,17 +156,17 @@ tpf.Renderer = ig.Class.extend({
 		this.gl.bindTexture(this.gl.TEXTURE_2D, null);
 		this.texture = null;
 		return texture;
-	},
+	}
 
-	clear: function( color, depth, stencil ) {
+	clear( color, depth, stencil ) {
 		this.gl.clear( 
 			(color ? this.gl.COLOR_BUFFER_BIT : 0) | 
 			(depth ? this.gl.DEPTH_BUFFER_BIT : 0) | 
 			(stencil ? this.gl.STENCIL_BUFFER_BIT : 0)
 		);
-	},
+	}
 
-	prepare: function() {
+	prepare() {
 		this.gl.enable(this.gl.DEPTH_TEST);
 		this.gl.enable(this.gl.BLEND);
 		this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
@@ -125,9 +185,9 @@ tpf.Renderer = ig.Class.extend({
 
 		this.gl.enableVertexAttribArray(this.program.attribute.color);
 		this.gl.vertexAttribPointer(this.program.attribute.color, 4, this.gl.FLOAT, false, vertSize, 5 * floatSize);
-	},
+	}
 
-	flush: function() {
+	flush() {
 		if( this.bufferIndex == 0 ) { return; }
 
 		this._currentDrawCalls++;
@@ -135,9 +195,9 @@ tpf.Renderer = ig.Class.extend({
 		this.gl.bufferData(this.gl.ARRAY_BUFFER, this.buffer, this.gl.DYNAMIC_DRAW);
 		this.gl.drawArrays(this.gl.TRIANGLES, 0, this.bufferIndex * tpf.Quad.VERTICES);
 		this.bufferIndex = 0;
-	},
+	}
 
-	render: function( callback ) {
+	render( callback ) {
 		if( this.wireframe ) {
 			this.clear(true,true,true)
 		}
@@ -149,9 +209,9 @@ tpf.Renderer = ig.Class.extend({
 		this.quadCount = this._currentQuadCount;
 		this._currentDrawCalls = 0;
 		this._currentQuadCount = 0;
-	},
+	}
 
-	setCamera: function( camera ) {
+	setCamera( camera ) {
 		this.flush();
 		this.gl.uniformMatrix4fv(this.program.uniform.projection, false, camera.projection());
 		this.gl.uniformMatrix4fv(this.program.uniform.view, false, camera.view());
@@ -165,9 +225,9 @@ tpf.Renderer = ig.Class.extend({
 				this.gl.disable(this.gl.DEPTH_TEST);	
 			}
 		}
-	},
+	}
 
-	setTexture: function(texture) {
+	setTexture(texture) {
 		texture = texture || this.whiteTexture;
 		if( texture == this.texture ) {
 			return;
@@ -176,9 +236,9 @@ tpf.Renderer = ig.Class.extend({
 		this.flush();
 		this.texture = texture;
 		this.gl.bindTexture(this.gl.TEXTURE_2D, texture);
-	},
+	}
 	
-	setProgram: function(program, force) {
+	setProgram(program, force) {
 		if( program == this.program && !force ) {
 			return;
 		}
@@ -186,9 +246,9 @@ tpf.Renderer = ig.Class.extend({
 		this.flush();
 		this.program = program;
 		this.gl.useProgram(this.program.program);
-	},
+	}
 
-	pushQuad: function(quad) {
+	pushQuad(quad) {
 		this.setTexture(quad.texture);
 		if( this.bufferIndex + 1 >= this.bufferSize ) {
 			this.flush();
@@ -196,9 +256,9 @@ tpf.Renderer = ig.Class.extend({
 
 		quad.copyToBuffer( this.buffer, this.bufferIndex * tpf.Quad.SIZE );
 		this.bufferIndex++;
-	},
+	}
 
-	pushMesh: function(mesh) {
+	pushMesh(mesh) {
 		// Meshes are drawn immediately; flush out all previous quads
 		this.flush();
 
@@ -211,66 +271,4 @@ tpf.Renderer = ig.Class.extend({
 		var polygonMode = this.wireframe ? this.gl.LINES : this.gl.TRIANGLES;
 		this.gl.drawArrays(polygonMode, 0, mesh.length * tpf.Quad.VERTICES);
 	}
-});
-
-tpf.Renderer.Shaders = {
-	Vertex: [
-		"precision highp float;",
-
-		"attribute vec3 pos;",
-		"attribute vec2 uv;",
-		"attribute vec4 color;",
-
-		"varying vec4 vColor;",
-		"varying vec2 vUv;",
-
-		"uniform mat4 view;",
-		"uniform mat4 projection;",
-
-		"void main(void) {",
-			"vColor = color;",
-			"vUv = uv;",
-			"gl_Position = projection * view * vec4(pos, 1.0);",
-
-		"}"
-	].join('\n'),
-
-	Fragment: [
-		"precision highp float;",
-
-		"varying vec4 vColor;",
-		"varying vec2 vUv;",
-
-		"uniform sampler2D texture;",
-
-		"void main(void) {",
-			"vec4 tex = texture2D(texture, vUv);",
-			"if( tex.a < 0.8 ) discard;",
-			"gl_FragColor =  tex * vColor;",
-		"}"
-	].join('\n'),
-
-	FragmentWithFog: [
-		"precision highp float;",
-
-		"varying vec4 vColor;",
-		"varying vec2 vUv;",
-
-		"uniform sampler2D texture;",
-
-		"uniform vec3 fogColor;",
-		"uniform float fogNear;",
-		"uniform float fogFar;",
-
-		"void main(void) {",
-			"float depth = gl_FragCoord.z / gl_FragCoord.w;",
-			"float fogFactor = smoothstep( fogFar, fogNear, depth );",
-			"fogFactor = 1.0 - clamp( fogFactor, 0.2, 1.0);",
-
-			"vec4 tex = texture2D(texture, vUv);",
-			"if( tex.a < 0.8 ) discard;",
-			"gl_FragColor =  tex * vColor;",
-			"gl_FragColor.rgb = mix( gl_FragColor.rgb, fogColor.rgb, fogFactor);",
-		"}"
-	].join('\n')
 };

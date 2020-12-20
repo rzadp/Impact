@@ -2,13 +2,13 @@
 // tpf.Tile encapsulates a tpf.Quad and provides a method to set a tile number directly, 
 // instead of specifying raw UV coords, and a function to draw itself.
 
-tpf.Tile = ig.Class.extend({
-	tile: -1,
-	scale: 0,
-	image: null,
-	quad: null,
+export class tpfTile {
+	tile= -1;
+	scale= 0;
+	image= null;
+	quad= null;
 	
-	init: function( image, tile, tileWidth, tileHeight, scale ) {
+	constructor( image, tile, tileWidth, tileHeight, scale ) {
 		this.scale = scale || 1;
 		this.image = image;
 		this.tileWidth = tileWidth;
@@ -21,9 +21,9 @@ tpf.Tile = ig.Class.extend({
 		);
 
 		this.setTile( tile || 0 );
-	},	
+	}
 
-	setTile: function( t ) {
+	setTile( t ) {
 		if( t == this.tile ) { return; }
 		this.tile = t;
 
@@ -37,9 +37,9 @@ tpf.Tile = ig.Class.extend({
 			wy = this.tileHeight / this.image.textureHeight;
 
 		this.quad.setUV(px, py + wy, px + wx, py);
-	},
+	}
 	
-	setTileInBuffer: function(buffer, offset, t) {
+	setTileInBuffer(buffer, offset, t) {
 		var tileSpacing = this.image.seamsExpanded ? 2 : 0,
 			tx = t % Math.floor(this.image.width / this.tileWidth),
 			ty = Math.floor(t / Math.floor(this.image.width / this.tileWidth));
@@ -50,12 +50,12 @@ tpf.Tile = ig.Class.extend({
 			wy = this.tileHeight / this.image.textureHeight;
 
 		tpf.Quad.setUVInBuffer(buffer, offset, px, py + wy, px + wx, py);
-	},
+	}
 
-	draw: function() {
+	draw() {
 		ig.system.renderer.pushQuad(this.quad);
 	}
-});
+};
 
 
 
@@ -93,7 +93,7 @@ tpf.TileMesh.prototype.updateAnimations = function() {
 
 
 tpf.HudTile = tpf.Tile.extend({	
-	init: function( image, tile, tileWidth, tileHeight ) {
+	constructor( image, tile, tileWidth, tileHeight ) {
 		this.image = image;
 		this.tileWidth = tileWidth;
 		this.tileHeight = tileHeight || tileWidth;
@@ -102,7 +102,7 @@ tpf.HudTile = tpf.Tile.extend({
 		this.setTile( tile || 0 );
 	},
 
-	setTile: function( t ) {
+	setTile( t ) {
 		if( t == this.tile ) { return; }
 		this.tile = t;
 
@@ -115,11 +115,11 @@ tpf.HudTile = tpf.Tile.extend({
 		this.quad.setUV(tx, 1-(ty+wy), tx+wx, 1-ty);
 	},
 	
-	setPosition: function( x, y ) {
+	setPosition( x, y ) {
 		this.quad.setPosition(x + this.tileWidth/2, y + this.tileHeight/2, 0);
 	},
 
-	setAlpha: function( a ) {
+	setAlpha( a ) {
 		this.quad.setAlpha(a.limit(0,1));
 	}
 });

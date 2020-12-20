@@ -1,6 +1,6 @@
 
 tpf.Game.inject({
-	draw: function() {
+	draw() {
 		ig.graph.beginClock('draw');
 		this.parent();
 		ig.graph.endClock('draw');
@@ -16,7 +16,7 @@ tpf.Game.inject({
 
 
 tpf.CulledSectors.inject({
-	drawEntities: function(visibleSectors) {
+	drawEntities(visibleSectors) {
 		if( tpf.CulledSectors._debugDrawEntities ) {
 			this.parent(visibleSectors);
 		}

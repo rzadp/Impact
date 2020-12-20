@@ -20,7 +20,7 @@ var MyGame = tpf.Game.extend({
 	powerupSpawnWait: 8,
 	powerupSpawnTimer: null,
 	
-	init: function() {
+	constructor() {
 		// Setup HTML Checkboxes and mouse lock on click
 		if( !ig.ua.mobile ) {
 			ig.$('#requestFullscreen').addEventListener('click', function( ev ) {
@@ -59,11 +59,11 @@ var MyGame = tpf.Game.extend({
 		this.setTitle();
 	},
 
-	setTitle: function() {
+	setTitle() {
 		this.menu = new MyTitle();
 	},
 
-	setGame: function() {
+	setGame() {
 		this.menu = null;
 		this.dead = false;
 		this.hud = new MyHud( 640, 480 );
@@ -77,7 +77,7 @@ var MyGame = tpf.Game.extend({
 		this.loadLevel( this.lastLevel || LevelBase1 );
 	},
 	
-	setupDesktopControls: function() {
+	setupDesktopControls() {
 		// Setup keyboard & mouse controls
 		ig.input.bind( ig.KEY.UP_ARROW, 'forward' );
 		ig.input.bind( ig.KEY.LEFT_ARROW, 'left' );
@@ -117,7 +117,7 @@ var MyGame = tpf.Game.extend({
 		ig.input.bind( ig.GAMEPAD.FACE_2, 'weaponPrev' );
 	},
 
-	setupTouchControls: function() {
+	setupTouchControls() {
 		if( this.touchButtons ) { this.touchButtons.remove(); }
 		if( this.touchFieldMove ) { this.touchFieldMove.remove(); }
 		if( this.touchFieldTurn ) { this.touchFieldTurn.remove(); }
@@ -133,7 +133,7 @@ var MyGame = tpf.Game.extend({
 		this.touchFieldTurn = new ig.TouchField(ig.system.width/2, 0, ig.system.width/2, ig.system.height/4*3);
 	},
 
-	loadLevel: function( data ) {
+	loadLevel( data ) {
 		this.lastLevel = data;
 		this.clearColor = null;
 
@@ -164,7 +164,7 @@ var MyGame = tpf.Game.extend({
 	},
 
 	
-	update: function() {
+	update() {
 		// Reset tracking position for WebVR on button press
 		if( ig.input.pressed('reset-tracking') && ig.system.renderer instanceof tpf.StereoRenderer ) {
 			ig.system.renderer.reset();
@@ -211,7 +211,7 @@ var MyGame = tpf.Game.extend({
 		}
 	},
 
-	spawnBlob: function() {
+	spawnBlob() {
 		var spawnPos = null,
 			playerPos = this.player.pos;
 
@@ -230,7 +230,7 @@ var MyGame = tpf.Game.extend({
 		this.blobSpawnTimer.set( Math.max(this.blobSpawnWaitCurrent, 0.5) );
 	},
 
-	spawnPowerup: function() {
+	spawnPowerup() {
 		// 1/3 chance for health, 2/3 chance for grenades
 		var powerups = [EntityHealthPickup, EntityGrenadePickup, EntityGrenadePickup];
 		var entityClass = powerups.random();
@@ -241,7 +241,7 @@ var MyGame = tpf.Game.extend({
 		this.powerupSpawnTimer.reset();
 	},
 
-	getRandomSpawnPos: function() {
+	getRandomSpawnPos() {
 		// This randomly probes the floor map and stops at the first tile
 		// that is set. If the floor map is empty, this results in an 
 		// endless loop, so... better have a floor map in your level!
@@ -256,15 +256,15 @@ var MyGame = tpf.Game.extend({
 		}
 	},
 	
-	showDeathAnim: function() {
+	showDeathAnim() {
 		this.deathAnimTimer = new ig.Timer( 1 );
 	},
 
-	drawWorld: function() {
+	drawWorld() {
 		this.parent();
 	},
 
-	drawHud: function() {
+	drawHud() {
 		ig.system.renderer.hudFreelook = false;
 		if( this.player ) {
 			ig.game.hud.draw(this.player, this.player.currentWeapon);

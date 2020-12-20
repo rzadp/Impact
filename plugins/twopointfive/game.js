@@ -5,7 +5,7 @@ tpf.Game = ig.Game.extend({
 	sectorSize: 4,
 	clearColor: null,
 
-	clearLevel: function() {
+	clearLevel() {
 		for( var i = 0; i < this.entities.length; i++ ) {
 			if( this.entities[i] instanceof tpf.Entity ) {
 				this.entities[i].remove();
@@ -22,7 +22,7 @@ tpf.Game = ig.Game.extend({
 	},
 
 
-	loadLevel: function( data ) {
+	loadLevel( data ) {
 		this.clearLevel();
 		
 		// Map Layer
@@ -76,11 +76,11 @@ tpf.Game = ig.Game.extend({
 		}
 	},
 	
-	draw: function() {
+	draw() {
 		ig.system.renderer.render(this.drawCallback.bind(this));
 	},
 
-	drawCallback: function(renderer) {
+	drawCallback(renderer) {
 		if( this.clearColor ) {
 			var c = this.clearColor;
 			ig.system.renderer.gl.clearColor(c[0],c[1],c[2],1);
@@ -95,7 +95,7 @@ tpf.Game = ig.Game.extend({
 		if( fog ) { ig.system.renderer.setFog( fog.color, fog.near, fog.far ); }
 	},
 
-	drawWorld: function() {
+	drawWorld() {
 		if( !this.culledSectors ) {
 			return;
 		}
@@ -113,5 +113,5 @@ tpf.Game = ig.Game.extend({
 		this.culledSectors.draw(cx, cy, cullAngle, fov);
 	},
 
-	drawHud: function() {}
+	drawHud() {}
 });

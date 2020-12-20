@@ -19,38 +19,38 @@
 // call the CulledSectors' .moveEntity() function to notify the sector of 
 // the movement.
 
-tpf.CulledSectors = ig.Class.extend({
-	sectorSize: 4,
-	tilesize: 8,
+export class tpfCulledSectors {
+	sectorSize= 4;
+	tilesize= 8;
 
-	sectors: {},
-	numSectors: 0,
+	sectors= {};
+	numSectors= 0;
 
-	sectorsTraversed: 0,
+	sectorsTraversed= 0;
 	
-	init: function( fillMap, geometryMaps, sectorSize ) {
+	constructor( fillMap, geometryMaps, sectorSize ) {
 
 		this.sectorSize = sectorSize || 4;
 		this.tilesize = fillMap.tilesize;
 
 		this.generateSectors(sectorSize, fillMap, geometryMaps);
-	},
+	}
 
-	draw: function(cx, cy, angle, fov) {
+	draw(cx, cy, angle, fov) {
 		var visibleSectors = this.collectVisibleSectors(cx, cy, angle, fov);
 
 		this.drawWorld(visibleSectors);
 		this.drawEntities(visibleSectors);
-	},
+	}
 
-	drawWorld: function(visibleSectors) {
+	drawWorld(visibleSectors) {
 		for( var s in visibleSectors ) {
 			visibleSectors[s].world.updateAnimations();
 			ig.system.renderer.pushMesh(visibleSectors[s].world);
 		}
-	},
+	}
 
-	drawEntities: function(visibleSectors) {
+	drawEntities(visibleSectors) {
 		var defferedDraw = [];
 
 		for( var s in visibleSectors ) {
@@ -73,9 +73,9 @@ tpf.CulledSectors = ig.Class.extend({
 		for( var i = 0; i < defferedDraw.length; i++ ) {
 			defferedDraw[i].draw();
 		}
-	},
+	}
 
-	collectVisibleSectors: function( cx, cy, angle, fov ) {
+	collectVisibleSectors( cx, cy, angle, fov ) {
 		this.sectorsTraversed = 0;
 		var visibleSectors = {};
 
@@ -101,9 +101,9 @@ tpf.CulledSectors = ig.Class.extend({
 		// with the given frustum into 'visibleSectors', starting in 'sector'.
 		this.traverseSector( sector, viewFrustum, null, visibleSectors );
 		return visibleSectors;
-	},
+	}
 	
-	moveEntity: function( ent ) {
+	moveEntity( ent ) {
 		var tt = (this.sectorSize*this.tilesize);
 		var newsx = ((ent.pos.x + ent.size.x/2) / tt)|0,
 			newsy = ((ent.pos.y + ent.size.y/2) / tt)|0;
@@ -119,34 +119,34 @@ tpf.CulledSectors = ig.Class.extend({
 		this.addEntityToSector( newsx, newsy, ent );
 		ent.__sectorX = newsx;
 		ent.__sectorY = newsy;
-	},
+	}
 
-	removeEntity: function( ent ) {
+	removeEntity( ent ) {
 		if( ent.__sectorX !== null && ent.__sectorY !== null ) {
 			this.removeEntityFromSector( ent.__sectorX, ent.__sectorY, ent );
 		}
 		ent.__sectorX = null;
 		ent.__sectorY = null;
-	},
+	}
 	
-	addEntityToSector: function( sx, sy, ent ) {
+	addEntityToSector( sx, sy, ent ) {
 		if( !this.sectors[sy] ) { return; }
 		
 		var sector = this.sectors[sy][sx];
 		if( !sector ) { return; }
 		
 		sector.entities[ent.id] = ent;
-	},
+	}
 	
-	removeEntityFromSector: function( sx, sy, ent ) {
+	removeEntityFromSector( sx, sy, ent ) {
 		if( !this.sectors[sy] ) { return; }
 		
 		var sector = this.sectors[sy][sx];
 		if( !sector ) { return; }
 		delete sector.entities[ent.id];
-	},
+	}
 
-	traverseSector: function( sector, frustum, from, visibleSectors ) {
+	traverseSector( sector, frustum, from, visibleSectors ) {
 		visibleSectors[sector.id] = sector;
 		this.sectorsTraversed++;
 
@@ -162,13 +162,13 @@ tpf.CulledSectors = ig.Class.extend({
 				}
 			}
 		}
-	},
+	}
 
-	pointToSideOfRay: function( x, y, rsx, rsy, rex, rey ) {
+	pointToSideOfRay( x, y, rsx, rsy, rex, rey ) {
 		return (y-rsy)*(rex-rsx) - (x-rsx)*(rey-rsy); 
-	},
+	}
 
-	frustumThroughPortal: function( portal, frustum ) {
+	frustumThroughPortal( portal, frustum ) {
 		
 		var side = this.pointToSideOfRay; // Shorter local name
 
@@ -237,10 +237,10 @@ tpf.CulledSectors = ig.Class.extend({
 			: { cx: frustum.cx, cy: frustum.cy, x1: nfx2, y1: nfy2, x2: nfx1, y2: nfy1 };
 
 		return narrowedFrustum;
-	},
+	}
 	
 
-	generateSectors: function( sectorSize, fillMap, geometryMaps ) {
+	generateSectors( sectorSize, fillMap, geometryMaps ) {
 		// Divide the map into sectors of 'sectorSize' tiles. At each
 		// sector edge, we insert a portal if there's a floor tile
 		// left & right of the edge.
@@ -317,9 +317,9 @@ tpf.CulledSectors = ig.Class.extend({
 				}
 			}
 		}
-	},
+	}
 
-	createSectorIfNeeded: function( x, y, maps ) {
+	createSectorIfNeeded( x, y, maps ) {
 		// Sector already created?
 		if( !this.sectors[y] ) { 
 			this.sectors[y] = {}; 
@@ -331,9 +331,9 @@ tpf.CulledSectors = ig.Class.extend({
 		var s = this.createSector(x, y, maps);
 		this.sectors[y][x] = s;
 		return s;
-	},
+	}
 
-	createSector: function( x, y, maps ) {
+	createSector( x, y, maps ) {
 		// Gather geometry from all maps
 		var geometry = [],
 			tx = x * this.sectorSize,
@@ -355,10 +355,10 @@ tpf.CulledSectors = ig.Class.extend({
 			world: mesh,
 			entities: {}
 		};
-	},
+	}
 
-	addPortal: function( px1, py1, px2, py2, s1, s2 ) {
+	addPortal( px1, py1, px2, py2, s1, s2 ) {
 		s1.portals.push({x1: px1, y1: py1, x2: px2, y2: py2, to: s2});
 		s2.portals.push({x1: px1, y1: py1, x2: px2, y2: py2, to: s1});
 	}
-});
+};

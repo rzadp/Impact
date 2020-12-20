@@ -22,7 +22,7 @@ tpf.Entity = ig.Entity.extend({
 	__sectorX: null,
 	__sectorY: null,
 
-	init: function( x, y, settings ) {
+	constructor( x, y, settings ) {
 		this.parent( x, y, settings );
 
 		if( ig.global.wm ) {
@@ -42,18 +42,18 @@ tpf.Entity = ig.Entity.extend({
 		ig.game.culledSectors.moveEntity(this);
 	},
 	
-	reset: function( x, y, settings ) {
+	reset( x, y, settings ) {
 		this.parent( x, y, settings );
 		ig.game.culledSectors.moveEntity(this);
 		this.updateQuad();
 	},
 	
-	kill: function() {
+	kill() {
 		this.parent();
 		this.remove();
 	},
 
-	handleMovementTrace: function( res ) {
+	handleMovementTrace( res ) {
 		// Impact's handleMovementTrace may omit the z position,
 		// so remember it here and re-set it afterwards
 		var z = this.pos.z;
@@ -61,11 +61,11 @@ tpf.Entity = ig.Entity.extend({
 		this.pos.z = z;
 	},
 
-	remove: function() {		
+	remove() {		
 		ig.game.culledSectors.removeEntity(this);
 	},
 
-	updateQuad: function() {
+	updateQuad() {
 		if( this.tile && this.currentAnim ) {
 			this.tile.setTile( this.currentAnim.tile );
 			
@@ -102,7 +102,7 @@ tpf.Entity = ig.Entity.extend({
 		}
 	},
 
-	canSee: function( other ) {
+	canSee( other ) {
 		// Trace a line to the player to check if we have a line of sight
 		var sx = this.pos.x+this.size.x/2,
 			sy = this.pos.y+this.size.y/2;
@@ -115,7 +115,7 @@ tpf.Entity = ig.Entity.extend({
 		return ( !res.collision.x && !res.collision.y );			
 	},
 
-	update: function() {
+	update() {
 		this.last.x = this.pos.x;
 		this.last.y = this.pos.y;
 		
@@ -152,12 +152,12 @@ tpf.Entity = ig.Entity.extend({
 		this.updateQuad();
 	},
 	
-	setLight: function( color ) {
+	setLight( color ) {
 		if( !this.tile ) { return; }
 		this.tile.quad.setColor(color);
 	},
 
-	draw: function() {
+	draw() {
 		if( ig.global.wm ) {
 			return;
 		}

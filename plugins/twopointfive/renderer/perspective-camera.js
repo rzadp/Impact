@@ -1,14 +1,13 @@
+export class tpfPerspectiveCamera {
+	_projection= null;
+	_view= null;
 
-tpf.PerspectiveCamera = ig.Class.extend({
-	_projection: null, 
-	_view: null,
+	position= null;
+	rotation= null;
+	aspect= 1;
+	depthTest= true;
 
-	position: null,
-	rotation: null,
-	aspect: 1,
-	depthTest: true,
-
-	init: function( fov, aspect, near, far ) {
+	constructor( fov, aspect, near, far ) {
 		this._projection = mat4.create();
 		this._view = mat4.create();
 		this.position = vec3.create();
@@ -16,25 +15,25 @@ tpf.PerspectiveCamera = ig.Class.extend({
 
 		mat4.perspective(this._projection, fov.toRad(), aspect, near, far);
 		this.aspect = aspect;
-	},
+	}
 
-	setRotation: function( x, y, z ) {
+	setRotation( x, y, z ) {
 		this.rotation[0] = x;
 		this.rotation[1] = z;
 		this.rotation[2] = y;
-	},
+	}
 
-	setPosition: function( x, y, z ) {
+	setPosition( x, y, z ) {
 		this.position[0] = x;
 		this.position[1] = z;
 		this.position[2] = y;
-	},
+	}
 
-	projection: function() {
+	projection() {
 		return this._projection;
-	},
+	}
 
-	view: function() {
+	view() {
 		var m = this._view;
 		var rot = this.rotation;
 		
@@ -48,4 +47,4 @@ tpf.PerspectiveCamera = ig.Class.extend({
 		
 		return m;
 	}
-});
+};

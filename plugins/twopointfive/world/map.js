@@ -3,7 +3,7 @@ tpf.Map = ig.BackgroundMap.extend({
 	tileData: {},
 	yOffset: 0,
 	
-	init: function( tilesize, data, tileset, orientation, anims ) {
+	constructor( tilesize, data, tileset, orientation, anims ) {
 		this.parent( tilesize, data, tileset );
 
 		if( tpf.Map.fixTileSeams ) {
@@ -30,13 +30,13 @@ tpf.Map = ig.BackgroundMap.extend({
 		}
 	},
 
-	draw: function() {}, // Maps are drawn by tpf.CulledSectors
+	draw() {}, // Maps are drawn by tpf.CulledSectors
 	
-	hasTile: function( x, y ) {
+	hasTile( x, y ) {
 		return (x >= 0 && y >= 0 && this.data[y] && this.data[y][x]);
 	},
 	
-	createTileAtPosition: function( tile, x, y, anim ) {
+	createTileAtPosition( tile, x, y, anim ) {
 		var t = new tpf.Tile( this.tiles, tile, this.tilesize );
 		t.quad.setPosition(
 			x * this.tilesize + this.tilesize/2,
@@ -48,7 +48,7 @@ tpf.Map = ig.BackgroundMap.extend({
 		return t;
 	},
 	
-	applyLightMap: function( lightMap ) {
+	applyLightMap( lightMap ) {
 		for( var y in this.tileData ) {
 			for( var x in this.tileData[y] ) {
 				var tile = this.tileData[y][x],
@@ -59,7 +59,7 @@ tpf.Map = ig.BackgroundMap.extend({
 		}
 	},
 
-	getTilesInRect: function( xs, ys, w, h ) {
+	getTilesInRect( xs, ys, w, h ) {
 		var tiles = [];
 		for( var y = ys; y < ys + h; y++ ) {
 			if( !this.tileData[y] ) { continue; }

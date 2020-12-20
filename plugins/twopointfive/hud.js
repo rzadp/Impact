@@ -1,24 +1,24 @@
 
-tpf.Hud = ig.Class.extend({
-	width: 320,
-	height: 240,
+export class tpfHud {
+	width= 320;
+	height= 240;
 
-	font: null,
+	font= null;
 
-	damageIndicatorImage: null,
-	damageIndicator: null,
-	damageTimer: null,
+	damageIndicatorImage= null;
+	damageIndicator= null;
+	damageTimer= null;
 
-	fadeScreen: null,
+	fadeScreen= null;
 
-	message: null,
-	messageTimer: null,
+	message= null;
+	messageTimer= null;
 
-	fadeToWhite: 0,
+	fadeToWhite= 0;
 
-	debug: true,
+	debug= true;
 
-	init: function( width, height ) {
+	constructor( width, height ) {
 		this.width = width;
 		this.height = height;
 
@@ -34,9 +34,9 @@ tpf.Hud = ig.Class.extend({
 			this.damageIndicator = new tpf.HudTile( this.damageIndicatorImage, 0, 160, 120);
 			this.damageIndicator.setPosition( 0, 0 );
 		}
-	},
+	}
 
-	showMessage: function( text, time ) {
+	showMessage( text, time ) {
 		if( text ) {
 			if( time !== -1 ) {
 				this.messageTimer = new ig.Timer( tpf.Hud.TIME.DEFAULT || time );
@@ -47,20 +47,20 @@ tpf.Hud = ig.Class.extend({
 			this.messageTimer = null;
 			this.message = null;
 		}
-	},
+	}
 
-	showDamageIndicator: function( x, y, initialAlpha ) {
+	showDamageIndicator( x, y, initialAlpha ) {
 		if( this.damageIndicator ) {
 			this.damageIndicator.setPosition( x, y );
 			this.damageTimer = new ig.Timer( initialAlpha );
 		}
-	},
+	}
 
-	prepare: function() {
+	prepare() {
 		ig.system.renderer.setCamera(this.camera);
-	},
+	}
 
-	drawDefault: function() {
+	drawDefault() {
 		if( this.messageTimer && this.messageTimer.delta() > 0 ) {
 			this.showMessage( null );
 		}
@@ -84,15 +84,15 @@ tpf.Hud = ig.Class.extend({
 			this.fadeScreen.setAlpha( this.fadeToWhite );
 			ig.system.renderer.pushQuad(this.fadeScreen);
 		}
-	},
+	}
 
-	draw: function() {
+	draw() {
 		this.prepare();
 		this.drawDefault();
-	}
-});
-
-tpf.Hud.TIME = {
-	DEFAULT: 2,
-	PERMANENT: -1
+  }
+  
+  static TIME = {
+    DEFAULT: 2,
+    PERMANENT: -1
+  };
 };

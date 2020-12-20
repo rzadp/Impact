@@ -1,6 +1,6 @@
 
 tpf.WallMap = tpf.Map.extend({
-	createTileAtPosition: function( tile, x, y, anim ) {
+	createTileAtPosition( tile, x, y, anim ) {
 		
 		// We need 4 tiles, one for each side of the block		
 		var tiles = {};
@@ -23,7 +23,7 @@ tpf.WallMap = tpf.Map.extend({
 		return tiles;
 	},
 	
-	applyLightMap: function( lightMap ) {
+	applyLightMap( lightMap ) {
 		for( var y in this.tileData ) {
 			for( var x in this.tileData[y] ) {
 				
@@ -39,7 +39,7 @@ tpf.WallMap = tpf.Map.extend({
 		}
 	},
 	
-	getTilesInRect: function( xs, ys, w, h ) {
+	getTilesInRect( xs, ys, w, h ) {
 		var tiles = [];
 
 		for( var y = ys; y < ys + h; y++ ) {			
@@ -66,7 +66,7 @@ tpf.WallMap = tpf.Map.extend({
 	// Typically, all walls that are visible are connected to floor tiles,
 	// so we can safely remove those that are not.
 	
-	eraseDisconnectedWalls: function( floorMap ) {
+	eraseDisconnectedWalls( floorMap ) {
 		for( var y in this.tileData ) {
 			for( var x in this.tileData[y] ) {
 				

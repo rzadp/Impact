@@ -13,7 +13,7 @@ ig.System.inject({
 
 	stereoMode: false,
 	
-	init: function( canvasId, fps, width, height, scale ) {
+	constructor( canvasId, fps, width, height, scale ) {
 		this.initialWidth = width;
 		this.initialHeight = height;
 		
@@ -31,7 +31,7 @@ ig.System.inject({
 		this.resize( width, height, scale );
 	},
 
-	horizontalFov: function() {
+	horizontalFov() {
 		// The renderer may override the system's fov for stereo rendering
 		if( this.renderer.viewportFov ) {
 			return this.renderer.viewportFov.toDeg();
@@ -40,7 +40,7 @@ ig.System.inject({
 		return this.fov * this.camera.aspect;
 	},
 	
-	resize: function( width, height, scale ) {
+	resize( width, height, scale ) {
 		var r = ig.System.useRetina ? ig.ua.pixelRatio : 1;
 		
 		this.width = width;
@@ -58,7 +58,7 @@ ig.System.inject({
 		this.camera = new tpf.PerspectiveCamera( this.fov, width / height, 1, 10000 );
 	},
 
-	setStereoMode: function( on ) {
+	setStereoMode( on ) {
 		if( on && !tpf.StereoRenderer.hasWebVR() ) {
 			alert('No WebVR Support found :/');
 			return;
@@ -79,7 +79,7 @@ ig.System.inject({
 		}
 	},
 
-	setupFullscreenMouselockOnce: function() {
+	setupFullscreenMouselockOnce() {
 		if( this.fullscreenSetupComplete ) { return; }
 		
 		
@@ -106,17 +106,17 @@ ig.System.inject({
 		this.fullscreenSetupComplete = true;
 	},
 	
-	requestFullscreen: function() {
+	requestFullscreen() {
 		this.setupFullscreenMouselockOnce();
 		this.canvas.requestFullscreen(this.renderer.fullscreenFlags);
 	},
 
-	requestMouseLock: function() {
+	requestMouseLock() {
 		this.setupFullscreenMouselockOnce();
 		this.canvas.requestPointerLock();
 	},
 	
-	fullscreenCallback: function( ev ) {
+	fullscreenCallback( ev ) {
 		if(
 			document.webkitFullscreenElement === this.canvas ||
 			document.mozFullscreenElement === this.canvas ||
@@ -133,7 +133,7 @@ ig.System.inject({
 		return true;
 	},
 	
-	mouseLockCallback: function( ev ) {
+	mouseLockCallback( ev ) {
 		this.hasMouseLock = (
 			document.pointerLockElement === this.canvas ||
 			document.mozPointerLockElement === this.canvas ||
@@ -141,7 +141,7 @@ ig.System.inject({
 		);
 	},
 	
-	clear: function() {},
+	clear() {},
 });
 
 ig.System.useRetina = true;

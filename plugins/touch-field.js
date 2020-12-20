@@ -1,23 +1,23 @@
 
-ig.TouchField = ig.Class.extend({
-	pos: {x: 0, y: 0},
-	size: {x: 0, y: 0},
+export class igTouchField {
+	pos= {x: 0, y: 0};
+	size= {x: 0, y: 0};
 	
-	input: {x: 0, y: 0, dx: 0, dy: 0},
-	pressed: false,
+	input= {x: 0, y: 0, dx: 0, dy: 0};
+	pressed= false;
 	
-	angle: 0,
-	amount: 0,
+	angle= 0;
+	amount= 0;
 	
-	_touchId: null,
-	_startPos: {x: 0, y: 0},
-	touched: false,
+	_touchId= null;
+	_startPos= {x: 0, y: 0};
+	touched= false;
 
-	touchStartBound: null,
-	touchMoveBound: null,
-	touchEndBound: null,
+	touchStartBound= null;
+	touchMoveBound= null;
+	touchEndBound= null;
 	
-	init: function( x, y, width, height ) {
+	constructor( x, y, width, height ) {
 		this.pos = {x: x, y: y};
 		this.size = {x: width, y: height};
 
@@ -28,15 +28,15 @@ ig.TouchField = ig.Class.extend({
 		ig.system.canvas.addEventListener( 'touchstart', this.touchStartBound, false );
 		ig.system.canvas.addEventListener( 'touchmove', this.touchMoveBound, false );
 		ig.system.canvas.addEventListener( 'touchend', this.touchEndBound, false );
-	},
+	}
 
-	remove: function() {
+	remove() {
 		ig.system.canvas.removeEventListener( 'touchstart', this.touchStartBound, false );
 		ig.system.canvas.removeEventListener( 'touchmove', this.touchMoveBound, false );
 		ig.system.canvas.removeEventListener( 'touchend', this.touchEndBound, false );
-	},
+	}
 	
-	touchStart: function( ev ) {
+	touchStart( ev ) {
 		ev.preventDefault();
 		
 		if( this.pressed ) { return; }
@@ -60,9 +60,9 @@ ig.TouchField = ig.Class.extend({
 				return;
 			}
 		}
-	},
+	}
 	
-	touchMove: function( ev ) {
+	touchMove( ev ) {
 		ev.preventDefault();
 		
 		for( var i = 0; i < ev.changedTouches.length; i++ ) {
@@ -71,18 +71,18 @@ ig.TouchField = ig.Class.extend({
 				return;
 			}
 		}
-	},
+	}
 	
-	_moved: function( touch ) {
+	_moved( touch ) {
 		var nx = touch.pageX - this._startPos.x;
 		var ny = touch.pageY - this._startPos.y;
 		this.input.dx = this.input.x - nx;
 		this.input.dy = this.input.y - ny;
 		this.input.x = nx;
 		this.input.y = ny;
-	},
+	}
 	
-	touchEnd: function( ev ) {
+	touchEnd( ev ) {
 		ev.preventDefault();
 		
 		for( var i = 0; i < ev.changedTouches.length; i++ ) {
@@ -97,4 +97,4 @@ ig.TouchField = ig.Class.extend({
 			}
 		}
 	}
-});
+};

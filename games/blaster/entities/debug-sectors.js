@@ -13,7 +13,7 @@ EntityDebugSectors = ig.Entity.extend({
 	_wmDrawBox: true,
 	_wmBoxColor: '#fff',
 
-	generate: function() {
+	generate() {
 		var floorMap = null;
 		for( var i = 0; i < ig.editor.layers.length; i++ ) {
 			if( ig.editor.layers[i].name == 'floor' ) {
@@ -27,7 +27,7 @@ EntityDebugSectors = ig.Entity.extend({
 		}
 	},
 
-	draw: function() {
+	draw() {
 		if( !ig.global.wm ) { return; }
 
 		// Did the sector size change? Regenerate!
@@ -48,7 +48,7 @@ EntityDebugSectors = ig.Entity.extend({
 		}
 	},
 
-	drawLine: function( color, sx, sy, dx, dy ) {
+	drawLine( color, sx, sy, dx, dy ) {
 		ig.system.context.strokeStyle = color;
 		ig.system.context.lineWidth = 1.0;
 

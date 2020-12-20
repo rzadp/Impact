@@ -6,14 +6,14 @@ ig.Image.inject({
 	textureWidth: 0,
 	textureHeight: 0,
 	
-	onload: function( event ) {
+	onload( event ) {
 		this.texture = ig.system.renderer.loadTexture(this.data);
 		this.textureWidth = this.data.width;
 		this.textureHeight = this.data.height;
 		this.parent(event);
 	},
 
-	expandSeams: function(tilesize) {
+	expandSeams(tilesize) {
 		if( this.seamsExpanded ) { return; }
 		this.seamsExpanded = true;
 

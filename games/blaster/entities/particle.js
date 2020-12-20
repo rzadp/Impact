@@ -11,18 +11,18 @@ EntityParticle = tpf.Entity.extend({
 
 	initialVel: {x:1, y: 1, z: 1},
 	
-	init: function( x, y, settings ) {
+	constructor( x, y, settings ) {
 		this.parent( x, y, settings );
 		this.currentAnim.gotoRandomFrame();
 		this.setPosition();
 	},
 	
-	reset: function( x, y, settings ) {
+	reset( x, y, settings ) {
 		this.parent(x, y, settings);
 		this.setPosition();
 	},
 	
-	setPosition: function() {
+	setPosition() {
 		this.vel.x = (Math.random() * 2 - 1) * this.initialVel.x;
 		this.vel.y = (Math.random() * 2 - 1) * this.initialVel.y;
 		this.vel.z = (Math.random() * 2 - 1) * this.initialVel.z;
@@ -30,7 +30,7 @@ EntityParticle = tpf.Entity.extend({
 		this.idleTimer = new ig.Timer();
 	},
 	
-	update: function() {
+	update() {
 		var delta = this.idleTimer.delta();
 		if( delta > this.lifetime ) {
 			this.kill();

@@ -1,9 +1,9 @@
 
-tpf.Program = ig.Class.extend({
-	uniform: {},
-	attribute: {},
+export class tpfProgram {
+	uniform= {};
+	attribute= {};
 
-	init: function( gl, vertexSource, fragmentSource ) {
+	constructor( gl, vertexSource, fragmentSource ) {
 		var vsh = this.compile(gl, vertexSource, gl.VERTEX_SHADER);
 		var fsh = this.compile(gl, fragmentSource, gl.FRAGMENT_SHADER);
 
@@ -30,9 +30,9 @@ tpf.Program = ig.Class.extend({
 		for( var u in this.uniform ) {
 			this.uniform[u] = gl.getUniformLocation(this.program, u);
 		}
-	},
+	}
 
-	compile: function( gl, source, type ) {
+	compile( gl, source, type ) {
 		var shader = gl.createShader(type);
 		gl.shaderSource(shader, source);
 		gl.compileShader(shader);
@@ -42,13 +42,13 @@ tpf.Program = ig.Class.extend({
 			return null;
 		}
 		return shader;
-	},
+	}
 
-	_collect: function( source, prefix, collection ) {
+	_collect( source, prefix, collection ) {
 		var r = new RegExp('\\b' + prefix + ' \\w+ (\\w+)', 'ig');
 		source.replace(r, function(match, name) {
 			collection[name] = 0;
 			return match;
 		});
 	}
-});
+};

@@ -3,12 +3,12 @@ tpf.Font = ig.Font.extend({
 	_quads: [],
 	_glAlpha: 1,
 
-	draw: function( text, x, y, align, alpha ) {
+	draw( text, x, y, align, alpha ) {
 		this._glAlpha = typeof(alpha) != 'undefined' ? alpha : 1;
 		this.parent(text, x, y, align);
 	},
 	
-	_drawChar: function( c, targetX, targetY ) {
+	_drawChar( c, targetX, targetY ) {
 		if( !this.loaded || c < 0 || c >= this.indices.length ) { return 0; }		
 		
 		var charX = this.indices[c];
@@ -25,7 +25,7 @@ tpf.Font = ig.Font.extend({
 	},
 
 	
-	onload: function( event ) {
+	onload( event ) {
 		this.parent(event);
 
 		var charHeight = this.height-2;

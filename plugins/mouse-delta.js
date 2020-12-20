@@ -2,7 +2,7 @@
 ig.Input.inject({
 	mouseDelta: {x: 0, y: 0},
 	
-	mousemove: function( event ) {
+	mousemove( event ) {
 		var oldX = this.mouse.x;
 		var oldY = this.mouse.y;
 		
@@ -24,7 +24,7 @@ ig.Input.inject({
 		}
 	},
 	
-	clearPressed: function() {
+	clearPressed() {
 		this.parent();
 		
 		this.mouseDelta.x = 0;

@@ -1,5 +1,6 @@
 import { tpfOrthoCamera } from "./ortho-camera";
 import { tpfPerspectiveCamera } from "./perspective-camera";
+import { tpfRenderer } from "./renderer";
 
 export class tpfStereoRenderer extends tpfRenderer{
 	eyes= {

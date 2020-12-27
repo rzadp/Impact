@@ -1,3 +1,4 @@
+import { igLoader } from "../../lib/impact/loader";
 import { igImage } from "../../lib/impact/image";
 import { tpfQuad } from "./renderer/quad";
 import { tpfTile } from "./world/tile";

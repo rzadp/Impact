@@ -1,3 +1,4 @@
+import { igGame } from "../../lib/impact/game";
 import { tpfEntity } from "./entity";
 import { tpfCulledSectors } from "./world/culled-sectors";
 import { tpfLightMap } from "./world/light-map";

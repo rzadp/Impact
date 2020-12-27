@@ -1,4 +1,4 @@
-import { igBackgroundMap } from "../../lib/impact/background-map";
+import { igBackgroundMap } from "../../../lib/impact/background-map";
 
 const { tpfTile } = require("./tile");
 

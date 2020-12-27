@@ -1,4 +1,4 @@
-import { igMap } from "../../lib/impact/map";
+import { igMap } from "../../../lib/impact/map";
 
 export class tpfLightMap extends igMap{
 	white= {r:1, g:1, b:1};

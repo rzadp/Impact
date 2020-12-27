@@ -2,6 +2,7 @@ import { tpfStereoRenderer } from '../../plugins/twopointfive/renderer/stereo-re
 import { igTimer } from '../../lib/impact/timer';
 import { igSound } from '../../lib/impact/sound';
 import { tpfLoader } from '../../plugins/twopointfive/loader';
+import { tpfGame } from '../../plugins/twopointfive/game';
 
 export class MyGame extends tpfGame{
 	sectorSize= 4;
@@ -283,47 +284,51 @@ export class MyGame extends tpfGame{
 };
 
 
-document.body.className = 
-	(ig.System.hasWebGL() ? 'webgl' : 'no-webgl') + ' ' +
-	(ig.ua.mobile ? 'mobile' : 'desktop');
+// document.body.className = 
+// 	(ig.System.hasWebGL() ? 'webgl' : 'no-webgl') + ' ' +
+// 	(ig.ua.mobile ? 'mobile' : 'desktop');
 
 
-var width = 640;
-var height = 480;
+// var width = 640;
+// var height = 480;
 
-if( window.Ejecta ) {
-	var canvas = ig.$('#canvas');
-	width = window.innerWidth;
-	height = window.innerHeight;
+// if( window.Ejecta ) {
+// 	var canvas = ig.$('#canvas');
+// 	width = window.innerWidth;
+// 	height = window.innerHeight;
 	
-	canvas.style.width = window.innerWidth + 'px';
-	canvas.style.height = window.innerHeight + 'px';
+// 	canvas.style.width = window.innerWidth + 'px';
+// 	canvas.style.height = window.innerHeight + 'px';
+// }
+// else if( ig.ua.mobile ) {
+// 	ig.$('#game').className = 'mobile';
+// 	var canvas = ig.$('#canvas');
+
+// 	// Listen to the window's 'resize' event and set the canvas' size each time
+// 	// it changes.
+// 	// Wait 16ms, because iOS might report the wrong window size immediately
+// 	// after rotation.
+// 	window.addEventListener('resize', function(){ setTimeout(function(){
+// 		if( ig.system ) { ig.system.resize( window.innerWidth, window.innerHeight ); }
+// 		if( ig.game ) { ig.game.setupTouchControls(); }
+// 	}, 16); }, false);
+
+// 	width = window.innerWidth;
+// 	height = window.innerHeight;
+// }
+
+
+// igSound.use = [igSound.FORMAT.OGG, igSound.FORMAT.M4A];
+
+window.onload = () => {
+  console.log('I am here')
+  // Test WebGL support and init
+  if( ig.System.hasWebGL() ) {
+    ig.main( '#canvas', MyGame, 60, width, height, 1, tpfLoader );
+  }
+  else {
+    ig.$('#game').style.display = 'none';
+    ig.$('#no-webgl').style.display = 'block';
+  }
 }
-else if( ig.ua.mobile ) {
-	ig.$('#game').className = 'mobile';
-	var canvas = ig.$('#canvas');
 
-	// Listen to the window's 'resize' event and set the canvas' size each time
-	// it changes.
-	// Wait 16ms, because iOS might report the wrong window size immediately
-	// after rotation.
-	window.addEventListener('resize', function(){ setTimeout(function(){
-		if( ig.system ) { ig.system.resize( window.innerWidth, window.innerHeight ); }
-		if( ig.game ) { ig.game.setupTouchControls(); }
-	}, 16); }, false);
-
-	width = window.innerWidth;
-	height = window.innerHeight;
-}
-
-
-igSound.use = [igSound.FORMAT.OGG, igSound.FORMAT.M4A];
-
-// Test WebGL support and init
-if( ig.System.hasWebGL() ) {
-	ig.main( '#canvas', MyGame, 60, width, height, 1, tpfLoader );
-}
-else {
-	ig.$('#game').style.display = 'none';
-	ig.$('#no-webgl').style.display = 'block';
-}

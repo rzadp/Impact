@@ -13,10 +13,10 @@ export class WeaponGrenadeLauncher extends Weapon{
 
 	cooldown= 0.5;
 
-	animSheet= new ig.AnimationSheet( 'media/grenade-launcher.png', 180, 134);
-	shootSound= new ig.Sound( 'media/sounds/grenade-launcher.*' );
-	emptySound= new ig.Sound( 'media/sounds/empty-click.*' );
-	ammoIconImage= new ig.Image( 'media/grenade.png' );
+	animSheet= new ig.AnimationSheet( 'blaster/grenade-launcher.png', 180, 134);
+	shootSound= new ig.Sound( 'blaster/sounds/grenade-launcher.*' );
+	emptySound= new ig.Sound( 'blaster/sounds/empty-click.*' );
+	ammoIconImage= new ig.Image( 'blaster/grenade.png' );
 	ammoIcon= null;
 
 	constructor( ammo ) {
@@ -65,9 +65,9 @@ export class EntityGrenade extends tpfEntity{
 	explosionParticles= 20;
 	explosionRadius= 60;
 
-	animSheet= new igAnimationSheet( 'media/grenade.png', 32, 32 );
-	explodeSound= new igSound( 'media/sounds/explosion.*' );
-	bounceSound= new ig.Sound( 'media/sounds/grenade-bounce.*' );
+	animSheet= new igAnimationSheet( 'blaster/grenade.png', 32, 32 );
+	explodeSound= new igSound( 'blaster/sounds/explosion.*' );
+	bounceSound= new ig.Sound( 'blaster/sounds/grenade-bounce.*' );
 	dynamicLight= true;
 
 
@@ -182,7 +182,7 @@ export class EntityGrenadeExplosion extends tpfEntity{
 
 	gravityFactor= 0;
 
-	animSheet= new igAnimationSheet( 'media/explosion.png', 32, 32 );
+	animSheet= new igAnimationSheet( 'blaster/explosion.png', 32, 32 );
 
 	constructor( x, y, settings ) {
 		var frameTime = Math.random() * 0.1 + 0.03;

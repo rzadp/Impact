@@ -5,9 +5,9 @@ export class MyTitle {
 	width= 640;
 	height= 480;
 
-	font= new tpfFont( 'media/fredoka-one.font.png' );
+	font= new tpfFont( 'blaster/fredoka-one.font.png' );
 
-	titleImage= new igImage( 'media/title.png' );
+	titleImage= new igImage( 'blaster/title.png' );
 	title= null;
 	background= null;
 	timer= null;

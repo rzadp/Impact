@@ -2,10 +2,10 @@ import { tpfHudTile } from "plugins/twopointfive/world/tile";
 
 export class MyHud extends tpfHud{
 
-	font= new tpfFont( 'media/fredoka-one.font.png' );
+	font= new tpfFont( 'blaster/fredoka-one.font.png' );
 
-	healthIconImage= new igImage( 'media/health-icon.png' );
-	damageIndicatorImage= new igImage( 'media/hud-blood-low.png' );
+	healthIconImage= new igImage( 'blaster/health-icon.png' );
+	damageIndicatorImage= new igImage( 'blaster/hud-blood-low.png' );
 	healthIcon= null;
 
 	keys= [];

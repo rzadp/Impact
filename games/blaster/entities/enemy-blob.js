@@ -11,7 +11,7 @@ export class EntityEnemyBlobSpawner extends tpfEntity{
 
 	angle= 0;
 
-	animSheet= new igAnimationSheet( 'media/blob-spawn.png', 64, 128 );
+	animSheet= new igAnimationSheet( 'blaster/blob-spawn.png', 64, 128 );
 	
 	constructor( x, y, settings ) {
 		super( x, y, settings );
@@ -68,7 +68,7 @@ export class EntityEnemyBlob extends tpfEntity{
 	seenPlayer= false;
 
 
-	animSheet= new igAnimationSheet( 'media/blob.png', 64, 64 );
+	animSheet= new igAnimationSheet( 'blaster/blob.png', 64, 64 );
 	
 	constructor( x, y, settings ) {
 		super( x, y, settings );
@@ -132,7 +132,7 @@ export class EntityEnemyBlobGib extends EntityParticle{
 	
 	lifetime= 2;
 	
-	animSheet= new igAnimationSheet( 'media/blob-gib.png', 16, 16 );
+	animSheet= new igAnimationSheet( 'blaster/blob-gib.png', 16, 16 );
 	
 	constructor( x, y, settings ) {
 		this.addAnim( 'idle', 5, [0,1,2,3,4,5,6,7,8,9,10,11] );

@@ -33,9 +33,9 @@ export class EntityPlayer extends tpfEntity{
 	god= false;
 
 	hurtSounds= [
-		new igSound('media/sounds/hurt1.*'),
-		new igSound('media/sounds/hurt2.*'),
-		new igSound('media/sounds/hurt3.*')
+		new igSound('blaster/sounds/hurt1.*'),
+		new igSound('blaster/sounds/hurt2.*'),
+		new igSound('blaster/sounds/hurt3.*')
 	];
 	
 	constructor( x, y, settings ) {

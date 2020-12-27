@@ -16,8 +16,8 @@ export class EntityHealthPickup extends tpfEntity{
 	dynamicLight= true;
 	_wmBoxColor= '#55ff00';
 	
-	animSheet= new igAnimationSheet( 'media/health.png', 32, 32 );
-	pickupSound= new igSound( 'media/sounds/health-pickup.*' );
+	animSheet= new igAnimationSheet( 'blaster/health.png', 32, 32 );
+	pickupSound= new igSound( 'blaster/sounds/health-pickup.*' );
 	bounceTimer= null;
 	
 	constructor( x, y, settings ) {

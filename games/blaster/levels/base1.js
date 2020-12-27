@@ -25,7 +25,7 @@ export const LevelBase1=/*JSON[*/{
 			"height": 32,
 			"linkWithCollision": false,
 			"visible": 0,
-			"tilesetName": "media/tiles/basic-tiles-64.png",
+			"tilesetName": "blaster/tiles/basic-tiles-64.png",
 			"repeat": false,
 			"preRender": false,
 			"distance": "1",
@@ -119,7 +119,7 @@ export const LevelBase1=/*JSON[*/{
 			"height": 32,
 			"linkWithCollision": true,
 			"visible": 0,
-			"tilesetName": "media/tiles/basic-tiles-64.png",
+			"tilesetName": "blaster/tiles/basic-tiles-64.png",
 			"repeat": false,
 			"preRender": false,
 			"distance": "1",
@@ -166,7 +166,7 @@ export const LevelBase1=/*JSON[*/{
 			"height": 32,
 			"linkWithCollision": false,
 			"visible": 1,
-			"tilesetName": "media/tiles/basic-tiles-64.png",
+			"tilesetName": "blaster/tiles/basic-tiles-64.png",
 			"repeat": false,
 			"preRender": false,
 			"distance": "1",
@@ -213,7 +213,7 @@ export const LevelBase1=/*JSON[*/{
 			"height": 32,
 			"linkWithCollision": false,
 			"visible": 0,
-			"tilesetName": "media/tiles/lights-64.png",
+			"tilesetName": "blaster/tiles/lights-64.png",
 			"repeat": false,
 			"preRender": false,
 			"distance": "1",
@@ -256,4 +256,4 @@ export const LevelBase1=/*JSON[*/{
 		}
 	]
 }/*]JSON*/;
-export const LevelBase1Resources=[new ig.Image('media/tiles/basic-tiles-64.png'), new ig.Image('media/tiles/basic-tiles-64.png'), new ig.Image('media/tiles/basic-tiles-64.png'), new ig.Image('media/tiles/lights-64.png')];
+export const LevelBase1Resources=[new ig.Image('blaster/tiles/basic-tiles-64.png'), new ig.Image('blaster/tiles/basic-tiles-64.png'), new ig.Image('blaster/tiles/basic-tiles-64.png'), new ig.Image('blaster/tiles/lights-64.png')];

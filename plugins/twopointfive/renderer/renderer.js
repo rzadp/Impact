@@ -1,3 +1,5 @@
+import { tpfProgram } from "./program";
+import { tpfQuad } from "./quad";
 
 export class tpfRenderer {
 	bufferSize= 64; // 64 Quads
@@ -92,11 +94,11 @@ export class tpfRenderer {
 
 		this.setSize( canvas.width, canvas.height );
 
-		this.programDefault = new tpf.Program( this.gl, tpf.Renderer.Shaders.Vertex, tpf.Renderer.Shaders.Fragment );
-		this.programFog = new tpf.Program( this.gl, tpf.Renderer.Shaders.Vertex, tpf.Renderer.Shaders.FragmentWithFog );
+		this.programDefault = new tpfProgram( this.gl, tpf.Renderer.Shaders.Vertex, tpf.Renderer.Shaders.Fragment );
+		this.programFog = new tpfProgram( this.gl, tpf.Renderer.Shaders.Vertex, tpf.Renderer.Shaders.FragmentWithFog );
 		this.program = this.programDefault;
 
-		this.buffer = new Float32Array( this.bufferSize * tpf.Quad.SIZE );
+		this.buffer = new Float32Array( this.bufferSize * tpfQuad.SIZE );
 		this.glBuffer = this.gl.createBuffer();
 		this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.glBuffer);
 
@@ -175,7 +177,7 @@ export class tpfRenderer {
 		this.gl.clearColor(0,0,0,1);
 
 		var floatSize = Float32Array.BYTES_PER_ELEMENT;
-		var vertSize = floatSize * tpf.Quad.VERTEX_SIZE
+		var vertSize = floatSize * tpfQuad.VERTEX_SIZE
 
 		this.gl.enableVertexAttribArray(this.program.attribute.pos);
 		this.gl.vertexAttribPointer(this.program.attribute.pos, 3, this.gl.FLOAT, false, vertSize, 0 * floatSize);
@@ -193,7 +195,7 @@ export class tpfRenderer {
 		this._currentDrawCalls++;
 		this._currentQuadCount += this.bufferIndex;
 		this.gl.bufferData(this.gl.ARRAY_BUFFER, this.buffer, this.gl.DYNAMIC_DRAW);
-		this.gl.drawArrays(this.gl.TRIANGLES, 0, this.bufferIndex * tpf.Quad.VERTICES);
+		this.gl.drawArrays(this.gl.TRIANGLES, 0, this.bufferIndex * tpfQuad.VERTICES);
 		this.bufferIndex = 0;
 	}
 
@@ -254,7 +256,7 @@ export class tpfRenderer {
 			this.flush();
 		}
 
-		quad.copyToBuffer( this.buffer, this.bufferIndex * tpf.Quad.SIZE );
+		quad.copyToBuffer( this.buffer, this.bufferIndex * tpfQuad.SIZE );
 		this.bufferIndex++;
 	}
 
@@ -269,6 +271,6 @@ export class tpfRenderer {
 		this.gl.bufferData(this.gl.ARRAY_BUFFER, mesh.buffer, this.gl.DYNAMIC_DRAW);
 
 		var polygonMode = this.wireframe ? this.gl.LINES : this.gl.TRIANGLES;
-		this.gl.drawArrays(polygonMode, 0, mesh.length * tpf.Quad.VERTICES);
+		this.gl.drawArrays(polygonMode, 0, mesh.length * tpfQuad.VERTICES);
 	}
 };

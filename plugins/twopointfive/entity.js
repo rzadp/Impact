@@ -1,36 +1,39 @@
+import { igEntity } from "lib/impact/entity";
 
-tpf.Entity = ig.Entity.extend({
-	tile: null,
-	scale: 0.25,
+const { tpfTile } = require("./world/tile");
 
-	pos: {x: 0, y: 0, z: 0},
-	vel: {x: 0, y: 0, z: 0},
-	accel: {x: 0, y: 0, z: 0},
-	maxVel: {x: 10000, y: 10000, z: 10000},
+export class tpfEntity extends igEntity{
+	tile= null;
+	scale= 0.25;
 
-	dynamicLight: true,
+	pos= {x: 0, y: 0, z: 0};
+	vel= {x: 0, y: 0, z: 0};
+	accel= {x: 0, y: 0, z: 0};
+	maxVel= {x: 10000, y: 10000, z: 10000};
 
-	_wmDrawBox: true,
-	_wmBoxColor: '#ff5500',
+	dynamicLight= true;
+
+	_wmDrawBox= true;
+	_wmBoxColor= '#ff5500';
 
 	
 	
-	rotateToView: true,
+	rotateToView= true;
 
-	__tilePosX: -1,
-	__tilePosY: -1,
-	__sectorX: null,
-	__sectorY: null,
+	__tilePosX= -1;
+	__tilePosY= -1;
+	__sectorX= null;
+	__sectorY= null;
 
 	constructor( x, y, settings ) {
-		this.parent( x, y, settings );
+		super( x, y, settings );
 
 		if( ig.global.wm ) {
 			return;
 		}
 
 		if( this.animSheet ) {
-			this.tile = new tpf.Tile( 
+			this.tile = new tpfTile( 
 				this.animSheet.image, 0, 
 				this.animSheet.width, this.animSheet.height,
 				this.scale
@@ -40,18 +43,18 @@ tpf.Entity = ig.Entity.extend({
 		}
 
 		ig.game.culledSectors.moveEntity(this);
-	},
+	}
 	
 	reset( x, y, settings ) {
 		this.parent( x, y, settings );
 		ig.game.culledSectors.moveEntity(this);
 		this.updateQuad();
-	},
+	}
 	
 	kill() {
 		this.parent();
 		this.remove();
-	},
+	}
 
 	handleMovementTrace( res ) {
 		// Impact's handleMovementTrace may omit the z position,
@@ -59,11 +62,11 @@ tpf.Entity = ig.Entity.extend({
 		var z = this.pos.z;
 		this.parent(res);
 		this.pos.z = z;
-	},
+	}
 
 	remove() {		
 		ig.game.culledSectors.removeEntity(this);
-	},
+	}
 
 	updateQuad() {
 		if( this.tile && this.currentAnim ) {
@@ -100,7 +103,7 @@ tpf.Entity = ig.Entity.extend({
 		) {
 			ig.game.culledSectors.moveEntity(this);
 		}
-	},
+	}
 
 	canSee( other ) {
 		// Trace a line to the player to check if we have a line of sight
@@ -113,7 +116,7 @@ tpf.Entity = ig.Entity.extend({
 		);
 
 		return ( !res.collision.x && !res.collision.y );			
-	},
+	}
 
 	update() {
 		this.last.x = this.pos.x;
@@ -150,12 +153,12 @@ tpf.Entity = ig.Entity.extend({
 		}
 
 		this.updateQuad();
-	},
+	}
 	
 	setLight( color ) {
 		if( !this.tile ) { return; }
 		this.tile.quad.setColor(color);
-	},
+	}
 
 	draw() {
 		if( ig.global.wm ) {
@@ -165,4 +168,4 @@ tpf.Entity = ig.Entity.extend({
 			this.tile.draw();
 		}
 	}
-});
+};

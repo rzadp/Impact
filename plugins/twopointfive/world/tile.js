@@ -1,6 +1,8 @@
 
-// tpf.Tile encapsulates a tpf.Quad and provides a method to set a tile number directly, 
+// tpfTile encapsulates a tpfQuad and provides a method to set a tile number directly, 
 // instead of specifying raw UV coords, and a function to draw itself.
+
+import { tpfQuad } from "../renderer/quad";
 
 export class tpfTile {
 	tile= -1;
@@ -14,7 +16,7 @@ export class tpfTile {
 		this.tileWidth = tileWidth;
 		this.tileHeight = tileHeight || tileWidth;
 		
-		this.quad = new tpf.Quad(
+		this.quad = new tpfQuad(
 			this.tileWidth * this.scale, 
 			this.tileHeight * this.scale,
 			this.image.texture
@@ -49,7 +51,7 @@ export class tpfTile {
 			wx = this.tileWidth / this.image.textureWidth,
 			wy = this.tileHeight / this.image.textureHeight;
 
-		tpf.Quad.setUVInBuffer(buffer, offset, px, py + wy, px + wx, py);
+		tpfQuad.setUVInBuffer(buffer, offset, px, py + wy, px + wx, py);
 	}
 
 	draw() {
@@ -63,44 +65,45 @@ export class tpfTile {
 // buffer, so it can be drawn directly without copying each Quad first.
 // This is used for TwoPointFive's world maps.
 
-tpf.TileMesh = function( tiles ) {
-	this.animatedTiles = [];
-	this.length = tiles.length;
+export class tpfTileMesh {
+  constructor (tiles) {
+    this.animatedTiles = [];
+    this.length = tiles.length;
 
-	if( !this.length ) {
-		return;
-	}
+    if( !this.length ) {
+      return;
+    }
+  
+    this.buffer = new Float32Array(tpfQuad.SIZE * this.length);
+    this.texture = tiles[0].quad.texture;
+  
+    for( var i = 0; i < this.length; i++ ) {
+      var tile = tiles[i];
+      tile.quad.copyToBuffer(this.buffer, i * tpfQuad.SIZE );
+      if( tile.anim ) {
+        this.animatedTiles.push({tile: tile, offset: i});
+      }
+    }
+  }
 
-	this.buffer = new Float32Array(tpf.Quad.SIZE * this.length);
-	this.texture = tiles[0].quad.texture;
-
-	for( var i = 0; i < this.length; i++ ) {
-		var tile = tiles[i];
-		tile.quad.copyToBuffer(this.buffer, i * tpf.Quad.SIZE );
-		if( tile.anim ) {
-			this.animatedTiles.push({tile: tile, offset: i});
-		}
-	}
+  updateAnimations () {
+    for( var i = 0; i < this.animatedTiles.length; i++ ) {
+      var at = this.animatedTiles[i];	
+      at.tile.setTileInBuffer( this.buffer, at.offset, at.tile.anim.tile );
+    }
+  };
 };
 
-tpf.TileMesh.prototype.updateAnimations = function() {
-	for( var i = 0; i < this.animatedTiles.length; i++ ) {
-		var at = this.animatedTiles[i];	
-		at.tile.setTileInBuffer( this.buffer, at.offset, at.tile.anim.tile );
-	}
-};
 
-
-
-tpf.HudTile = tpf.Tile.extend({	
+export class tpfHudTile extends tpfTile{	
 	constructor( image, tile, tileWidth, tileHeight ) {
 		this.image = image;
 		this.tileWidth = tileWidth;
 		this.tileHeight = tileHeight || tileWidth;
 		
-		this.quad = new tpf.Quad(this.tileWidth, this.tileHeight, this.image.texture);
+		this.quad = new tpfQuad(this.tileWidth, this.tileHeight, this.image.texture);
 		this.setTile( tile || 0 );
-	},
+	}
 
 	setTile( t ) {
 		if( t == this.tile ) { return; }
@@ -113,13 +116,13 @@ tpf.HudTile = tpf.Tile.extend({
 		
 		// Flipped-Y
 		this.quad.setUV(tx, 1-(ty+wy), tx+wx, 1-ty);
-	},
+	}
 	
 	setPosition( x, y ) {
 		this.quad.setPosition(x + this.tileWidth/2, y + this.tileHeight/2, 0);
-	},
+	}
 
 	setAlpha( a ) {
 		this.quad.setAlpha(a.limit(0,1));
 	}
-});
+};

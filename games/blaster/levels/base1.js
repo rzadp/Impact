@@ -1,5 +1,5 @@
 
-LevelBase1=/*JSON[*/{
+export const LevelBase1=/*JSON[*/{
 	"entities": [
 		{
 			"type": "EntityPlayer",
@@ -256,4 +256,4 @@ LevelBase1=/*JSON[*/{
 		}
 	]
 }/*]JSON*/;
-LevelBase1Resources=[new ig.Image('media/tiles/basic-tiles-64.png'), new ig.Image('media/tiles/basic-tiles-64.png'), new ig.Image('media/tiles/basic-tiles-64.png'), new ig.Image('media/tiles/lights-64.png')];
+export const LevelBase1Resources=[new ig.Image('media/tiles/basic-tiles-64.png'), new ig.Image('media/tiles/basic-tiles-64.png'), new ig.Image('media/tiles/basic-tiles-64.png'), new ig.Image('media/tiles/lights-64.png')];

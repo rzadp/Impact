@@ -1,13 +1,16 @@
+import { tpfMap } from "./map";
 
-tpf.WallMap = tpf.Map.extend({
+const { tpfTile } = require("./tile");
+
+export class tpfWallMap extends tpfMap{
 	createTileAtPosition( tile, x, y, anim ) {
 		
 		// We need 4 tiles, one for each side of the block		
 		var tiles = {};
-		for( var name in tpf.WallMap.offsets ) {
-			var off = tpf.WallMap.offsets[name];
+		for( var name in tpfWallMap.offsets ) {
+			var off = tpfWallMap.offsets[name];
 			
-			var t = new tpf.Tile( this.tiles, tile, this.tilesize );
+			var t = new tpfTile( this.tiles, tile, this.tilesize );
 			
 			t.quad.setPosition(
 				(x + off.x/2 + 0.5) * this.tilesize,
@@ -21,7 +24,7 @@ tpf.WallMap = tpf.Map.extend({
 		}
 		
 		return tiles;
-	},
+	}
 	
 	applyLightMap( lightMap ) {
 		for( var y in this.tileData ) {
@@ -32,12 +35,12 @@ tpf.WallMap = tpf.Map.extend({
 					ry = y|0;
 				
 				for( var name in tiles ) {
-					var off = tpf.WallMap.offsets[name];
+					var off = tpfWallMap.offsets[name];
 					tiles[name].quad.setColor( lightMap.getLight(rx+off.x, ry+off.y) );
 				}
 			}
 		}
-	},
+	}
 	
 	getTilesInRect( xs, ys, w, h ) {
 		var tiles = [];
@@ -47,8 +50,8 @@ tpf.WallMap = tpf.Map.extend({
 
 				// Take care to get the walls _facing_ to this tile, instead of just
 				// the walls _on_ this tile
-				for( var name in tpf.WallMap.offsets ) {
-					var off = tpf.WallMap.offsets[name];
+				for( var name in tpfWallMap.offsets ) {
+					var off = tpfWallMap.offsets[name];
 					var tx = x - off.x, 
 						ty = y - off.y;
 
@@ -60,7 +63,7 @@ tpf.WallMap = tpf.Map.extend({
 			}
 		}
 		return tiles;
-	},	
+	}
 	
 
 	// Typically, all walls that are visible are connected to floor tiles,
@@ -74,8 +77,8 @@ tpf.WallMap = tpf.Map.extend({
 					rx = x|0,
 					ry = y|0;
 				
-				for( var name in tpf.WallMap.offsets ) {
-					var off = tpf.WallMap.offsets[name];
+				for( var name in tpfWallMap.offsets ) {
+					var off = tpfWallMap.offsets[name];
 					if( !floorMap.hasTile(rx + off.x, ry + off.y) ) {
 						delete tiles[name];
 					}
@@ -83,13 +86,12 @@ tpf.WallMap = tpf.Map.extend({
 				
 			}
 		}
-	}
-});
-
-
-tpf.WallMap.offsets = {
-	top: 	{x: 0, y:-1, rot: (180).toRad() },
-	bottom:	{x: 0, y: 1, rot: (0).toRad() },
-	right: 	{x: 1, y: 0, rot: (90).toRad() },
-	left: 	{x:-1, y: 0, rot: (-90).toRad() }
+  }
+  
+  static offsets = {
+    top: 	{x: 0, y:-1, rot: (180).toRad() },
+    bottom:	{x: 0, y: 1, rot: (0).toRad() },
+    right: 	{x: 1, y: 0, rot: (90).toRad() },
+    left: 	{x:-1, y: 0, rot: (-90).toRad() }
+  }
 };

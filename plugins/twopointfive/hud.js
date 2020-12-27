@@ -1,3 +1,6 @@
+import { igTimer } from '../../lib/impact/timer';
+import { tpfQuad } from './renderer/quad';
+import { tpfHudTile } from './world/tile';
 
 export class tpfHud {
 	width= 320;
@@ -26,12 +29,12 @@ export class tpfHud {
 
 		this.camera = new tpf.OrthoCamera( width, height );
 
-		this.fadeScreen = new tpf.Quad(width, height);
+		this.fadeScreen = new tpfQuad(width, height);
 		this.fadeScreen.setPosition(width/2,height/2,0)
 		this.fadeScreen.setColor({r:255, g:255, b:255});
 
 		if( this.damageIndicatorImage ) {
-			this.damageIndicator = new tpf.HudTile( this.damageIndicatorImage, 0, 160, 120);
+			this.damageIndicator = new tpfHudTile( this.damageIndicatorImage, 0, 160, 120);
 			this.damageIndicator.setPosition( 0, 0 );
 		}
 	}
@@ -39,7 +42,7 @@ export class tpfHud {
 	showMessage( text, time ) {
 		if( text ) {
 			if( time !== -1 ) {
-				this.messageTimer = new ig.Timer( tpf.Hud.TIME.DEFAULT || time );
+				this.messageTimer = new igTimer( tpf.Hud.TIME.DEFAULT || time );
 			}
 			this.message = text;
 		}
@@ -52,7 +55,7 @@ export class tpfHud {
 	showDamageIndicator( x, y, initialAlpha ) {
 		if( this.damageIndicator ) {
 			this.damageIndicator.setPosition( x, y );
-			this.damageTimer = new ig.Timer( initialAlpha );
+			this.damageTimer = new igTimer( initialAlpha );
 		}
 	}
 

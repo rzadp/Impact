@@ -1,9 +1,10 @@
+import { igMap } from "../../lib/impact/map";
 
-tpf.LightMap = ig.Map.extend({
-	white: {r:1, g:1, b:1},
+export class tpfLightMap extends igMap{
+	white= {r:1, g:1, b:1};
 	
 	constructor( tilesize, data, tileset ) {
-		this.parent( tilesize, ig.copy(data) );
+		super( tilesize, ig.copy(data) );
 			
 		// Grab the colors from the tileset
 		var tilesetName  = tileset instanceof ig.Image ? tileset.path : tileset;
@@ -30,7 +31,7 @@ tpf.LightMap = ig.Map.extend({
 				this.data[y][x] = tile ? colors[tile-1] : this.white;
 			}
 		}
-	},
+	}
 	
 	
 	getLight( x, y ) {
@@ -44,4 +45,4 @@ tpf.LightMap = ig.Map.extend({
 			return this.white;
 		}
 	}
-});
+};

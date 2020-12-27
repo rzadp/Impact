@@ -1,12 +1,15 @@
+import { igFont } from "../../lib/impact/font";
 
-tpf.Font = ig.Font.extend({
-	_quads: [],
-	_glAlpha: 1,
+const { tpfQuad } = require("./renderer/quad");
+
+export class tpfFont extends igFont{
+	_quads= [];
+	_glAlpha= 1;
 
 	draw( text, x, y, align, alpha ) {
 		this._glAlpha = typeof(alpha) != 'undefined' ? alpha : 1;
 		this.parent(text, x, y, align);
-	},
+	}
 	
 	_drawChar( c, targetX, targetY ) {
 		if( !this.loaded || c < 0 || c >= this.indices.length ) { return 0; }		
@@ -22,18 +25,18 @@ tpf.Font = ig.Font.extend({
 		ig.system.renderer.pushQuad(q);
 		
 		return charWidth + this.letterSpacing;
-	},
+	}
 
 	
 	onload( event ) {
-		this.parent(event);
+		super.onload(event);
 
 		var charHeight = this.height-2;
 		for( var i = 0; i < this.indices.length; i++ ) {
 			var index = this.indices[i];
 			var charWidth = this.widthMap[i];
 
-			var q = new tpf.Quad(charWidth, charHeight, this.texture);
+			var q = new tpfQuad(charWidth, charHeight, this.texture);
 			q.setUV(
 				index / this.data.width, 0,
 				(index + charWidth) / this.data.width, charHeight / this.data.height
@@ -42,4 +45,4 @@ tpf.Font = ig.Font.extend({
 			this._quads.push(q);
 		}
 	}
-});
+};

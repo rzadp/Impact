@@ -1,3 +1,5 @@
+import { tpfHudTile } from "plugins/twopointfive/world/tile";
+
 export class MyHud extends tpfHud{
 
 	font= new tpfFont( 'media/fredoka-one.font.png' );
@@ -13,7 +15,7 @@ export class MyHud extends tpfHud{
 	constructor( width, height, showControls ) {
 		this.parent(width, height);
 
-		this.healthIcon = new tpf.HudTile( this.healthIconImage, 0, 32, 32 );
+		this.healthIcon = new tpfHudTile( this.healthIconImage, 0, 32, 32 );
 		this.healthIcon.setPosition( 96, this.height-this.healthIcon.tileHeight-4 );
 	}
 

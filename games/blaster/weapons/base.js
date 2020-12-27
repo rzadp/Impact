@@ -1,3 +1,4 @@
+import { igTimer } from '../../lib/impact/timer';
 
 export class Weapon {
 	
@@ -25,7 +26,7 @@ export class Weapon {
 	constructor( ammo ) {
 		this.ammo = ammo || 0;
 		
-		this.tile = new tpf.HudTile( 
+		this.tile = new tpfHudTile( 
 			this.animSheet.image, 0, 
 			this.animSheet.width, 
 			this.animSheet.height
@@ -34,7 +35,7 @@ export class Weapon {
 		this.pos.x = ig.game.hud.width/2 - this.animSheet.width/2 - this.offset.x;
 		this.pos.y = ig.game.hud.height - this.offset.y;
 		
-		this.shootTimer = new ig.Timer();
+		this.shootTimer = new igTimer();
 		this.tile.setPosition( this.pos.x, this.pos.y + this.bobOffset );
 	}
 	
@@ -43,7 +44,7 @@ export class Weapon {
 		if( !this.animSheet ) {
 			throw( 'No animSheet to add the animation '+name+' to.' );
 		}
-		var a = new ig.Animation( this.animSheet, frameTime, sequence, stop );
+		var a = new igAnimation( this.animSheet, frameTime, sequence, stop );
 		this.anims[name] = a;
 		if( !this.currentAnim ) {
 			this.currentAnim = a;
@@ -91,7 +92,7 @@ export class Weapon {
 	flash(duration) {
 		if( !this.tile ) { return; }
 		this.tile.quad.setColor(this.flashQuadColor);
-		this.unsetFlashTimer = new ig.Timer(duration);
+		this.unsetFlashTimer = new igTimer(duration);
 	}
 	
 	update() {

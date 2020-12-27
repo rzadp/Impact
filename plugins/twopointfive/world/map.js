@@ -1,12 +1,15 @@
+import { igBackgroundMap } from "../../lib/impact/background-map";
 
-tpf.Map = ig.BackgroundMap.extend({
-	tileData: {},
-	yOffset: 0,
+const { tpfTile } = require("./tile");
+
+export class tpfMap extends igBackgroundMap{
+	tileData= {};
+	yOffset= 0;
 	
 	constructor( tilesize, data, tileset, orientation, anims ) {
-		this.parent( tilesize, data, tileset );
+		super( tilesize, data, tileset );
 
-		if( tpf.Map.fixTileSeams ) {
+		if( tpfMap.fixTileSeams ) {
 			this.tiles.expandSeams(tilesize);
 		}
 
@@ -28,16 +31,16 @@ tpf.Map = ig.BackgroundMap.extend({
 				}
 			}
 		}
-	},
+	}
 
-	draw() {}, // Maps are drawn by tpf.CulledSectors
+	draw() {} // Maps are drawn by tpfCulledSectors
 	
 	hasTile( x, y ) {
 		return (x >= 0 && y >= 0 && this.data[y] && this.data[y][x]);
-	},
+	}
 	
 	createTileAtPosition( tile, x, y, anim ) {
-		var t = new tpf.Tile( this.tiles, tile, this.tilesize );
+		var t = new tpfTile( this.tiles, tile, this.tilesize );
 		t.quad.setPosition(
 			x * this.tilesize + this.tilesize/2,
 			this.yOffset,
@@ -46,7 +49,7 @@ tpf.Map = ig.BackgroundMap.extend({
 		t.quad.setRotation((-90).toRad(), 0, 0);
 		t.anim = anim;
 		return t;
-	},
+	}
 	
 	applyLightMap( lightMap ) {
 		for( var y in this.tileData ) {
@@ -57,7 +60,7 @@ tpf.Map = ig.BackgroundMap.extend({
 				tile.quad.setColor(lightMap.getLight(rx, ry));
 			}
 		}
-	},
+	}
 
 	getTilesInRect( xs, ys, w, h ) {
 		var tiles = [];
@@ -70,7 +73,7 @@ tpf.Map = ig.BackgroundMap.extend({
 			}
 		}
 		return tiles;
-	}
-});
-
-tpf.Map.fixTileSeams = true;
+  }
+  
+  static fixTileSeams = true
+};

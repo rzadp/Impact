@@ -1,46 +1,49 @@
+import { igImage } from "../../lib/impact/image";
+import { tpfQuad } from "./renderer/quad";
+import { tpfTile } from "./world/tile";
 
-tpf.Loader = ig.Loader.extend({
-	rotation: 0,
+export class tpfLoader extends igLoader {
+	rotation= 0;
 
-	blockFaces: [],
-	loadingBar: null,
-	loadingBarBackground: null,
+	blockFaces= [];
+	loadingBar= null;
+	loadingBarBackground= null;
 
-	barSize: {x: 16, y: 0.1},
+	barSize= {x: 16, y: 0.1};
 
 	load() {
 		var that = this;
-		this.blockImage = new ig.Image('media/loading-block.png');
+		this.blockImage = new igImage('media/loading-block.png');
 		this.blockImage.load( function(){
 			if( !that._intervalId ) {
 				ig.Loader.prototype.load.call(that);
 			}
 		});
-	},
+	}
 
 	createGeometry() {
-		this.loadingBarBackground = new tpf.Quad(this.barSize.x, this.barSize.y);
+		this.loadingBarBackground = new tpfQuad(this.barSize.x, this.barSize.y);
 		this.loadingBarBackground.setPosition(0, -8, 0);
 		this.loadingBarBackground.setColor({r: 0.1, g: 0.1, b: 0.1});
 
-		this.loadingBar = new tpf.Quad(this.barSize.x, this.barSize.y);
+		this.loadingBar = new tpfQuad(this.barSize.x, this.barSize.y);
 		this.loadingBar.setPosition(0, -8, 0);
 		this.loadingBar.setColor({r: 1, g: 1, b: 1});
 
-		this.blockFaces[0] = new tpf.Tile(this.blockImage, 0, 64, 64, 0.125);
+		this.blockFaces[0] = new tpfTile(this.blockImage, 0, 64, 64, 0.125);
 		this.blockFaces[0].quad.setPosition(0, 0, -4);
 
-		this.blockFaces[1] = new tpf.Tile(this.blockImage, 0, 64, 64, 0.125);
+		this.blockFaces[1] = new tpfTile(this.blockImage, 0, 64, 64, 0.125);
 		this.blockFaces[1].quad.setPosition(4, 0, 0);
 		this.blockFaces[1].quad.setRotation(0, -Math.PI/2, 0);
 
-		this.blockFaces[2] = new tpf.Tile(this.blockImage, 0, 64, 64, 0.125);
+		this.blockFaces[2] = new tpfTile(this.blockImage, 0, 64, 64, 0.125);
 		this.blockFaces[2].quad.setPosition(0, 0, 4);
 
-		this.blockFaces[3] = new tpf.Tile(this.blockImage, 0, 64, 64, 0.125);
+		this.blockFaces[3] = new tpfTile(this.blockImage, 0, 64, 64, 0.125);
 		this.blockFaces[3].quad.setPosition(-4, 0, 0);
 		this.blockFaces[3].quad.setRotation(0, Math.PI/2, 0);
-	},
+	}
 
 	draw() {
 		if( !this.loadingBar ) {
@@ -49,7 +52,7 @@ tpf.Loader = ig.Loader.extend({
 
 		this.rotation += 0.2 * this.status * this.status;
 		ig.system.renderer.render(this.renderCallback.bind(this));
-	},
+	}
 
 	renderCallback() {
 		var renderer = ig.system.renderer;
@@ -79,4 +82,4 @@ tpf.Loader = ig.Loader.extend({
 		renderer.pushQuad(this.loadingBar);
 		renderer.pushQuad(this.loadingBarBackground);
 	}
-});
+};

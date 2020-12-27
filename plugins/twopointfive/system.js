@@ -1,3 +1,4 @@
+import { igTimer } from '../../lib/impact/timer';
 
 ig.System.inject({
 	renderer: null,
@@ -17,7 +18,7 @@ ig.System.inject({
 		this.initialWidth = width;
 		this.initialHeight = height;
 		
-		this.clock = new ig.Timer();
+		this.clock = new igTimer();
 		this.canvas = ig.$(canvasId);
 		this.canvas.width = width * ig.ua.pixelRatio;
 		this.canvas.height = height * ig.ua.pixelRatio;

@@ -1,6 +1,8 @@
 
 // CulledSectors divides a World into square sectors of 'sectorSize'.
 
+import { tpfTileMesh } from "./tile";
+
 // The 'fillMap' is used as a guide of walkable space - this is usually the
 // floor map.
 
@@ -345,7 +347,7 @@ export class tpfCulledSectors {
 		for( var i = 0; i < maps.length; i++ ) {
 			tiles = tiles.concat( maps[i].getTilesInRect(tx, ty, tw, th) );
 		}
-		var mesh = new tpf.TileMesh(tiles);
+		var mesh = new tpfTileMesh(tiles);
 	
 		// Return the sector		
 		return {

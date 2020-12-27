@@ -1,9 +1,13 @@
+import { tpfCulledSectors } from "./world/culled-sectors";
+import { tpfLightMap } from "./world/light-map";
+import { tpfMap } from "./world/map";
+import { tpfWallMap } from "./world/wall-map";
 
-tpf.Game = ig.Game.extend({
+export class tpfGame extends igGame{
 
-	culledSectors: null,
-	sectorSize: 4,
-	clearColor: null,
+	culledSectors= null;
+	sectorSize= 4;
+	clearColor= null;
 
 	clearLevel() {
 		for( var i = 0; i < this.entities.length; i++ ) {
@@ -19,7 +23,7 @@ tpf.Game = ig.Game.extend({
 		this.backgroundMaps = [];
 
 		this.lightMap = null;
-	},
+	}
 
 
 	loadLevel( data ) {
@@ -32,10 +36,10 @@ tpf.Game = ig.Game.extend({
 				this.collisionMap = new ig.CollisionMap(ld.tilesize, ld.data );
 			}
 			else if( ld.name == 'light' ) {
-				this.lightMap = new tpf.LightMap( ld.tilesize, ld.data, ld.tilesetName );
+				this.lightMap = new tpfLightMap( ld.tilesize, ld.data, ld.tilesetName );
 			}
 			else if( ld.name == 'walls' || ld.name == 'floor' || ld.name == 'ceiling' ) {
-				var MapClass = ld.name == 'walls' ? tpf.WallMap : tpf.Map;
+				var MapClass = ld.name == 'walls' ? tpfWallMap : tpfMap;
 				var anims = this.backgroundAnims[ld.tilesetName] || {};
 				var newMap = new MapClass( ld.tilesize, ld.data, ld.tilesetName, ld.name, anims );
 				newMap.name = ld.name;
@@ -62,7 +66,7 @@ tpf.Game = ig.Game.extend({
 
 		// Create the culled sector map, using the floor map as a guide to where the player
 		// can travel. Add the geometry from all background maps
-		this.culledSectors = new tpf.CulledSectors( floorMap, this.backgroundMaps, this.sectorSize );
+		this.culledSectors = new tpfCulledSectors( floorMap, this.backgroundMaps, this.sectorSize );
 		
 		
 		for( var i = 0; i < data.entities.length; i++ ) {
@@ -74,11 +78,11 @@ tpf.Game = ig.Game.extend({
 		for( var i = 0; i < this.entities.length; i++ ) {
 			this.entities[i].ready();
 		}
-	},
+	}
 	
 	draw() {
 		ig.system.renderer.render(this.drawCallback.bind(this));
-	},
+	}
 
 	drawCallback(renderer) {
 		if( this.clearColor ) {
@@ -93,7 +97,7 @@ tpf.Game = ig.Game.extend({
 		ig.system.renderer.setFog(false);
 		this.drawHud();
 		if( fog ) { ig.system.renderer.setFog( fog.color, fog.near, fog.far ); }
-	},
+	}
 
 	drawWorld() {
 		if( !this.culledSectors ) {
@@ -111,7 +115,7 @@ tpf.Game = ig.Game.extend({
 			fov = ig.system.horizontalFov().toRad();
 
 		this.culledSectors.draw(cx, cy, cullAngle, fov);
-	},
+	}
 
 	drawHud() {}
-});
+};

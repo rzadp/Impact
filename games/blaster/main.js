@@ -1,24 +1,27 @@
-var MyGame = tpf.Game.extend({
-	sectorSize: 4,
-	hud: null,
+import { igTimer } from '../../lib/impact/timer';
+import { tpfLoader } from '../../plugins/twopointfive/loader';
 
-	dead: false,
-	menu: null,
+export class MyGame extends tpfGame{
+	sectorSize= 4;
+	hud= null;
+
+	dead= false;
+	menu= null;
 	
-	touchButtons: null,
-	touchFieldMove: null,
-	touchFieldTurn: null,
+	touchButtons= null;
+	touchFieldMove= null;
+	touchFieldTurn= null;
 
-	gravity: 4,
+	gravity= 4;
 
-	blobSpawnWaitInitial: 2,
-	blobSpawnWaitCurrent: 2,
-	blobSpawnWaitDiv: 1.01,
-	blobKillCount: 0,
-	blobSpawnTimer: null,
+	blobSpawnWaitInitial= 2;
+	blobSpawnWaitCurrent= 2;
+	blobSpawnWaitDiv= 1.01;
+	blobKillCount= 0;
+	blobSpawnTimer= null;
 
-	powerupSpawnWait: 8,
-	powerupSpawnTimer: null,
+	powerupSpawnWait= 8;
+	powerupSpawnTimer= null;
 	
 	constructor() {
 		// Setup HTML Checkboxes and mouse lock on click
@@ -57,11 +60,11 @@ var MyGame = tpf.Game.extend({
 		
 
 		this.setTitle();
-	},
+	}
 
 	setTitle() {
 		this.menu = new MyTitle();
-	},
+	}
 
 	setGame() {
 		this.menu = null;
@@ -70,12 +73,12 @@ var MyGame = tpf.Game.extend({
 
 		this.blobKillCount = 0;
 		this.blobSpawnWaitInitial = this.blobSpawnWaitInitial;
-		this.blobSpawnTimer = new ig.Timer(this.blobSpawnWaitInitial);
-		this.powerupSpawnTimer = new ig.Timer(this.powerupSpawnWait);
+		this.blobSpawnTimer = new igTimer(this.blobSpawnWaitInitial);
+		this.powerupSpawnTimer = new igTimer(this.powerupSpawnWait);
 
 		// Load the last level we've been in or the default Base1
 		this.loadLevel( this.lastLevel || LevelBase1 );
-	},
+	}
 	
 	setupDesktopControls() {
 		// Setup keyboard & mouse controls
@@ -115,7 +118,7 @@ var MyGame = tpf.Game.extend({
 		ig.input.bind( ig.GAMEPAD.FACE_4, 'reset-tracking' );
 		ig.input.bind( ig.GAMEPAD.FACE_3, 'weaponNext' );
 		ig.input.bind( ig.GAMEPAD.FACE_2, 'weaponPrev' );
-	},
+	}
 
 	setupTouchControls() {
 		if( this.touchButtons ) { this.touchButtons.remove(); }
@@ -131,7 +134,7 @@ var MyGame = tpf.Game.extend({
 		
 		this.touchFieldMove = new ig.TouchField(0, 0, ig.system.width/2, ig.system.height);
 		this.touchFieldTurn = new ig.TouchField(ig.system.width/2, 0, ig.system.width/2, ig.system.height/4*3);
-	},
+	}
 
 	loadLevel( data ) {
 		this.lastLevel = data;
@@ -161,7 +164,7 @@ var MyGame = tpf.Game.extend({
 
 		// Remember the floor map, so we know where we can spawn entities
 		this.floorMap = this.getMapByName('floor');
-	},
+	}
 
 	
 	update() {
@@ -209,7 +212,7 @@ var MyGame = tpf.Game.extend({
 				this.dead = true;
 			}
 		}
-	},
+	}
 
 	spawnBlob() {
 		var spawnPos = null,
@@ -228,7 +231,7 @@ var MyGame = tpf.Game.extend({
 
 		this.blobSpawnWaitCurrent /= this.blobSpawnWaitDiv;
 		this.blobSpawnTimer.set( Math.max(this.blobSpawnWaitCurrent, 0.5) );
-	},
+	}
 
 	spawnPowerup() {
 		// 1/3 chance for health, 2/3 chance for grenades
@@ -239,7 +242,7 @@ var MyGame = tpf.Game.extend({
 		this.spawnEntity(entityClass, pos.x, pos.y);
 
 		this.powerupSpawnTimer.reset();
-	},
+	}
 
 	getRandomSpawnPos() {
 		// This randomly probes the floor map and stops at the first tile
@@ -254,15 +257,15 @@ var MyGame = tpf.Game.extend({
 				return { x: x, y:y };
 			}
 		}
-	},
+	}
 	
 	showDeathAnim() {
-		this.deathAnimTimer = new ig.Timer( 1 );
-	},
+		this.deathAnimTimer = new igTimer( 1 );
+	}
 
 	drawWorld() {
 		this.parent();
-	},
+	}
 
 	drawHud() {
 		ig.system.renderer.hudFreelook = false;
@@ -275,7 +278,7 @@ var MyGame = tpf.Game.extend({
 			this.menu.draw();
 		}
 	}
-});
+};
 
 
 document.body.className = 
@@ -316,7 +319,7 @@ ig.Sound.use = [ig.Sound.FORMAT.OGG, ig.Sound.FORMAT.M4A];
 
 // Test WebGL support and init
 if( ig.System.hasWebGL() ) {
-	ig.main( '#canvas', MyGame, 60, width, height, 1, tpf.Loader );
+	ig.main( '#canvas', MyGame, 60, width, height, 1, tpfLoader );
 }
 else {
 	ig.$('#game').style.display = 'none';

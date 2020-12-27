@@ -30,4 +30,4 @@ Whenever drawing parts of an image in WebGL, such is done here when drawing tile
 
 TwoPointFive attempts to work around this issue by redrawing your tileset into a slightly larger image and adding a 1 pixel border around each tile. This 1px border is a copy of the neighboring pixels. Whenever WebGL now samples a texture slightly outside the tile boundary, it will sample from this 1px border and thus avoid any seams in your map.
 
-If you do not want this behaviour, you can disable it by setting `tpf.Map.fixTileSeams = false;` before calling `ig.main()`.
+If you do not want this behaviour, you can disable it by setting `tpfMap.fixTileSeams = false;` before calling `ig.main()`.

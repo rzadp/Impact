@@ -1,43 +1,48 @@
 
+import { tpfEntity } from '../../plugins/twopointfive/entity';
+import { igSound } from '../../lib/impact/sound';
+import { igEntity } from '../../lib/impact/entity';
+import { tpfStereoRenderer } from '../../plugins/twopointfive/renderer/stereo-renderer';
+import { tpfHud } from '../../plugins/twopointfive/hud';
 
-EntityPlayer = tpf.Entity.extend({
-	type: ig.Entity.TYPE.A,
-	collides: ig.Entity.COLLIDES.PASSIVE,
+export class EntityPlayer extends tpfEntity{
+	type= igEntity.TYPE.A;
+	collides= igEntity.COLLIDES.PASSIVE;
 	
-	size: {x: 32, y: 32},
+	size= {x: 32, y: 32};
 	
-	angle: 0,
-	internalAngle: 0,
-	turnSpeed: (120).toRad(),
-	moveSpeed: 192,
-	bob: 0,
-	bobSpeed: 0.1,
-	bobHeight: 0.8,
+	angle= 0;
+	internalAngle= 0;
+	turnSpeed= (120).toRad();
+	moveSpeed= 192;
+	bob= 0;
+	bobSpeed= 0.1;
+	bobHeight= 0.8;
 	
-	health: 100,
-	maxHealth: 100,
+	health= 100;
+	maxHealth= 100;
 	
-	weapons: [],
+	weapons= [];
 
-	currentWeapon: null,
-	currentWeaponIndex: -1,
-	delayedWeaponSwitchIndex: -1,
+	currentWeapon= null;
+	currentWeaponIndex= -1;
+	delayedWeaponSwitchIndex= -1;
 
-	currentLightColor: {r:1, g:1, b:1, a:1},
+	currentLightColor= {r:1, g:1, b:1, a:1};
 
-	god: false,
+	god= false;
 
-	hurtSounds: [
-		new ig.Sound('media/sounds/hurt1.*'),
-		new ig.Sound('media/sounds/hurt2.*'),
-		new ig.Sound('media/sounds/hurt3.*')
-	],
+	hurtSounds= [
+		new igSound('media/sounds/hurt1.*'),
+		new igSound('media/sounds/hurt2.*'),
+		new igSound('media/sounds/hurt3.*')
+	];
 	
 	constructor( x, y, settings ) {
-		this.parent( x, y, settings );
+		super( x, y, settings );
 		this.internalAngle = this.angle;
 		ig.game.player = this;
-	},
+	}
 	
 	ready() {
 		var cx = this.pos.x + this.size.x/2,
@@ -47,7 +52,7 @@ EntityPlayer = tpf.Entity.extend({
 
 
 		this.giveWeapon( WeaponGrenadeLauncher, 16 );
-	},
+	}
 	
 	update() {
 		
@@ -118,7 +123,7 @@ EntityPlayer = tpf.Entity.extend({
 		// aim direction of the player with the head movement as well.
 		var trackerRotation = [0,0,0];
 		var trackerPosition = [0,0,0];
-		if( ig.system.renderer instanceof tpf.StereoRenderer ) {
+		if( ig.system.renderer instanceof tpfStereoRenderer ) {
 			var state = ig.system.renderer.getHMDState();
 			trackerRotation = state.rotation;
 			trackerPosition = state.position;
@@ -197,7 +202,7 @@ EntityPlayer = tpf.Entity.extend({
 		ig.system.camera.setRotation( trackerRotation[2], trackerRotation[1], this.angle );
 
 		// If we have a head tracker connected, we may to adjust the position a bit
-		if( ig.system.renderer instanceof tpf.StereoRenderer ) {
+		if( ig.system.renderer instanceof tpfStereoRenderer ) {
 			var tt = trackerPosition;
 			var a = this.internalAngle;
 			var ttx = tt[0] * Math.cos(-a) - tt[2] * Math.sin(-a);
@@ -207,7 +212,7 @@ EntityPlayer = tpf.Entity.extend({
 		else {
 			ig.system.camera.setPosition( cx, cy, bobOffset );
 		}
-	},
+	}
 	
 	receiveDamage( amount, from ) {
 		if( this.god || this._killed ) {
@@ -226,14 +231,14 @@ EntityPlayer = tpf.Entity.extend({
 		ig.game.hud.showDamageIndicator( xpos, ypos, 1 );
 		
 		this.hurtSounds.random().play();		
-		this.parent( amount, from );
-	},
+		super.receiveDamage( amount, from );
+	}
 	
 	kill() {
-		ig.game.hud.showMessage('You are Dead!', tpf.Hud.TIME.PERMANENT);
+		ig.game.hud.showMessage('You are Dead!', tpfHud.TIME.PERMANENT);
 		ig.game.showDeathAnim();
-		this.parent();
-	},	
+		super.kill();
+	}
 	
 	giveWeapon( weaponClass, ammo ) {
 		// Do we have this weapon already? Add ammo!
@@ -253,7 +258,7 @@ EntityPlayer = tpf.Entity.extend({
 		}
 		
 		this.switchWeapon( index );
-	},
+	}
 	
 	giveAmmo( weaponClass, ammo ) {
 		for( var i = 0; i < this.weapons.length; i++ ) {
@@ -262,7 +267,7 @@ EntityPlayer = tpf.Entity.extend({
 				w.giveAmmo( ammo );
 			}
 		}
-	},
+	}
 
 	giveHealth( amount ) {
 		if( this.health >= this.maxHealth ) {
@@ -271,7 +276,7 @@ EntityPlayer = tpf.Entity.extend({
 
 		this.health = Math.min(this.health + amount, this.maxHealth);
 		return true;
-	},
+	}
 	
 	switchWeapon( index ) {
 		if( this.currentWeapon ) {
@@ -294,7 +299,7 @@ EntityPlayer = tpf.Entity.extend({
 		
 		// Make sure the lighting for the weapon is updated
 		this.currentWeapon.setLight( this.currentLightColor );
-	},
+	}
 
 	switchToNextNonEmptyWeapon() {
 		for( var i = this.currentWeaponIndex+1; i < this.weapons.length; i++ ) {
@@ -312,7 +317,7 @@ EntityPlayer = tpf.Entity.extend({
 				return;
 			}
 		}
-	},
+	}
 	
 	setLight( color ) {
 		this.currentLightColor = color;
@@ -320,4 +325,4 @@ EntityPlayer = tpf.Entity.extend({
 			this.currentWeapon.setLight( color );
 		}
 	}
-});
+};

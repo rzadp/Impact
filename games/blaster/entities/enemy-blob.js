@@ -1,20 +1,23 @@
+import { igEntity } from '../../lib/impact/entity';
+import { igAnimationSheet } from '../../lib/impact/animation';
+import { igTimer } from '../../lib/impact/timer';
 
-EntityEnemyBlobSpawner = tpf.Entity.extend({
-	size: {x: 16, y: 16},
-	scale: 0.5,
+export class EntityEnemyBlobSpawner extends tpfEntity{
+	size= {x: 16, y: 16};
+	scale= 0.5;
 
-	dynamicLight: true,
-	_wmBoxColor: '#ff0000',
+	dynamicLight= true;
+	_wmBoxColor= '#ff0000';
 
-	angle: 0,
+	angle= 0;
 
-	animSheet: new ig.AnimationSheet( 'media/blob-spawn.png', 64, 128 ),
+	animSheet= new igAnimationSheet( 'media/blob-spawn.png', 64, 128 );
 	
 	constructor( x, y, settings ) {
-		this.parent( x, y, settings );
+		super( x, y, settings );
 		this.addAnim( 'idle', 1, [0] );
 		this.addAnim( 'spawn', 0.05, [0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,14,15,16,17,18,19,20,21] );
-	},
+	}
 
 	update() {
 		if( this.currentAnim == this.anims.idle ) {
@@ -26,56 +29,56 @@ EntityEnemyBlobSpawner = tpf.Entity.extend({
 			}
 		}
 
-		this.parent();
+		super.update(_)
 
 		// Spawn anim finished? Spawn the Blob and kill the spawner.
 		if( this.currentAnim == this.anims.spawn && this.currentAnim.loopCount ) {
 			ig.game.spawnEntity(EntityEnemyBlob, this.pos.x, this.pos.y);
 			this.kill();
 		}
-	},
+	}
 
 	manhattenDistanceTo( other ) {
 		// This is a tiny bit faster than .distanceTo() and we don't need the precision
 		return Math.abs(other.pos.x - this.pos.x) + Math.abs(other.pos.y - this.pos.y);
 	}
-});
+};
 
 
-EntityEnemyBlob = tpf.Entity.extend({
-	type: ig.Entity.TYPE.B,
-	checkAgainst: ig.Entity.TYPE.A,
-	collides: ig.Entity.COLLIDES.ACTIVE,
+export class EntityEnemyBlob extends tpfEntity{
+	type= igEntity.TYPE.B;
+	checkAgainst= igEntity.TYPE.A;
+	collides= igEntity.COLLIDES.ACTIVE;
 
-	size: {x: 16, y: 16},
-	friction: {x: 100, y: 100},
-	scale: 0.5,
+	size= {x: 16, y: 16};
+	friction= {x: 100, y: 100};
+	scale= 0.5;
 
-	health: 10,
-	damage: 10,
+	health= 10;
+	damage= 10;
 
-	dynamicLight: true,
-	_wmBoxColor: '#ff0000',
+	dynamicLight= true;
+	_wmBoxColor= '#ff0000';
 
-	angle: 0,
-	speed: 80,
-	injump: false,
+	angle= 0;
+	speed= 80;
+	injump= false;
 
-	didHurtPlayer: false,
-	seenPlayer: false,
+	didHurtPlayer= false;
+	seenPlayer= false;
 
 
-	animSheet: new ig.AnimationSheet( 'media/blob.png', 64, 64 ),
+	animSheet= new igAnimationSheet( 'media/blob.png', 64, 64 );
 	
 	constructor( x, y, settings ) {
-		this.parent( x, y, settings );
+		super( x, y, settings );
 		var crawFrameTime = 0.04 + Math.random() * 0.02;
 
 		this.addAnim( 'crawl', 0.04, [0,1,2,3,4,5,4,3,2,1] );
 		this.currentAnim.gotoRandomFrame();
 
-		this.hurtTimer = new ig.Timer(); 
-	},
+		this.hurtTimer = new igTimer(); 
+	}
 
 
 	update() {
@@ -90,8 +93,8 @@ EntityEnemyBlob = tpf.Entity.extend({
 			this.vel.y *= -1;
 		}
 
-		this.parent();
-	},
+		super.update()
+	}
 
 	kill() {
 		var cx = this.pos.x + this.size.x/2;
@@ -100,8 +103,8 @@ EntityEnemyBlob = tpf.Entity.extend({
 			ig.game.spawnEntity( EntityEnemyBlobGib, cx, cy );
 		}
 		ig.game.blobKillCount++;
-		this.parent();
-	},
+		super.kill()
+	}
 
 	check( other ) {
 		if( this.hurtTimer.delta() < 0 ) {
@@ -117,22 +120,22 @@ EntityEnemyBlob = tpf.Entity.extend({
 		this.vel.y = -this.vel.y;
 		other.receiveDamage( this.damage, this );
 	}
-});
+};
 
 
 
-EntityEnemyBlobGib = EntityParticle.extend({
-	vpos: 0,
-	scale: 0.5,
-	initialVel: {x:120, y: 120, z: 2.5},
-	friction: {x: 10, y: 10},
+export class EntityEnemyBlobGib extends EntityParticle{
+	vpos= 0;
+	scale= 0.5;
+	initialVel= {x:120, y: 120, z: 2.5};
+	friction= {x: 10, y: 10};
 	
-	lifetime: 2,
+	lifetime= 2;
 	
-	animSheet: new ig.AnimationSheet( 'media/blob-gib.png', 16, 16 ),
+	animSheet= new igAnimationSheet( 'media/blob-gib.png', 16, 16 );
 	
 	constructor( x, y, settings ) {
 		this.addAnim( 'idle', 5, [0,1,2,3,4,5,6,7,8,9,10,11] );
-		this.parent( x, y, settings );
+		super( x, y, settings );
 	}
-});
+};

@@ -1,3 +1,4 @@
+import { igFont } from '../../lib/impact/font';
 import { igTimer } from '../../lib/impact/timer';
 import { tpfOrthoCamera } from './renderer/ortho-camera';
 import { tpfQuad } from './renderer/quad';
@@ -70,7 +71,7 @@ export class tpfHud {
 		}
 
 		if( this.message && this.font ) {
-			this.font.draw(this.message, this.width/2, this.height/3, ig.Font.ALIGN.CENTER);
+			this.font.draw(this.message, this.width/2, this.height/3, igFont.ALIGN.CENTER);
 		}
 
 		if( this.damageTimer ) {

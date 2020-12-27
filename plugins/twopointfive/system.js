@@ -1,3 +1,4 @@
+import { igSystem } from '../../lib/impact/system';
 import { igTimer } from '../../lib/impact/timer';
 import { tpfPerspectiveCamera } from './renderer/perspective-camera';
 import { tpfRenderer } from './renderer/renderer';
@@ -45,7 +46,7 @@ ig.System.inject({
 	},
 	
 	resize( width, height, scale ) {
-		var r = ig.System.useRetina ? ig.ua.pixelRatio : 1;
+		var r = igSystem.useRetina ? ig.ua.pixelRatio : 1;
 		
 		this.width = width;
 		this.height = height;

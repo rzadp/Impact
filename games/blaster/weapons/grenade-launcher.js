@@ -1,7 +1,7 @@
 import { igEntity } from "../../lib/impact/entity";
-import { tpfEntity } from "plugins/twopointfive/entity";
-import { igAnimationSheet } from "lib/impact/animation";
-import { igSound } from "lib/impact/sound";
+import { tpfEntity } from "../../plugins/twopointfive/entity";
+import { igAnimationSheet } from "../../lib/impact/animation";
+import { igSound } from "../../lib/impact/sound";
 
 const { tpfHudTile } = require("plugins/twopointfive/world/tile");
 

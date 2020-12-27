@@ -1,4 +1,5 @@
-import { tpfHudTile } from "plugins/twopointfive/world/tile";
+import { igFont } from "../../lib/impact/font";
+import { tpfHudTile } from "../../plugins/twopointfive/world/tile";
 
 export class MyHud extends tpfHud{
 
@@ -27,12 +28,12 @@ export class MyHud extends tpfHud{
 
 			if( weapon.ammoIcon ) {
 				weapon.ammoIcon.draw();
-				this.font.draw( weapon.ammo, 210, this.height - this.font.height + 1, ig.Font.ALIGN.RIGHT );
+				this.font.draw( weapon.ammo, 210, this.height - this.font.height + 1, igFont.ALIGN.RIGHT );
 			}
 		}
 
 		this.healthIcon.draw();
-		this.font.draw( player.health, 90, this.height - this.font.height + 1, ig.Font.ALIGN.RIGHT );
+		this.font.draw( player.health, 90, this.height - this.font.height + 1, igFont.ALIGN.RIGHT );
 
 		this.font.draw( 'Kills: ' +ig.game.blobKillCount, 32, 8 );
 

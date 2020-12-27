@@ -1,4 +1,4 @@
-import { igEntity } from "lib/impact/entity";
+import { igEntity } from "../../lib/impact/entity";
 
 const { tpfTile } = require("./world/tile");
 

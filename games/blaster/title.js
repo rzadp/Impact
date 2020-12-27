@@ -1,3 +1,11 @@
+import { igImage } from "../../lib/impact/image";
+import { igTimer } from "../../lib/impact/timer";
+import { tpfFont } from "../../plugins/twopointfive/font";
+import { tpfOrthoCamera } from "../../plugins/twopointfive/renderer/ortho-camera";
+import { tpfQuad } from "../../plugins/twopointfive/renderer/quad";
+import { tpfHudTile } from "../../plugins/twopointfive/world/tile";
+import { igFont } from "../../lib/impact/font";
+
 export class MyTitle {
 	camera= null;
 	fadeScreen= null;
@@ -42,6 +50,6 @@ export class MyTitle {
 			? 'Tap to Start'
 			: 'Click to Start';
 		var alpha = (Math.sin(this.timer.delta()*4)+1)*0.5;
-		this.font.draw(message, this.width/2, 350, ig.Font.ALIGN.CENTER, alpha);
+		this.font.draw(message, this.width/2, 350, igFont.ALIGN.CENTER, alpha);
 	}
 };

@@ -1,5 +1,6 @@
 import { tpfStereoRenderer } from '../../plugins/twopointfive/renderer/stereo-renderer';
 import { igTimer } from '../../lib/impact/timer';
+import { igSound } from '../../lib/impact/sound';
 import { tpfLoader } from '../../plugins/twopointfive/loader';
 
 export class MyGame extends tpfGame{
@@ -316,7 +317,7 @@ else if( ig.ua.mobile ) {
 }
 
 
-ig.Sound.use = [ig.Sound.FORMAT.OGG, ig.Sound.FORMAT.M4A];
+igSound.use = [igSound.FORMAT.OGG, igSound.FORMAT.M4A];
 
 // Test WebGL support and init
 if( ig.System.hasWebGL() ) {

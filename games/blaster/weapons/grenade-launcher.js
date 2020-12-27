@@ -84,7 +84,7 @@ export class EntityGrenade extends tpfEntity{
 	}
 	
 	reset( x, y, settings ) {
-		this.parent(x,y,settings);
+		super.reset(x,y,settings);
 		this.vel.x = -Math.sin(this.angle) * this.speed;
 		this.vel.y = -Math.cos(this.angle) * this.speed;
 		this.vel.z = 1.2;
@@ -117,7 +117,7 @@ export class EntityGrenade extends tpfEntity{
 		if( res.collision.x || res.collision.y ) {
 			this.bounceSound.play();
 		}
-		this.parent(res);
+		super.handleMovementTrace(res);
 	}
 
 	kill() {
@@ -133,7 +133,7 @@ export class EntityGrenade extends tpfEntity{
 
 		ig.game.spawnEntity(EntityBlastRadius, this.pos.x, this.pos.y, this.blastSettings );
 		this.explodeSound.play();
-		this.parent();
+		super.kill();
 	}
 };
 

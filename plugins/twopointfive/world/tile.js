@@ -61,7 +61,7 @@ export class tpfTile {
 
 
 
-// The tpf.TileMesh collects a number of tpf.Tiles into a single large
+// The tpfTileMesh collects a number of tpfTiles into a single large
 // buffer, so it can be drawn directly without copying each Quad first.
 // This is used for TwoPointFive's world maps.
 

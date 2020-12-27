@@ -6,7 +6,7 @@ ig.Input.inject({
 		var oldX = this.mouse.x;
 		var oldY = this.mouse.y;
 		
-		this.parent( event );
+		super.mousemove( event );
 	
 		// Needed because mousemove() is also called for click events	
 		if( event.type == 'mousemove' ) {
@@ -25,7 +25,7 @@ ig.Input.inject({
 	},
 	
 	clearPressed() {
-		this.parent();
+		super.clearPressed();
 		
 		this.mouseDelta.x = 0;
 		this.mouseDelta.y = 0;

@@ -10,7 +10,7 @@ ig.Image.inject({
 		this.texture = ig.system.renderer.loadTexture(this.data);
 		this.textureWidth = this.data.width;
 		this.textureHeight = this.data.height;
-		this.parent(event);
+		super.onload(event);
 	},
 
 	expandSeams(tilesize) {

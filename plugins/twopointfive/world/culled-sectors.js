@@ -16,7 +16,7 @@ import { tpfTileMesh } from "./tile";
 // CulledSectors recursively traverses through all visible dividing portals
 // and draws all world meshes and entities in them.
 
-// Each tpf.Entity comes with a .__sectorX/Y property that denotes the 
+// Each tpfEntity comes with a .__sectorX/Y property that denotes the 
 // current sector this entity lives in. When the entity is moved, it has to 
 // call the CulledSectors' .moveEntity() function to notify the sector of 
 // the movement.

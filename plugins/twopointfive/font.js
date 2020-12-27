@@ -8,7 +8,7 @@ export class tpfFont extends igFont{
 
 	draw( text, x, y, align, alpha ) {
 		this._glAlpha = typeof(alpha) != 'undefined' ? alpha : 1;
-		this.parent(text, x, y, align);
+		super.draw(text, x, y, align);
 	}
 	
 	_drawChar( c, targetX, targetY ) {

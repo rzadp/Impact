@@ -1,6 +1,6 @@
 
 // The tpfQuad is the heart of TwoPointFive. Everything that's drawn
-// on the screen is drawn through a Quad or, like the tpf.TileMesh,
+// on the screen is drawn through a Quad or, like the tpfTileMesh,
 // is generated from Quads.
 
 // A Quad has 6 vertices, each with an an x, y, z position, 
@@ -167,7 +167,7 @@ export class tpfQuad {
 // but takes a buffer and offset instead of operating on the instance's 
 // vertices directly.
 
-// This is used by tpf.TileMeshes to directly update UV coordinates for animted
+// This is used by tpfTileMeshes to directly update UV coordinates for animted
 // world tiles.
 
 if( !ig.global.wm ) {

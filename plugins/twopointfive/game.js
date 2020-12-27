@@ -1,3 +1,4 @@
+import { tpfEntity } from "./entity";
 import { tpfCulledSectors } from "./world/culled-sectors";
 import { tpfLightMap } from "./world/light-map";
 import { tpfMap } from "./world/map";
@@ -11,7 +12,7 @@ export class tpfGame extends igGame{
 
 	clearLevel() {
 		for( var i = 0; i < this.entities.length; i++ ) {
-			if( this.entities[i] instanceof tpf.Entity ) {
+			if( this.entities[i] instanceof tpfEntity ) {
 				this.entities[i].remove();
 			}
 		}

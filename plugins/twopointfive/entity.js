@@ -46,13 +46,13 @@ export class tpfEntity extends igEntity{
 	}
 	
 	reset( x, y, settings ) {
-		this.parent( x, y, settings );
+		super.reset( x, y, settings );
 		ig.game.culledSectors.moveEntity(this);
 		this.updateQuad();
 	}
 	
 	kill() {
-		this.parent();
+		super.kill();
 		this.remove();
 	}
 
@@ -60,7 +60,7 @@ export class tpfEntity extends igEntity{
 		// Impact's handleMovementTrace may omit the z position,
 		// so remember it here and re-set it afterwards
 		var z = this.pos.z;
-		this.parent(res);
+		super.handleMovementTrace(res);
 		this.pos.z = z;
 	}
 

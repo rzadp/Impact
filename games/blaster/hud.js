@@ -13,7 +13,7 @@ export class MyHud extends tpfHud{
 	showControlsTimer= null;
 
 	constructor( width, height, showControls ) {
-		this.parent(width, height);
+		super(width, height);
 
 		this.healthIcon = new tpfHudTile( this.healthIconImage, 0, 32, 32 );
 		this.healthIcon.setPosition( 96, this.height-this.healthIcon.tileHeight-4 );

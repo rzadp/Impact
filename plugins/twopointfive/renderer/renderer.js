@@ -94,8 +94,8 @@ export class tpfRenderer {
 
 		this.setSize( canvas.width, canvas.height );
 
-		this.programDefault = new tpfProgram( this.gl, tpf.Renderer.Shaders.Vertex, tpf.Renderer.Shaders.Fragment );
-		this.programFog = new tpfProgram( this.gl, tpf.Renderer.Shaders.Vertex, tpf.Renderer.Shaders.FragmentWithFog );
+		this.programDefault = new tpfProgram( this.gl, tpfRenderer.Shaders.Vertex, tpfRenderer.Shaders.Fragment );
+		this.programFog = new tpfProgram( this.gl, tpfRenderer.Shaders.Vertex, tpfRenderer.Shaders.FragmentWithFog );
 		this.program = this.programDefault;
 
 		this.buffer = new Float32Array( this.bufferSize * tpfQuad.SIZE );

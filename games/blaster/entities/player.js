@@ -183,7 +183,7 @@ export class EntityPlayer extends tpfEntity{
 		
 		
 		// Calculate new position based on velocity; update sector and light etc...
-		this.parent();
+		super.update();
 		
 
 		// Calculate bobbing

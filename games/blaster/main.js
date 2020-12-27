@@ -1,3 +1,4 @@
+import { tpfStereoRenderer } from '../../plugins/twopointfive/renderer/stereo-renderer';
 import { igTimer } from '../../lib/impact/timer';
 import { tpfLoader } from '../../plugins/twopointfive/loader';
 
@@ -152,7 +153,7 @@ export class MyGame extends tpfGame{
 		this.sectorSize = (info && info.sectorSize) || 4;
 
 		// Load the map
-		this.parent( data );
+		super.loadLevel( data );
 
 		// Set the fog and fog color (never use fog on mobile)
 		if( info && typeof info.fogColor !== 'undefined' && !ig.ua.mobile ) {
@@ -169,7 +170,7 @@ export class MyGame extends tpfGame{
 	
 	update() {
 		// Reset tracking position for WebVR on button press
-		if( ig.input.pressed('reset-tracking') && ig.system.renderer instanceof tpf.StereoRenderer ) {
+		if( ig.input.pressed('reset-tracking') && ig.system.renderer instanceof tpfStereoRenderer ) {
 			ig.system.renderer.reset();
 		}
 
@@ -196,7 +197,7 @@ export class MyGame extends tpfGame{
 		}
 
 		// Update all entities and backgroundMaps
-		this.parent();
+		super.update();
 		
 		// Roll the death animation; just move the camera down a bit.
 		if( this.deathAnimTimer ) {
@@ -264,7 +265,7 @@ export class MyGame extends tpfGame{
 	}
 
 	drawWorld() {
-		this.parent();
+		super.drawWorld();
 	}
 
 	drawHud() {

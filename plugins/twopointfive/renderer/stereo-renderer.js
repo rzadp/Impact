@@ -1,3 +1,5 @@
+import { tpfOrthoCamera } from "./ortho-camera";
+import { tpfPerspectiveCamera } from "./perspective-camera";
 
 export class tpfStereoRenderer extends tpfRenderer{
 	eyes= {
@@ -16,7 +18,7 @@ export class tpfStereoRenderer extends tpfRenderer{
 	hudDistance= 250;
 
 	constructor( canvas, worldScale ) {
-		this.parent(canvas);
+		super(canvas);
 
 		this.worldScale = worldScale || this.worldScale;
 
@@ -129,7 +131,7 @@ export class tpfStereoRenderer extends tpfRenderer{
 		this.canvas.width = width;
 		this.canvas.height = height;
 
-		this.parent(width, height);
+		super.setSize(width, height);
 
 		var width2 = width/2;
 
@@ -147,7 +149,7 @@ export class tpfStereoRenderer extends tpfRenderer{
 
 	render( sceneCallback ) {
 		if( !this.hmdDevice ) {
-			return this.parent(sceneCallback);
+			return this.render(sceneCallback);
 		}
 
 
@@ -171,7 +173,7 @@ export class tpfStereoRenderer extends tpfRenderer{
 		var view = camera.view();
 
 		// Transform Perspective Camera to current eye coordinates
-		if( camera instanceof tpf.PerspectiveCamera ) {
+		if( camera instanceof tpfPerspectiveCamera ) {
 			var tt = vec3.fromValues(
 				Math.cos(camera.rotation[1]) * -this.currentEye.offset.x * this.worldScale,
 				0,
@@ -182,7 +184,7 @@ export class tpfStereoRenderer extends tpfRenderer{
 		}
 
 		// Cheap hack to transform HUD into center of the screen
-		else if( camera instanceof tpf.OrthoCamera ) {
+		else if( camera instanceof tpfOrthoCamera ) {
 			var ts = this.getHMDState();
 			projection = this.currentEye.projection;
 

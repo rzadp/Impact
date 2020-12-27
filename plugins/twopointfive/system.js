@@ -1,4 +1,7 @@
 import { igTimer } from '../../lib/impact/timer';
+import { tpfPerspectiveCamera } from './renderer/perspective-camera';
+import { tpfRenderer } from './renderer/renderer';
+import { tpfStereoRenderer } from './renderer/stereo-renderer';
 
 ig.System.inject({
 	renderer: null,
@@ -28,7 +31,7 @@ ig.System.inject({
 		this.realWidth = this.width = width;
 		this.realHeight = this.height = height;
 		
-		this.renderer = new tpf.Renderer(canvas);	
+		this.renderer = new tpfRenderer(canvas);	
 		this.resize( width, height, scale );
 	},
 
@@ -56,11 +59,11 @@ ig.System.inject({
 		this.canvas.style.width = width + 'px';
 		this.canvas.style.height = height + 'px';
 		
-		this.camera = new tpf.PerspectiveCamera( this.fov, width / height, 1, 10000 );
+		this.camera = new tpfPerspectiveCamera( this.fov, width / height, 1, 10000 );
 	},
 
 	setStereoMode( on ) {
-		if( on && !tpf.StereoRenderer.hasWebVR() ) {
+		if( on && !tpfStereoRenderer.hasWebVR() ) {
 			alert('No WebVR Support found :/');
 			return;
 		}
@@ -69,10 +72,10 @@ ig.System.inject({
 
 		this.stereoMode = on;
 		if( on ) {
-			this.renderer = new tpf.StereoRenderer(canvas);
+			this.renderer = new tpfStereoRenderer(canvas);
 		}
 		else {
-			this.renderer = new tpf.Renderer(canvas);
+			this.renderer = new tpfRenderer(canvas);
 		}
 
 		if( fog ) {

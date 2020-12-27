@@ -1,4 +1,5 @@
 import { igTimer } from '../../lib/impact/timer';
+import { tpfOrthoCamera } from './renderer/ortho-camera';
 import { tpfQuad } from './renderer/quad';
 import { tpfHudTile } from './world/tile';
 
@@ -27,7 +28,7 @@ export class tpfHud {
 
 		this.font.letterSpacing = -2;
 
-		this.camera = new tpf.OrthoCamera( width, height );
+		this.camera = new tpfOrthoCamera( width, height );
 
 		this.fadeScreen = new tpfQuad(width, height);
 		this.fadeScreen.setPosition(width/2,height/2,0)
@@ -42,7 +43,7 @@ export class tpfHud {
 	showMessage( text, time ) {
 		if( text ) {
 			if( time !== -1 ) {
-				this.messageTimer = new igTimer( tpf.Hud.TIME.DEFAULT || time );
+				this.messageTimer = new igTimer( tpfHud.TIME.DEFAULT || time );
 			}
 			this.message = text;
 		}

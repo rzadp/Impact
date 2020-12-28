@@ -1,8 +1,9 @@
+import { igFontTpf } from "../../lib/impact/font-tpf";
 import { igFont } from "../../lib/impact/font";
 
 const { tpfQuad } = require("./renderer/quad");
 
-export class tpfFont extends igFont{
+export class tpfFont extends igFontTpf{
 	_quads= [];
 	_glAlpha= 1;
 

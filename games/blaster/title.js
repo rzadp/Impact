@@ -22,8 +22,14 @@ export class MyTitle {
 	timer= null;
 	
 	constructor() {
-    console.log('my title gets created')
-		// Create the tile for the title image
+
+  }
+  
+  _init() {
+    if (!this.titleImage.width || !this.titleImage.height) {
+      return // image not loaded yet
+    }
+
 		this.title = new tpfHudTile( this.titleImage, 0, this.titleImage.width, this.titleImage.height);
 		this.title.setPosition(0, 64);
 
@@ -35,9 +41,14 @@ export class MyTitle {
 
 		this.camera = new tpfOrthoCamera(this.width, this.height);
 		this.timer = new igTimer();
-	}
+  }
 
 	update() {
+    if (!this.title) {
+      this._init();
+      return;
+    }
+
 		if( ig.input.released('shoot') || ig.input.released('click') ) {
 			ig.game.setGame();
 		}

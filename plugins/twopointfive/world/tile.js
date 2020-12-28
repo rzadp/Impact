@@ -98,6 +98,7 @@ export class tpfTileMesh {
 
 export class tpfHudTile extends tpfTile{	
 	constructor( image, tile, tileWidth, tileHeight ) {
+    if (tileWidth === 0 || tileHeight === 0) throw new Error('Hud tile refuses zero dimensional tile')
     super(image, tile, tileWidth, tileHeight);
 		this.image = image;
 		this.tileWidth = tileWidth;

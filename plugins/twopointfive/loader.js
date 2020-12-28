@@ -17,7 +17,7 @@ export class tpfLoader extends igLoader {
 		this.blockImage = new igImage('twopointfive/loading-block.png');
 		this.blockImage.load( function(){
 			if( !that._intervalId ) {
-				ig.Loader.prototype.load.call(that);
+				igLoader.prototype.load.call(that);
 			}
 		});
 	}

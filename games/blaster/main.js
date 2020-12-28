@@ -4,6 +4,7 @@ import { igSound } from '../../lib/impact/sound';
 import { tpfLoader } from '../../plugins/twopointfive/loader';
 import { tpfGame } from '../../plugins/twopointfive/game';
 import { tpfSystem } from '../../plugins/twopointfive/system';
+import { igKEY } from '../../lib/impact/input';
 
 export class MyGame extends tpfGame{
 	sectorSize= 4;
@@ -54,7 +55,7 @@ export class MyGame extends tpfGame{
 		}
 		
 		// Setup Controls
-		ig.input.bind( ig.KEY.MOUSE1, 'click' );
+		ig.input.bind( igKEY.MOUSE1, 'click' );
 		if( ig.ua.mobile ) { 
 			this.setupTouchControls(); 
 		}
@@ -86,29 +87,29 @@ export class MyGame extends tpfGame{
 	
 	setupDesktopControls() {
 		// Setup keyboard & mouse controls
-		ig.input.bind( ig.KEY.UP_ARROW, 'forward' );
-		ig.input.bind( ig.KEY.LEFT_ARROW, 'left' );
-		ig.input.bind( ig.KEY.DOWN_ARROW, 'back' );
-		ig.input.bind( ig.KEY.RIGHT_ARROW, 'right' );
+		ig.input.bind( igKEY.UP_ARROW, 'forward' );
+		ig.input.bind( igKEY.LEFT_ARROW, 'left' );
+		ig.input.bind( igKEY.DOWN_ARROW, 'back' );
+		ig.input.bind( igKEY.RIGHT_ARROW, 'right' );
 		
-		ig.input.bind( ig.KEY.C, 'shoot' );
-		ig.input.bind( ig.KEY.ENTER, 'shoot' );
-		ig.input.bind( ig.KEY.X, 'run' );
-		ig.input.bind( ig.KEY.V, 'weaponNext' );
+		ig.input.bind( igKEY.C, 'shoot' );
+		ig.input.bind( igKEY.ENTER, 'shoot' );
+		ig.input.bind( igKEY.X, 'run' );
+		ig.input.bind( igKEY.V, 'weaponNext' );
 
-		ig.input.bind( ig.KEY.ESC, 'pause' );
+		ig.input.bind( igKEY.ESC, 'pause' );
 		
-		ig.input.bind( ig.KEY.W, 'forward' );
-		ig.input.bind( ig.KEY.A, 'stepleft' );
-		ig.input.bind( ig.KEY.S, 'back' );
-		ig.input.bind( ig.KEY.D, 'stepright' );
+		ig.input.bind( igKEY.W, 'forward' );
+		ig.input.bind( igKEY.A, 'stepleft' );
+		ig.input.bind( igKEY.S, 'back' );
+		ig.input.bind( igKEY.D, 'stepright' );
 		
-		ig.input.bind( ig.KEY.SHIFT, 'run' );
-		ig.input.bind( ig.KEY.CTRL, 'shoot' );
+		ig.input.bind( igKEY.SHIFT, 'run' );
+		ig.input.bind( igKEY.CTRL, 'shoot' );
 		
-		ig.input.bind( ig.KEY.MOUSE2, 'run' );
-		ig.input.bind( ig.KEY.MWHEEL_UP, 'weaponNext' );
-		ig.input.bind( ig.KEY.MWHEEL_DOWN, 'weaponPrev' );
+		ig.input.bind( igKEY.MOUSE2, 'run' );
+		ig.input.bind( igKEY.MWHEEL_UP, 'weaponNext' );
+		ig.input.bind( igKEY.MWHEEL_DOWN, 'weaponPrev' );
 
 		// Setup Gamepad
 		ig.input.bind( ig.GAMEPAD.PAD_TOP, 'forward' );

@@ -1,19 +1,17 @@
-import { igImage } from "../../lib/impact/image";
 
-export class tpfImage extends igImage {
-	texture= null;
+ig.Image.inject({
+	texture: null,
 
-	seamsExpanded= false;
-	textureWidth= 0;
-	textureHeight= 0;
+	seamsExpanded: false,
+	textureWidth: 0,
+	textureHeight: 0,
 	
 	onload( event ) {
-    console.log('load tpf image')
-    this.texture = ig.system.renderer.loadTexture(this.data);
+		this.texture = ig.system.renderer.loadTexture(this.data);
 		this.textureWidth = this.data.width;
 		this.textureHeight = this.data.height;
-    super.onload(event);
-	}
+		super.onload(event);
+	},
 
 	expandSeams(tilesize) {
 		if( this.seamsExpanded ) { return; }
@@ -65,4 +63,4 @@ export class tpfImage extends igImage {
 		// Replace texture with the expanded version
 		this.texture = ig.system.renderer.loadTexture(expandedCanvas);
 	}
-};
+});

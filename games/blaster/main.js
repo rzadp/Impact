@@ -6,6 +6,7 @@ import { tpfGame } from '../../plugins/twopointfive/game';
 import { tpfSystem } from '../../plugins/twopointfive/system';
 import { igKEY } from '../../lib/impact/input';
 import { MyTitle } from './title';
+import { MyHud } from './hud';
 
 export class MyGame extends tpfGame{
 	sectorSize= 4;

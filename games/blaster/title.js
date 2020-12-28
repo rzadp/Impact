@@ -19,7 +19,9 @@ export class MyTitle {
 	titleImage= new tpfImage( 'blaster/title.png' );
 	title= null;
 	background= null;
-	timer= null;
+  timer= null;
+  
+  _initialized = false
 	
 	constructor() {
 
@@ -40,11 +42,12 @@ export class MyTitle {
 
 
 		this.camera = new tpfOrthoCamera(this.width, this.height);
-		this.timer = new igTimer();
+    this.timer = new igTimer();
+    this._initialized = true;
   }
 
 	update() {
-    if (!this.title) {
+    if (!this._initialized) {
       this._init();
       return;
     }
@@ -55,6 +58,8 @@ export class MyTitle {
 	}
 
 	draw() {
+    if (!this._initialized) return;
+
 		ig.system.renderer.setCamera(this.camera);
     ig.system.renderer.pushQuad(this.background);
 		this.title.draw();

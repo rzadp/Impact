@@ -216,6 +216,7 @@ export class tpfRenderer {
 	}
 
 	setCamera( camera ) {
+    if (!camera) throw new Error('tpfRender - setCamera requires a camera')
 		this.flush();
 		this.gl.uniformMatrix4fv(this.program.uniform.projection, false, camera.projection());
 		this.gl.uniformMatrix4fv(this.program.uniform.view, false, camera.view());

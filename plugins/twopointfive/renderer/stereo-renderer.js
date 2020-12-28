@@ -168,6 +168,7 @@ export class tpfStereoRenderer extends tpfRenderer{
 	}
 
 	setCamera( camera ) {
+    if (!camera) throw new Error('tpfStereoRenderer - setCamera requires a camera')
 		this.flush();
 
 		var projection = camera.projection();

@@ -5,6 +5,7 @@ import { tpfOrthoCamera } from "../../plugins/twopointfive/renderer/ortho-camera
 import { tpfQuad } from "../../plugins/twopointfive/renderer/quad";
 import { tpfHudTile } from "../../plugins/twopointfive/world/tile";
 import { igFont } from "../../lib/impact/font";
+import { tpfImage } from "../../plugins/twopointfive/image";
 
 export class MyTitle {
 	camera= null;
@@ -15,7 +16,7 @@ export class MyTitle {
 
 	font= new tpfFont( 'blaster/fredoka-one.font.png' );
 
-	titleImage= new igImage( 'blaster/title.png' );
+	titleImage= new tpfImage( 'blaster/title.png' );
 	title= null;
 	background= null;
 	timer= null;

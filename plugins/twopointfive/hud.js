@@ -23,11 +23,12 @@ export class tpfHud {
 
 	debug= true;
 
-	constructor( width, height ) {
+	constructor( width, height, font ) {
 		this.width = width;
 		this.height = height;
 
-		this.font.letterSpacing = -2;
+    this.font = font
+    this.font.letterSpacing = -2;
 
 		this.camera = new tpfOrthoCamera( width, height );
 

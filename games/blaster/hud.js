@@ -1,10 +1,10 @@
 import { tpfHud } from "../../plugins/twopointfive/hud";
 import { igFont } from "../../lib/impact/font";
 import { tpfHudTile } from "../../plugins/twopointfive/world/tile";
+import { tpfFont } from "../../plugins/twopointfive/font";
+import { igImage } from "../../lib/impact/image";
 
 export class MyHud extends tpfHud{
-
-	font= new tpfFont( 'blaster/fredoka-one.font.png' );
 
 	healthIconImage= new igImage( 'blaster/health-icon.png' );
 	damageIndicatorImage= new igImage( 'blaster/hud-blood-low.png' );
@@ -15,7 +15,7 @@ export class MyHud extends tpfHud{
 	showControlsTimer= null;
 
 	constructor( width, height, showControls ) {
-		super(width, height);
+		super(width, height, new tpfFont( 'blaster/fredoka-one.font.png' ));
 
 		this.healthIcon = new tpfHudTile( this.healthIconImage, 0, 32, 32 );
 		this.healthIcon.setPosition( 96, this.height-this.healthIcon.tileHeight-4 );

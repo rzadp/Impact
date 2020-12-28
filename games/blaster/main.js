@@ -7,6 +7,7 @@ import { tpfSystem } from '../../plugins/twopointfive/system';
 import { igKEY } from '../../lib/impact/input';
 import { MyTitle } from './title';
 import { MyHud } from './hud';
+import { LevelBase1 } from './levels/base1';
 
 export class MyGame extends tpfGame{
 	sectorSize= 4;
@@ -179,21 +180,22 @@ export class MyGame extends tpfGame{
 
 	
 	update() {
-    if (!this.hud) {
-      console.log('game not set yet - refusing to update.');
-      return;
-    }
-    
 		// Reset tracking position for WebVR on button press
 		if( ig.input.pressed('reset-tracking') && ig.system.renderer instanceof tpfStereoRenderer ) {
 			ig.system.renderer.reset();
-		}
+    }
 
 		if( this.menu ) {
 			// If we have a menu don't update anything else
 			this.menu.update();
 			return;
-		}
+    }
+    
+    if (!this.hud) {
+      console.log('game not set yet - refusing to update.');
+      console.log({hud: this.hud, menu: this.menu})
+      return;
+    }
 		
 		if( this.dead ) {
 			// Wait for keypress if we are dead

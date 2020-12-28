@@ -21,6 +21,7 @@ export class MyTitle {
 	timer= null;
 	
 	constructor() {
+    console.log('my title gets created')
 		// Create the tile for the title image
 		this.title = new tpfHudTile( this.titleImage, 0, this.titleImage.width, this.titleImage.height);
 		this.title.setPosition(0, 64);

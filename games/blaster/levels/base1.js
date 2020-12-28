@@ -1,3 +1,4 @@
+import { igImage } from "../../../lib/impact/image";
 
 export const LevelBase1=/*JSON[*/{
 	"entities": [
@@ -256,4 +257,4 @@ export const LevelBase1=/*JSON[*/{
 		}
 	]
 }/*]JSON*/;
-export const LevelBase1Resources=[new ig.Image('blaster/tiles/basic-tiles-64.png'), new ig.Image('blaster/tiles/basic-tiles-64.png'), new ig.Image('blaster/tiles/basic-tiles-64.png'), new ig.Image('blaster/tiles/lights-64.png')];
+export const LevelBase1Resources=[new igImage('blaster/tiles/basic-tiles-64.png'), new igImage('blaster/tiles/basic-tiles-64.png'), new igImage('blaster/tiles/basic-tiles-64.png'), new igImage('blaster/tiles/lights-64.png')];

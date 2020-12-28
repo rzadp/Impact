@@ -37,7 +37,6 @@ export class MyTitle {
 	}
 
 	update() {
-    console.log('title gets updated')
 		if( ig.input.released('shoot') || ig.input.released('click') ) {
 			ig.game.setGame();
 		}
@@ -45,7 +44,7 @@ export class MyTitle {
 
 	draw() {
 		ig.system.renderer.setCamera(this.camera);
-		ig.system.renderer.pushQuad(this.background);
+    ig.system.renderer.pushQuad(this.background);
 		this.title.draw();
 
 		var message = ig.ua.mobile

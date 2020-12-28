@@ -11,6 +11,7 @@ export class tpfTile {
 	quad= null;
 	
 	constructor( image, tile, tileWidth, tileHeight, scale ) {
+    if (!image) throw new Error('Image not provided to tpf tile')
 		this.scale = scale || 1;
 		this.image = image;
 		this.tileWidth = tileWidth;
@@ -97,6 +98,7 @@ export class tpfTileMesh {
 
 export class tpfHudTile extends tpfTile{	
 	constructor( image, tile, tileWidth, tileHeight ) {
+    super(image, tile, tileWidth, tileHeight);
 		this.image = image;
 		this.tileWidth = tileWidth;
 		this.tileHeight = tileHeight || tileWidth;

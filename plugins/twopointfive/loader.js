@@ -2,6 +2,7 @@ import { igLoader } from "../../lib/impact/loader";
 import { igImage } from "../../lib/impact/image";
 import { tpfQuad } from "./renderer/quad";
 import { tpfTile } from "./world/tile";
+import { tpfImage } from "./image";
 
 export class tpfLoader extends igLoader {
 	rotation= 0;
@@ -14,7 +15,7 @@ export class tpfLoader extends igLoader {
 
 	load() {
 		var that = this;
-    this.blockImage = new igImage('twopointfive/loading-block.png');
+    this.blockImage = new tpfImage('twopointfive/loading-block.png');
 		this.blockImage.load( function(){
 			if( !that._intervalId ) {
 				igLoader.prototype.load.call(that);

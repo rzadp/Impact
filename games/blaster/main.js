@@ -5,6 +5,7 @@ import { tpfLoader } from '../../plugins/twopointfive/loader';
 import { tpfGame } from '../../plugins/twopointfive/game';
 import { tpfSystem } from '../../plugins/twopointfive/system';
 import { igKEY } from '../../lib/impact/input';
+import { MyTitle } from './title';
 
 export class MyGame extends tpfGame{
 	sectorSize= 4;
@@ -29,6 +30,7 @@ export class MyGame extends tpfGame{
 	powerupSpawnTimer= null;
 	
 	constructor() {
+    super();
 		// Setup HTML Checkboxes and mouse lock on click
 		if( !ig.ua.mobile ) {
 			ig.$('#requestFullscreen').addEventListener('click', function( ev ) {
@@ -111,18 +113,20 @@ export class MyGame extends tpfGame{
 		ig.input.bind( igKEY.MWHEEL_UP, 'weaponNext' );
 		ig.input.bind( igKEY.MWHEEL_DOWN, 'weaponPrev' );
 
-		// Setup Gamepad
-		ig.input.bind( ig.GAMEPAD.PAD_TOP, 'forward' );
-		ig.input.bind( ig.GAMEPAD.PAD_LEFT, 'left' );
-		ig.input.bind( ig.GAMEPAD.PAD_BOTTOM, 'back' );
-		ig.input.bind( ig.GAMEPAD.PAD_RIGHT, 'right' );
-
-		ig.input.bind( ig.GAMEPAD.RIGHT_SHOULDER_BOTTOM, 'shoot' );
-		ig.input.bind( ig.GAMEPAD.LEFT_SHOULDER_BOTTOM, 'run' );
-		ig.input.bind( ig.GAMEPAD.FACE_1, 'shoot' );
-		ig.input.bind( ig.GAMEPAD.FACE_4, 'reset-tracking' );
-		ig.input.bind( ig.GAMEPAD.FACE_3, 'weaponNext' );
-		ig.input.bind( ig.GAMEPAD.FACE_2, 'weaponPrev' );
+    // Setup Gamepad
+    if (false) {
+      ig.input.bind( ig.GAMEPAD.PAD_TOP, 'forward' );
+      ig.input.bind( ig.GAMEPAD.PAD_LEFT, 'left' );
+      ig.input.bind( ig.GAMEPAD.PAD_BOTTOM, 'back' );
+      ig.input.bind( ig.GAMEPAD.PAD_RIGHT, 'right' );
+  
+      ig.input.bind( ig.GAMEPAD.RIGHT_SHOULDER_BOTTOM, 'shoot' );
+      ig.input.bind( ig.GAMEPAD.LEFT_SHOULDER_BOTTOM, 'run' );
+      ig.input.bind( ig.GAMEPAD.FACE_1, 'shoot' );
+      ig.input.bind( ig.GAMEPAD.FACE_4, 'reset-tracking' );
+      ig.input.bind( ig.GAMEPAD.FACE_3, 'weaponNext' );
+      ig.input.bind( ig.GAMEPAD.FACE_2, 'weaponPrev' );
+    }
 	}
 
 	setupTouchControls() {

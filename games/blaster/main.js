@@ -80,7 +80,8 @@ export class MyGame extends tpfGame{
 		this.hud = new MyHud( 640, 480 );
 
 		this.blobKillCount = 0;
-		this.blobSpawnWaitInitial = this.blobSpawnWaitInitial;
+    this.blobSpawnWaitInitial = this.blobSpawnWaitInitial;
+    console.log('game has ben set..')
 		this.blobSpawnTimer = new igTimer(this.blobSpawnWaitInitial);
 		this.powerupSpawnTimer = new igTimer(this.powerupSpawnWait);
 
@@ -178,6 +179,11 @@ export class MyGame extends tpfGame{
 
 	
 	update() {
+    if (!this.hud) {
+      console.log('game not set yet - refusing to update.');
+      return;
+    }
+    
 		// Reset tracking position for WebVR on button press
 		if( ig.input.pressed('reset-tracking') && ig.system.renderer instanceof tpfStereoRenderer ) {
 			ig.system.renderer.reset();

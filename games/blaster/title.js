@@ -36,6 +36,7 @@ export class MyTitle {
 	}
 
 	update() {
+    console.log('title gets updated')
 		if( ig.input.released('shoot') || ig.input.released('click') ) {
 			ig.game.setGame();
 		}

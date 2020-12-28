@@ -1,3 +1,4 @@
+import { tpfHud } from "../../plugins/twopointfive/hud";
 import { igFont } from "../../lib/impact/font";
 import { tpfHudTile } from "../../plugins/twopointfive/world/tile";
 

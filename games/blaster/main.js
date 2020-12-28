@@ -3,6 +3,7 @@ import { igTimer } from '../../lib/impact/timer';
 import { igSound } from '../../lib/impact/sound';
 import { tpfLoader } from '../../plugins/twopointfive/loader';
 import { tpfGame } from '../../plugins/twopointfive/game';
+import { tpfSystem } from '../../plugins/twopointfive/system';
 
 export class MyGame extends tpfGame{
 	sectorSize= 4;
@@ -284,13 +285,11 @@ export class MyGame extends tpfGame{
 };
 
 
-// document.body.className = 
-// 	(ig.System.hasWebGL() ? 'webgl' : 'no-webgl') + ' ' +
-// 	(ig.ua.mobile ? 'mobile' : 'desktop');
 
 
-// var width = 640;
-// var height = 480;
+
+var width = 640;
+var height = 480;
 
 // if( window.Ejecta ) {
 // 	var canvas = ig.$('#canvas');
@@ -322,13 +321,14 @@ export class MyGame extends tpfGame{
 
 window.onload = () => {
   console.log('I am here')
+  document.body.className = (tpfSystem.hasWebGL() ? 'webgl' : 'no-webgl') + ' ' + (ig.ua.mobile ? 'mobile' : 'desktop');
+
   // Test WebGL support and init
-  if( ig.System.hasWebGL() ) {
-    ig.main( '#canvas', MyGame, 60, width, height, 1, tpfLoader );
+  if( tpfSystem.hasWebGL() ) {
+    ig.main( '#canvas', MyGame, 60, width, height, 1, tpfLoader, tpfSystem ); // override system!
   }
   else {
     ig.$('#game').style.display = 'none';
     ig.$('#no-webgl').style.display = 'block';
   }
 }
-

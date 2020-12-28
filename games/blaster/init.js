@@ -9,3 +9,5 @@ window.mat2d = mat2d
 window.mat3 = mat3
 window.mat4 = mat4
 window.quat = quat
+
+require('../../plugins/twopointfive/namespace')

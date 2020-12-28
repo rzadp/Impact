@@ -4,21 +4,22 @@ import { tpfPerspectiveCamera } from './renderer/perspective-camera';
 import { tpfRenderer } from './renderer/renderer';
 import { tpfStereoRenderer } from './renderer/stereo-renderer';
 
-ig.System.inject({
-	renderer: null,
-	scene: null,
-	camera: null,
+export class tpfSystem extends igSystem {
+	renderer= null;
+	scene= null;
+	camera= null;
 	
-	isFullscreen: false,
-	hasMouseLock: false,
+	isFullscreen= false;
+	hasMouseLock= false;
 
-	initialWidth: 640,
-	initialHeight: 480,
-	fov: 75,
+	initialWidth= 640;
+	initialHeight= 480;
+	fov= 75;
 
-	stereoMode: false,
+	stereoMode= false;
 	
 	constructor( canvasId, fps, width, height, scale ) {
+    super(canvasId, fps, width, height, scale);
 		this.initialWidth = width;
 		this.initialHeight = height;
 		
@@ -34,7 +35,7 @@ ig.System.inject({
 		
 		this.renderer = new tpfRenderer(canvas);	
 		this.resize( width, height, scale );
-	},
+	}
 
 	horizontalFov() {
 		// The renderer may override the system's fov for stereo rendering
@@ -43,7 +44,7 @@ ig.System.inject({
 		}
 
 		return this.fov * this.camera.aspect;
-	},
+	}
 	
 	resize( width, height, scale ) {
 		var r = igSystem.useRetina ? ig.ua.pixelRatio : 1;
@@ -61,7 +62,7 @@ ig.System.inject({
 		this.canvas.style.height = height + 'px';
 		
 		this.camera = new tpfPerspectiveCamera( this.fov, width / height, 1, 10000 );
-	},
+	}
 
 	setStereoMode( on ) {
 		if( on && !tpfStereoRenderer.hasWebVR() ) {
@@ -82,7 +83,7 @@ ig.System.inject({
 		if( fog ) {
 			this.renderer.setFog( fog.color, fog.near, fog.far );
 		}
-	},
+	}
 
 	setupFullscreenMouselockOnce() {
 		if( this.fullscreenSetupComplete ) { return; }
@@ -109,17 +110,17 @@ ig.System.inject({
 		document.addEventListener('webkitpointerlockchange', mouseLockCallback, false);
 
 		this.fullscreenSetupComplete = true;
-	},
+	}
 	
 	requestFullscreen() {
 		this.setupFullscreenMouselockOnce();
 		this.canvas.requestFullscreen(this.renderer.fullscreenFlags);
-	},
+	}
 
 	requestMouseLock() {
 		this.setupFullscreenMouselockOnce();
 		this.canvas.requestPointerLock();
-	},
+	}
 	
 	fullscreenCallback( ev ) {
 		if(
@@ -136,7 +137,7 @@ ig.System.inject({
 			this.resize( this.initialWidth, this.initialHeight, 1 );
 		}
 		return true;
-	},
+	}
 	
 	mouseLockCallback( ev ) {
 		this.hasMouseLock = (
@@ -144,27 +145,27 @@ ig.System.inject({
 			document.mozPointerLockElement === this.canvas ||
 			document.webkitPointerLockElement === this.canvas
 		);
-	},
-	
-	clear() {},
-});
-
-ig.System.useRetina = true;
-
-ig.System._hasWebGL = null;
-ig.System.hasWebGL = function() {
-	if( ig.System._hasWebGL === null ) {	
-		var canvas = document.createElement('canvas');
-		var gl = null;
-
-		try { gl = canvas.getContext("webgl"); }
-		catch (x) { gl = null; }
-
-		if (gl === null) {
-			try { gl = canvas.getContext("experimental-webgl"); }
-			catch (x) { gl = null; }
-		}
-		ig.System._hasWebGL = (gl !== null);
 	}
-	return ig.System._hasWebGL;
+	
+  clear() {}
+  
+  static useRetina = true;
+  static _hasWebGL = null;
+
+  static hasWebGL () {
+    if( tpfSystem._hasWebGL === null ) {	
+      var canvas = document.createElement('canvas');
+      var gl = null;
+  
+      try { gl = canvas.getContext("webgl"); }
+      catch (x) { gl = null; }
+  
+      if (gl === null) {
+        try { gl = canvas.getContext("experimental-webgl"); }
+        catch (x) { gl = null; }
+      }
+      tpfSystem._hasWebGL = (gl !== null);
+    }
+    return tpfSystem._hasWebGL;
+  }
 };

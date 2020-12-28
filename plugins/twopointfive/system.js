@@ -33,7 +33,8 @@ export class tpfSystem extends igSystem {
 		this.realWidth = this.width = width;
 		this.realHeight = this.height = height;
 		
-		this.renderer = new tpfRenderer(canvas);	
+    this.renderer = new tpfRenderer(canvas);	
+    console.log('constructed tpf system. renderer is', this.renderer)
 		this.resize( width, height, scale );
 	}
 
@@ -47,6 +48,10 @@ export class tpfSystem extends igSystem {
 	}
 	
 	resize( width, height, scale ) {
+    if (!this.renderer) {
+      console.log('Cannot resize yet...');
+      return;
+    }
 		var r = igSystem.useRetina ? ig.ua.pixelRatio : 1;
 		
 		this.width = width;

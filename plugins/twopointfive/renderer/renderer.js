@@ -90,7 +90,9 @@ export class tpfRenderer {
 		this.gl = canvas.getContext( 'webgl', webglOptions);
 		if( !this.gl ) {
 			this.gl = canvas.getContext( 'experimental-webgl', webglOptions);
-		}
+    }
+    console.log('constructing tpfRenderer, this.gl=', this.gl)
+    if (!this.gl) throw new Error('webgl canvas context not found')
 
 		this.setSize( canvas.width, canvas.height );
 

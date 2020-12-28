@@ -19,7 +19,11 @@ export class tpfSystem extends igSystem {
 	stereoMode= false;
 	
 	constructor( canvasId, fps, width, height, scale ) {
-    super(canvasId, fps, width, height, scale);
+    const renderer = new tpfRenderer(canvas);	// need to grap web-gl context before super grabs 2d context // https://stackoverflow.com/a/13406681
+    super(canvasId, fps, width, height, scale, renderer.gl);
+    this.context = renderer.gl
+    if (!this.context) throw new Error('no context')
+
 		this.initialWidth = width;
 		this.initialHeight = height;
 		
@@ -33,7 +37,7 @@ export class tpfSystem extends igSystem {
 		this.realWidth = this.width = width;
 		this.realHeight = this.height = height;
 		
-    this.renderer = new tpfRenderer(canvas);	
+    this.renderer = renderer
     console.log('constructed tpf system. renderer is', this.renderer)
 		this.resize( width, height, scale );
 	}

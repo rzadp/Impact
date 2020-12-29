@@ -1,4 +1,6 @@
+import { igImage } from "../../../lib/impact/image";
 import { igMap } from "../../../lib/impact/map";
+import { tpfImage } from "../image";
 
 export class tpfLightMap extends igMap{
 	white= {r:1, g:1, b:1};
@@ -7,8 +9,8 @@ export class tpfLightMap extends igMap{
 		super( tilesize, ig.copy(data) );
 			
 		// Grab the colors from the tileset
-		var tilesetName  = tileset instanceof ig.Image ? tileset.path : tileset;
-		var tiles = new ig.Image( tilesetName );
+		var tilesetName  = (tileset instanceof igImage || tileset instanceof tpfImage) ? tileset.path : tileset;
+		var tiles = new tpfImage( tilesetName );
 		
 		var px = ig.getImagePixels(tiles.data, 0, 0, tiles.width, tiles.height).data;
 		var colors = [];

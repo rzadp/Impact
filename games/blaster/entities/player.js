@@ -40,7 +40,7 @@ export class EntityPlayer extends tpfEntity{
 	
 	constructor( x, y, settings ) {
 		super( x, y, settings );
-		this.internalAngle = this.angle;
+    this.internalAngle = this.angle;
 		ig.game.player = this;
 	}
 	

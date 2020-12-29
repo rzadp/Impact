@@ -75,5 +75,7 @@ export class tpfMap extends igBackgroundMap{
 		return tiles;
   }
   
-  static fixTileSeams = true
+  static fixTileSeams = false
 };
+
+console.warn('fixTileSeams not yet ported')

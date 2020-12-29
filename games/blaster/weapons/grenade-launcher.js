@@ -2,6 +2,7 @@ import { igEntity } from "../../lib/impact/entity";
 import { tpfEntity } from "../../plugins/twopointfive/entity";
 import { igAnimationSheet } from "../../lib/impact/animation";
 import { igSound } from "../../lib/impact/sound";
+import { tpfImage } from "../../plugins/twopointfive/image";
 
 const { tpfHudTile } = require("plugins/twopointfive/world/tile");
 
@@ -13,10 +14,10 @@ export class WeaponGrenadeLauncher extends Weapon{
 
 	cooldown= 0.5;
 
-	animSheet= new ig.AnimationSheet( 'blaster/grenade-launcher.png', 180, 134);
-	shootSound= new ig.Sound( 'blaster/sounds/grenade-launcher.*' );
-	emptySound= new ig.Sound( 'blaster/sounds/empty-click.*' );
-	ammoIconImage= new ig.Image( 'blaster/grenade.png' );
+	animSheet= new igAnimationSheet( 'blaster/grenade-launcher.png', 180, 134);
+	shootSound= new igSound( 'blaster/sounds/grenade-launcher.*' );
+	emptySound= new igSound( 'blaster/sounds/empty-click.*' );
+	ammoIconImage= new tpfImage( 'blaster/grenade.png' );
 	ammoIcon= null;
 
 	constructor( ammo ) {

@@ -1,3 +1,4 @@
+import { igCollisionMap } from "../../lib/impact/collision-map";
 import { igGame } from "../../lib/impact/game";
 import { tpfEntity } from "./entity";
 import { tpfCulledSectors } from "./world/culled-sectors";
@@ -21,7 +22,7 @@ export class tpfGame extends igGame{
 		this.namedEntities = {};
 
 		this.culledSectors = null;
-		this.collisionMap = ig.CollisionMap.staticNoCollision;
+		this.collisionMap = igCollisionMap.staticNoCollision;
 		this.backgroundMaps = [];
 
 		this.lightMap = null;
@@ -35,7 +36,7 @@ export class tpfGame extends igGame{
 		for( var i = 0; i < data.layer.length; i++ ) {
 			var ld = data.layer[i];
 			if( ld.name == 'collision' ) {
-				this.collisionMap = new ig.CollisionMap(ld.tilesize, ld.data );
+				this.collisionMap = new igCollisionMap(ld.tilesize, ld.data );
 			}
 			else if( ld.name == 'light' ) {
 				this.lightMap = new tpfLightMap( ld.tilesize, ld.data, ld.tilesetName );

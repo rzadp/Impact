@@ -1,7 +1,7 @@
 
 // CulledSectors divides a World into square sectors of 'sectorSize'.
 
-import { igGame } from "lib/impact/game";
+import { igGame } from "../../../lib/impact/game";
 import { tpfTileMesh } from "./tile";
 
 // The 'fillMap' is used as a guide of walkable space - this is usually the

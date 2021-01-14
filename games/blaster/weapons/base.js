@@ -1,4 +1,6 @@
-import { igTimer } from '../../lib/impact/timer';
+import { tpfHudTile } from '../../../plugins/twopointfive/world/tile';
+import { igTimer } from '../../../lib/impact/timer';
+import { igAnimation } from '../../../lib/impact/animation';
 
 export class Weapon {
 	
@@ -23,8 +25,9 @@ export class Weapon {
 	flashQuadColor= {r: 1, g: 1, b:1};
 	unsetFlashTimer= null;
 	
-	constructor( ammo ) {
-		this.ammo = ammo || 0;
+	constructor( ammo, animSheet ) {
+    this.ammo = ammo || 0;
+    this.animSheet = animSheet
 		
 		this.tile = new tpfHudTile( 
 			this.animSheet.image, 0, 

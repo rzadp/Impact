@@ -1,9 +1,10 @@
 
-import { tpfEntity } from '../../plugins/twopointfive/entity';
-import { igSound } from '../../lib/impact/sound';
-import { igEntity } from '../../lib/impact/entity';
-import { tpfStereoRenderer } from '../../plugins/twopointfive/renderer/stereo-renderer';
-import { tpfHud } from '../../plugins/twopointfive/hud';
+import { tpfEntity } from '../../../plugins/twopointfive/entity';
+import { igSound } from '../../../lib/impact/sound';
+import { igEntity } from '../../../lib/impact/entity';
+import { tpfStereoRenderer } from '../../../plugins/twopointfive/renderer/stereo-renderer';
+import { tpfHud } from '../../../plugins/twopointfive/hud';
+import { WeaponGrenadeLauncher } from '../weapons/grenade-launcher';
 
 export class EntityPlayer extends tpfEntity{
 	type= igEntity.TYPE.A;

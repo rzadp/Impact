@@ -2,6 +2,7 @@ import { igAnimationSheet } from "../../lib/impact/animation";
 import { igSound } from "../../lib/impact/sound";
 import { igEntity } from "../../lib/impact/entity";
 import { tpfEntity } from "../../plugins/twopointfive/entity";
+import { WeaponGrenadeLauncher } from "../weapons/grenade-launcher";
 
 export class EntityGrenadePickup extends tpfEntity{
 	checkAgainst= igEntity.TYPE.A;

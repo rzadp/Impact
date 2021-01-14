@@ -1,10 +1,11 @@
-import { igEntity } from "../../lib/impact/entity";
-import { tpfEntity } from "../../plugins/twopointfive/entity";
-import { igAnimationSheet } from "../../lib/impact/animation";
-import { igSound } from "../../lib/impact/sound";
-import { tpfImage } from "../../plugins/twopointfive/image";
+import { igEntity } from "../../../lib/impact/entity";
+import { tpfEntity } from "../../../plugins/twopointfive/entity";
+import { igAnimationSheet } from "../../../lib/impact/animation";
+import { igSound } from "../../../lib/impact/sound";
+import { tpfImage } from "../../../plugins/twopointfive/image";
 
-const { tpfHudTile } = require("plugins/twopointfive/world/tile");
+import { tpfHudTile } from "../../../plugins/twopointfive/world/tile";
+import { Weapon } from "./base";
 
 export class WeaponGrenadeLauncher extends Weapon{
 	offset= {x: 0, y: 128};
@@ -14,14 +15,14 @@ export class WeaponGrenadeLauncher extends Weapon{
 
 	cooldown= 0.5;
 
-	animSheet= new igAnimationSheet( 'blaster/grenade-launcher.png', 180, 134);
 	shootSound= new igSound( 'blaster/sounds/grenade-launcher.*' );
 	emptySound= new igSound( 'blaster/sounds/empty-click.*' );
 	ammoIconImage= new tpfImage( 'blaster/grenade.png' );
 	ammoIcon= null;
 
 	constructor( ammo ) {
-		super( ammo );
+    const animSheet = new igAnimationSheet( 'blaster/grenade-launcher.png', 180, 134);
+		super( ammo, animSheet );
 		this.addAnim( 'idle', 100, [0] );
 		this.addAnim( 'shoot', 0.1, [1,0], true );
 
@@ -138,7 +139,8 @@ export class EntityGrenade extends tpfEntity{
 	}
 };
 
-ig.EntityPool.enableFor(EntityGrenade);
+console.warn('Skipped entitypool for EntityGrenade')
+// ig.EntityPool.enableFor(EntityGrenade);
 
 
 // This invisible entity will spawn and immediately die a frame later. It will 
@@ -206,4 +208,5 @@ export class EntityGrenadeExplosion extends tpfEntity{
 	}
 };
 
-ig.EntityPool.enableFor(EntityGrenadeExplosion);
+console.warn('Skipped entitypool for grenade explosion')
+// ig.EntityPool.enableFor(EntityGrenadeExplosion);

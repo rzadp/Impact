@@ -1,6 +1,8 @@
-import { igEntity } from '../../lib/impact/entity';
-import { igAnimationSheet } from '../../lib/impact/animation';
-import { igTimer } from '../../lib/impact/timer';
+import { igEntity } from '../../../lib/impact/entity';
+import { igAnimationSheet } from '../../../lib/impact/animation';
+import { igTimer } from '../../../lib/impact/timer';
+import { tpfEntity } from '../../../plugins/twopointfive/entity';
+import { EntityParticle } from './particle';
 
 export class EntityEnemyBlobSpawner extends tpfEntity{
 	size= {x: 16, y: 16};

@@ -1,5 +1,5 @@
-import { tpfEntity } from '../../plugins/twopointfive/entity';
-import { igTimer } from '../../lib/impact/timer';
+import { tpfEntity } from '../../../plugins/twopointfive/entity';
+import { igTimer } from '../../../lib/impact/timer';
 
 export class EntityParticle extends tpfEntity{
 	size= {x: 1, y: 1};
@@ -47,4 +47,5 @@ export class EntityParticle extends tpfEntity{
 	}
 };
 
-ig.EntityPool.enableFor(EntityParticle);
+console.warn('Skipped particle netity pool')
+// ig.EntityPool.enableFor(EntityParticle);

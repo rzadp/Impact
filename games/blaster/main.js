@@ -8,6 +8,10 @@ import { igKEY } from '../../lib/impact/input';
 import { MyTitle } from './title';
 import { MyHud } from './hud';
 import { LevelBase1 } from './levels/base1';
+import { EntityPlayer } from './entities/player';
+import { EntityVoid } from './entities/void';
+import { WeaponGrenadeLauncher } from './weapons/grenade-launcher';
+import { EntityEnemyBlobSpawner } from './entities/enemy-blob';
 
 export class MyGame extends tpfGame{
 	sectorSize= 4;
@@ -300,7 +304,22 @@ export class MyGame extends tpfGame{
 			ig.system.renderer.hudFreelook = true;
 			this.menu.draw();
 		}
-	}
+  }
+  
+  getEntityClass(type) {
+    if (typeof(type) !== 'string') return type
+
+    switch (type) {
+      case 'EntityPlayer':
+        return EntityPlayer;
+      case 'EntityVoid':
+        return EntityVoid;
+      case 'WeaponGrenadeLauncher':
+        return WeaponGrenadeLauncher;
+      default:
+       throw new Error(`Unregistered entity class: ${type}`)
+    }
+  }
 };
 
 

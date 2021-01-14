@@ -3,7 +3,7 @@ This entity does nothing but just sits there. It can be used as a target
 for other entities, such as movers.
 */
 
-import { igEntity } from "../../lib/impact/entity"
+import { igEntity } from "../../../lib/impact/entity"
 
 export class EntityVoid extends igEntity{
 	_wmDrawBox= true;

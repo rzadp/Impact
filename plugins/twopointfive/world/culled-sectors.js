@@ -1,6 +1,7 @@
 
 // CulledSectors divides a World into square sectors of 'sectorSize'.
 
+import { igGame } from "lib/impact/game";
 import { tpfTileMesh } from "./tile";
 
 // The 'fillMap' is used as a guide of walkable space - this is usually the
@@ -71,7 +72,7 @@ export class tpfCulledSectors {
 		}
 
 		// Sort all collected entities with zIndices and draw them
-		defferedDraw.sort(ig.Game.SORT.Z_INDEX);
+		defferedDraw.sort(igGame.SORT.Z_INDEX);
 		for( var i = 0; i < defferedDraw.length; i++ ) {
 			defferedDraw[i].draw();
 		}

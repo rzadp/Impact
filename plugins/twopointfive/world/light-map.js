@@ -10,29 +10,31 @@ export class tpfLightMap extends igMap{
 			
 		// Grab the colors from the tileset
 		var tilesetName  = (tileset instanceof igImage || tileset instanceof tpfImage) ? tileset.path : tileset;
-		var tiles = new tpfImage( tilesetName );
-		
-		var px = ig.getImagePixels(tiles.data, 0, 0, tiles.width, tiles.height).data;
-		var colors = [];
-		
-		for( var y = 0; y < tiles.height; y+=tilesize ) {
-			for( var x = 0; x < tiles.width; x+=tilesize ) {
-				var index = (y * tiles.width + x) * 4;
-				var color = {r:px[index]/255, g:px[index+1]/255, b:px[index+2]/255};
-				colors.push( color );
-			}
-		}
-		
-		// Go through the map and replace the tile numbers with the 
-		// actual color values	
-		for( var y = 0; y < this.height; y++ ) {
-			for( var x = 0; x < this.width; x++ ) {
-				
-				// Defaults to white (0xffffff)
-				var tile = this.data[y][x];
-				this.data[y][x] = tile ? colors[tile-1] : this.white;
-			}
-		}
+    var tiles = new tpfImage( tilesetName );
+    
+    tiles.onload = () => {
+      var px = ig.getImagePixels(tiles.data, 0, 0, tiles.width, tiles.height, '2d').data;
+      var colors = [];
+      
+      for( var y = 0; y < tiles.height; y+=tilesize ) {
+        for( var x = 0; x < tiles.width; x+=tilesize ) {
+          var index = (y * tiles.width + x) * 4;
+          var color = {r:px[index]/255, g:px[index+1]/255, b:px[index+2]/255};
+          colors.push( color );
+        }
+      }
+      
+      // Go through the map and replace the tile numbers with the 
+      // actual color values	
+      for( var y = 0; y < this.height; y++ ) {
+        for( var x = 0; x < this.width; x++ ) {
+          
+          // Defaults to white (0xffffff)
+          var tile = this.data[y][x];
+          this.data[y][x] = tile ? colors[tile-1] : this.white;
+        }
+      }
+    }
 	}
 	
 	

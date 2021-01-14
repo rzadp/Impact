@@ -196,6 +196,11 @@ export class MyGame extends tpfGame{
       console.log({hud: this.hud, menu: this.menu})
       return;
     }
+
+    if (!this.player) {
+      console.log('player not set yet - refusing to update')
+      return;
+    }
 		
 		if( this.dead ) {
 			// Wait for keypress if we are dead

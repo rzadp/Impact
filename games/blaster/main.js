@@ -12,6 +12,9 @@ import { EntityPlayer } from './entities/player';
 import { EntityVoid } from './entities/void';
 import { WeaponGrenadeLauncher } from './weapons/grenade-launcher';
 import { EntityEnemyBlobSpawner } from './entities/enemy-blob';
+import { MouseDeltaInput } from '../../plugins/mouse-delta';
+import { EntityHealthPickup } from './entities/health-pickup';
+import { EntityGrenadePickup } from './entities/grenade-pickup';
 
 export class MyGame extends tpfGame{
 	sectorSize= 4;
@@ -363,7 +366,7 @@ window.onload = () => {
 
   // Test WebGL support and init
   if( tpfSystem.hasWebGL() ) {
-    ig.main( '#canvas', MyGame, 60, width, height, 1, tpfLoader, tpfSystem ); // override system!
+    ig.main( '#canvas', MyGame, 60, width, height, 1, tpfLoader, tpfSystem, MouseDeltaInput ); // override system!
   }
   else {
     ig.$('#game').style.display = 'none';

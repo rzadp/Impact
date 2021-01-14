@@ -1,6 +1,7 @@
+import { igInput } from "../lib/impact/input";
 
-ig.Input.inject({
-	mouseDelta: {x: 0, y: 0},
+export class MouseDeltaInput extends igInput {
+  mouseDelta= {x: 0, y: 0};
 	
 	mousemove( event ) {
 		var oldX = this.mouse.x;
@@ -22,7 +23,7 @@ ig.Input.inject({
 				event.webkitMovementY ||
 				this.mouse.y - oldY;
 		}
-	},
+	}
 	
 	clearPressed() {
 		super.clearPressed();
@@ -30,4 +31,4 @@ ig.Input.inject({
 		this.mouseDelta.x = 0;
 		this.mouseDelta.y = 0;
 	}
-})
+}

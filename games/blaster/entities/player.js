@@ -156,7 +156,7 @@ export class EntityPlayer extends tpfEntity{
 		) {
 			// Calculate the spawn position for projectiles
 			var sx = this.pos.x+this.size.x/2 -Math.sin(this.angle) * 3;
-				sy = this.pos.y+this.size.y/2 -Math.cos(this.angle) * 3;
+			var	sy = this.pos.y+this.size.y/2 -Math.cos(this.angle) * 3;
 
 			if( !this.currentWeapon.depleted() ) {
 				this.currentWeapon.trigger( sx, sy, this.angle );

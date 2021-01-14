@@ -1,8 +1,8 @@
-import { tpfEntity } from '../../plugins/twopointfive/entity';
-import { igTimer } from '../../lib/impact/timer';
-import { igEntity } from '../../lib/impact/entity';
-import { igAnimationSheet } from '../../lib/impact/animation';
-import { igSound } from '../../lib/impact/sound';
+import { tpfEntity } from '../../../plugins/twopointfive/entity';
+import { igTimer } from '../../../lib/impact/timer';
+import { igEntity } from '../../../lib/impact/entity';
+import { igAnimationSheet } from '../../../lib/impact/animation';
+import { igSound } from '../../../lib/impact/sound';
 
 export class EntityHealthPickup extends tpfEntity{
 	checkAgainst= igEntity.TYPE.A;
